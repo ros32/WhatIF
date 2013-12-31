@@ -9,19 +9,15 @@ public class Room extends GenericObject implements ItemStore, Lookable {
 	 * 			Static variables
 	 */
 	
-//	private static int 	counter;
 	
 	/*
 	 *			Variables
 	 */
 	
-//	private String 		name;
-//	private String 		identifier;
 	private List<Item> 	itemList;
 	private List<Container>	containerList;
 	private RoomConnector[]	roomConnection = {null,null,null,null,null,null};
 	
-//	private String 		description;
 	private String 		environment;
 
 	/*
@@ -43,16 +39,11 @@ public class Room extends GenericObject implements ItemStore, Lookable {
 	 * 			Overwritten Object methods
 	 */
 	
-//	public String 		toString()			{	return this.identifier;		}
-	
 	/*
 	 * 			Basic get Methods
 	 */
 	
-//	public String 		getName()			{	return this.name;		}
-//	public String 		getDescription()		{	return this.description;	}
 	public String 		getEnvironment()		{	return this.environment;	}
-
 	
 	/*
 	 * 			Basic set Methods

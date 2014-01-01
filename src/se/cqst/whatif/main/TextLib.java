@@ -9,13 +9,13 @@ public class TextLib {
 	public static final String	SYS_PHASE		=	"alpha";
 	public static final String	SYS_STRING		=	SYS_NAME + "-" + SYS_PHASE + "-" + SYS_VERSION;
 	
-	public static final String	CONF_FILEPATH		=	"/config.cfg";
-	public static final String	DICT_FILEPATH		=	"/dict_en.cfg";
-	public static final String	ROOM_FILEPATH		=	"/rooms.cfg";
-	public static final String	ZONE_FILEPATH		=	"/zones.cfg";
-	public static final String	CONT_FILEPATH		=	"/containers.cfg";
-	public static final String	ITEM_FILEPATH		=	"/items.cfg";
-	public static final String	CONN_FILEPATH		=	"/roomconnectors.cfg";
+	public static final String	CONF_FILEPATH		=	"/se.cqst.whatif.main/config.cfg";
+	public static final String	DICT_FILEPATH		=	"/se.cqst.whatif.main/dict_en.cfg";
+	public static final String	ROOM_FILEPATH		=	"/se.cqst.whatif.main/rooms.cfg";
+	public static final String	ZONE_FILEPATH		=	"/se.cqst.whatif.main/zones.cfg";
+	public static final String	CONT_FILEPATH		=	"/se.cqst.whatif.main/containers.cfg";
+	public static final String	ITEM_FILEPATH		=	"/se.cqst.whatif.main/items.cfg";
+	public static final String	CONN_FILEPATH		=	"/se.cqst.whatif.main/roomconnectors.cfg";
 	
 	public static final String 	SW_EXIT_1		=	"exit";
 	public static final String 	SW_EXIT_2		=	"quit";

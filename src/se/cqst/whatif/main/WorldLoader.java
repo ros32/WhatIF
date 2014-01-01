@@ -4,16 +4,16 @@ import java.util.Enumeration;
 
 public class WorldLoader {
 	
-	public static void loadConfigs()
+	public static void loadConfigs(World world)
 	{
 		try
 		{
-			World.setWorldConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONF_FILEPATH)));
-			World.setDictConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.DICT_FILEPATH)));
-			World.setRoomConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.ROOM_FILEPATH)));
-			World.setContainerConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONT_FILEPATH)));
-			World.setItemConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.ITEM_FILEPATH)));
-			World.setConnectorConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONN_FILEPATH)));
+			world.getWorldConfig().setWorldConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONF_FILEPATH)));
+			world.getWorldConfig().setDictConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.DICT_FILEPATH)));
+			world.getWorldConfig().setRoomConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.ROOM_FILEPATH)));
+			world.getWorldConfig().setContainerConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONT_FILEPATH)));
+			world.getWorldConfig().setItemConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.ITEM_FILEPATH)));
+			world.getWorldConfig().setConnectorConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONN_FILEPATH)));
 		}
 		catch(NullPointerException ex)
 		{
@@ -21,45 +21,45 @@ public class WorldLoader {
 		}
 	}
 	
-	public static void roomCreator()
+	public static void roomCreator(World world)
 	{		
-		Enumeration<?> e = CmdLib.filterProperties(World.getRoomConfig(), "_NAME").propertyNames();
+		Enumeration<?> e = CmdLib.filterProperties(world.getWorldConfig().getRoomConfig(), "_NAME").propertyNames();
 		while(e.hasMoreElements())
 		{
 			String roomID = (String) e.nextElement();
 			roomID = roomID.replace("_NAME","");
-			String roomName = CmdLib.getProperty(World.getRoomConfig(), roomID + "_NAME");
-			String roomDesc = CmdLib.getProperty(World.getRoomConfig(), roomID + "_DESC");
-			String roomEnv = CmdLib.getProperty(World.getRoomConfig(), roomID + "_ENV");
-			World.getRoomList().add(new Room(roomName, roomID));
-			World.getRoom(roomID).setDescription(roomDesc);
-			World.getRoom(roomID).setEnvironment(roomEnv);
+			String roomName = CmdLib.getProperty(world.getWorldConfig().getRoomConfig(), roomID + "_NAME");
+			String roomDesc = CmdLib.getProperty(world.getWorldConfig().getRoomConfig(), roomID + "_DESC");
+			String roomEnv = CmdLib.getProperty(world.getWorldConfig().getRoomConfig(), roomID + "_ENV");
+			world.getRoomList().add(new Room(roomName, roomID));
+			world.getRoom(roomID).setDescription(roomDesc);
+			world.getRoom(roomID).setEnvironment(roomEnv);
 		}
 		
 	}
 	
-	public static void itemCreator()
+	public static void itemCreator(World world)
 	{		
-		Enumeration<?> e = CmdLib.filterProperties(World.getItemConfig(), "_NAME").propertyNames();
+		Enumeration<?> e = CmdLib.filterProperties(world.getWorldConfig().getItemConfig(), "_NAME").propertyNames();
 		while(e.hasMoreElements())
 		{
 			String itemID = (String) e.nextElement();
 			itemID = itemID.replace("_NAME","");
-			String itemName = CmdLib.getProperty(World.getItemConfig(), itemID + "_NAME");
-			String itemType = CmdLib.getProperty(World.getItemConfig(), itemID + "_TYPE");
-			String itemDesc = CmdLib.getProperty(World.getItemConfig(), itemID + "_DESC");
-			String itemLoc = CmdLib.getProperty(World.getItemConfig(), itemID + "_LOCATION");
-			if(World.getItemStore(itemLoc) != null)
+			String itemName = CmdLib.getProperty(world.getWorldConfig().getItemConfig(), itemID + "_NAME");
+			String itemType = CmdLib.getProperty(world.getWorldConfig().getItemConfig(), itemID + "_TYPE");
+			String itemDesc = CmdLib.getProperty(world.getWorldConfig().getItemConfig(), itemID + "_DESC");
+			String itemLoc = CmdLib.getProperty(world.getWorldConfig().getItemConfig(), itemID + "_LOCATION");
+			if(world.getItemStore(itemLoc) != null)
 			{
 				if(itemType.equalsIgnoreCase("staticitem"))
 				{
-					World.getItemStore(itemLoc).putItem(new StaticItem(itemName,itemID));
-					World.getItemStore(itemLoc).getItem(itemID).setDescription(itemDesc);
+					world.getItemStore(itemLoc).putItem(new StaticItem(itemName,itemID));
+					world.getItemStore(itemLoc).getItem(itemID).setDescription(itemDesc);
 				}
 				else if(itemType.equalsIgnoreCase("movableitem"))
 				{
-					World.getItemStore(itemLoc).putItem(new MovableItem(itemName,itemID));
-					World.getItemStore(itemLoc).getItem(itemID).setDescription(itemDesc);
+					world.getItemStore(itemLoc).putItem(new MovableItem(itemName,itemID));
+					world.getItemStore(itemLoc).getItem(itemID).setDescription(itemDesc);
 				}
 				else
 				{
@@ -91,25 +91,25 @@ public class WorldLoader {
 		
 	}
 	
-	public static void roomConnectionCreator()
+	public static void roomConnectionCreator(World world)
 	{		
-		Enumeration<?> e = CmdLib.filterProperties(World.getConnectorConfig(), "_NAME").propertyNames();
+		Enumeration<?> e = CmdLib.filterProperties(world.getWorldConfig().getConnectorConfig(), "_NAME").propertyNames();
 		while(e.hasMoreElements())
 		{
 			String connectorID = (String) e.nextElement();
 			connectorID = connectorID.replace("_NAME","");
-			String connectorName = CmdLib.getProperty(World.getConnectorConfig(), connectorID + "_NAME");
-			String connectorDesc = CmdLib.getProperty(World.getConnectorConfig(), connectorID + "_DESC");
-			String connectorPrefix = CmdLib.getProperty(World.getConnectorConfig(), connectorID + "_PREFIX");
-			String connectorDir = CmdLib.getProperty(World.getConnectorConfig(), connectorID + "_DIRECTION");
-			String connectorOrigin = CmdLib.getProperty(World.getConnectorConfig(), connectorID + "_ORIGIN");
-			String connectorTarget = CmdLib.getProperty(World.getConnectorConfig(), connectorID + "_TARGET");
-			if(World.getRoom(connectorOrigin) == null)
+			String connectorName = CmdLib.getProperty(world.getWorldConfig().getConnectorConfig(), connectorID + "_NAME");
+			String connectorDesc = CmdLib.getProperty(world.getWorldConfig().getConnectorConfig(), connectorID + "_DESC");
+			String connectorPrefix = CmdLib.getProperty(world.getWorldConfig().getConnectorConfig(), connectorID + "_PREFIX");
+			String connectorDir = CmdLib.getProperty(world.getWorldConfig().getConnectorConfig(), connectorID + "_DIRECTION");
+			String connectorOrigin = CmdLib.getProperty(world.getWorldConfig().getConnectorConfig(), connectorID + "_ORIGIN");
+			String connectorTarget = CmdLib.getProperty(world.getWorldConfig().getConnectorConfig(), connectorID + "_TARGET");
+			if(world.getRoom(connectorOrigin) == null)
 			{
 				System.out.println("Invalid Origin \"" + connectorOrigin + "\" for connector: " + connectorID);
 				continue;
 			}
-			if(World.getRoom(connectorTarget) == null)
+			if(world.getRoom(connectorTarget) == null)
 			{
 				System.out.println("Invalid Target \"" + connectorTarget + "\" for connector: " + connectorID);
 				continue;
@@ -119,27 +119,17 @@ public class WorldLoader {
 				switch(connectorDir.toLowerCase())
 				{
 				case TextLib.NORTH:
-					Room.connect(World.getRoom(connectorOrigin), connectorPrefix, connectorName, connectorID, World.getRoom(connectorTarget), TextLib.NORTH);
-					break;
 				case TextLib.SOUTH:
-					Room.connect(World.getRoom(connectorOrigin), connectorPrefix, connectorName, connectorID, World.getRoom(connectorTarget), TextLib.SOUTH);
-					break;
 				case TextLib.EAST:
-					Room.connect(World.getRoom(connectorOrigin), connectorPrefix, connectorName, connectorID, World.getRoom(connectorTarget), TextLib.EAST);
-					break;
 				case TextLib.WEST:
-					Room.connect(World.getRoom(connectorOrigin), connectorPrefix, connectorName, connectorID, World.getRoom(connectorTarget), TextLib.WEST);
-					break;
 				case TextLib.UP:
-					Room.connect(World.getRoom(connectorOrigin), connectorPrefix, connectorName, connectorID, World.getRoom(connectorTarget), TextLib.UP);
-					break;
 				case TextLib.DOWN:
-					Room.connect(World.getRoom(connectorOrigin), connectorPrefix, connectorName, connectorID, World.getRoom(connectorTarget), TextLib.DOWN);
+					Room.connect(world.getRoom(connectorOrigin), connectorPrefix, connectorName, connectorID, world.getRoom(connectorTarget), connectorDir.toLowerCase());
 					break;
 				default:
 					break;	
 				}
-				World.getRoom(connectorOrigin).getRoomConnection(connectorDir.toLowerCase()).setDescription(connectorDesc);
+				world.getRoom(connectorOrigin).getRoomConnection(connectorDir.toLowerCase()).setDescription(connectorDesc);
 			}
 			else
 			{
@@ -149,21 +139,21 @@ public class WorldLoader {
 		
 	}
 	
-	public static void containerCreator()
+	public static void containerCreator(World world)
 	{		
-		Enumeration<?> e = CmdLib.filterProperties(World.getContainerConfig(), "_NAME").propertyNames();
+		Enumeration<?> e = CmdLib.filterProperties(world.getWorldConfig().getContainerConfig(), "_NAME").propertyNames();
 		while(e.hasMoreElements())
 		{
 			String containerID = (String) e.nextElement();
 			containerID = containerID.replace("_NAME","");
-			String containerName = CmdLib.getProperty(World.getContainerConfig(), containerID + "_NAME");
-			String containerDesc = CmdLib.getProperty(World.getContainerConfig(), containerID + "_DESC");
+			String containerName = CmdLib.getProperty(world.getWorldConfig().getContainerConfig(), containerID + "_NAME");
+			String containerDesc = CmdLib.getProperty(world.getWorldConfig().getContainerConfig(), containerID + "_DESC");
 //			String containerEnv = CmdLib.getProperty(World.getContainerConfig(), containerID + "_ENV");
-			String containerLoc = CmdLib.getProperty(World.getContainerConfig(), containerID + "_LOCATION");
-			if(World.getRoom(containerLoc) != null)
+			String containerLoc = CmdLib.getProperty(world.getWorldConfig().getContainerConfig(), containerID + "_LOCATION");
+			if(world.getRoom(containerLoc) != null)
 			{
-				World.getRoom(containerLoc).getContainerList().add(new Container(containerName,containerID));
-				World.getRoom(containerLoc).getContainer(containerID).setDescription(containerDesc);
+				world.getRoom(containerLoc).getContainerList().add(new Container(containerName,containerID));
+				world.getRoom(containerLoc).getContainer(containerID).setDescription(containerDesc);
 			}
 			else
 			{

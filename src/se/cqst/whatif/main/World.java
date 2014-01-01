@@ -2,42 +2,46 @@ package se.cqst.whatif.main;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class World {
 	
+	private static World currentWorld = null;
+	private Configuration worldConfig;
+	private boolean isActive;
+	
 	public World()
 	{
-		
+		this.setActive(true);
+		this.setWorldConfig(new Configuration());
 	}
 	
 	private static List<Room> roomList = new ArrayList<Room>();
 
-	private static Properties worldConfig;
-	private static Properties dictConfig;
-	private static Properties roomConfig;
-	private static Properties containerConfig;
-	private static Properties itemConfig;
-	private static Properties connectorConfig;
-	private static Room currentRoom = null;
+//	private static Properties worldConfig;
+//	private static Properties dictConfig;
+//	private static Properties roomConfig;
+//	private static Properties containerConfig;
+//	private static Properties itemConfig;
+//	private static Properties connectorConfig;
+	private Room currentRoom = null;
 	
-	public static Room getCurrentRoom()		{	return World.currentRoom;	}
-	public static void setCurrentRoom(Room room)	{	World.currentRoom=room;		}
+	public Room getCurrentRoom()		{	return this.currentRoom;	}
+	public void setCurrentRoom(Room room)	{	this.currentRoom=room;		}
 	
-	public static void init()
+	public void init()
 	{
-		WorldLoader.loadConfigs();
-		WorldLoader.roomCreator();
-		WorldLoader.containerCreator();
-		WorldLoader.itemCreator();
-		WorldLoader.roomConnectionCreator();
-		World.currentRoom = getRoom(CmdLib.getProperty(World.getRoomConfig(), "ROOM_START"));
-		Room.enterRoom(currentRoom);
+		WorldLoader.loadConfigs(this);
+		WorldLoader.roomCreator(this);
+		WorldLoader.containerCreator(this);
+		WorldLoader.itemCreator(this);
+		WorldLoader.roomConnectionCreator(this);
+		this.currentRoom = getRoom(CmdLib.getProperty(this.getWorldConfig().getRoomConfig(), "ROOM_START"));
+		Room.enterRoom(this.currentRoom);
 	}
 	
-	public static Room getRoom(String identifier)
+	public Room getRoom(String identifier)
 	{
-		for(Room place : getRoomList())
+		for(Room place : this.getRoomList())
 		{
 			if(place.toString().equals(identifier))
 				return place;
@@ -45,7 +49,7 @@ public class World {
 		return null;
 	}
 	
-	public static Item getItem(String identifier)
+	public Item getItem(String identifier)
 	{
 		for(Room place : getRoomList())
 		{
@@ -63,7 +67,7 @@ public class World {
 		return null;
 	}
 	
-	public static Container getContainer(String identifier)
+	public Container getContainer(String identifier)
 	{
 		for(Room place : getRoomList())
 		{
@@ -76,9 +80,9 @@ public class World {
 		return null;
 	}
 	
-	public static ItemStore getItemStore(String identifier)
+	public ItemStore getItemStore(String identifier)
 	{
-		for(Room place : World.getRoomList())
+		for(Room place : this.getRoomList())
 		{
 			if(place.toString().equalsIgnoreCase(identifier))
 				return place;
@@ -91,18 +95,18 @@ public class World {
 		return null;
 	}
 	
-	public static boolean isValidObject(String identifier)
+	public boolean isValidObject(String identifier)
 	{
-		if(World.getObject(identifier) != null)
+		if(this.getObject(identifier) != null)
 			return true;
 		else
 			return false;
 			
 	}
 	
-	public static String getObjectID(String name)
+	public String getObjectID(String name)
 	{
-		for(Room place : World.getRoomList())
+		for(Room place : this.getRoomList())
 		{
 			if(place.getName().equalsIgnoreCase(name))
 				return place.toString();
@@ -125,9 +129,9 @@ public class World {
 		return null;
 	}
 	
-	public static GenericObject getObject(String identifier)
+	public GenericObject getObject(String identifier)
 	{
-		for(Room place : World.getRoomList())
+		for(Room place : this.getRoomList())
 		{
 			if(place.toString().equalsIgnoreCase(identifier))
 				return (GenericObject) place;
@@ -156,59 +160,77 @@ public class World {
 		return null;
 	}
 
-	public static Properties getWorldConfig() {
-		return worldConfig;
-	}
+//	public static Properties getWorldConfig() {
+//		return worldConfig;
+//	}
+//
+//	public static void setWorldConfig(Properties worldConfig) {
+//		World.worldConfig = worldConfig;
+//	}
 
-	public static void setWorldConfig(Properties worldConfig) {
-		World.worldConfig = worldConfig;
-	}
+//	public static Properties getDictConfig() {
+//		return dictConfig;
+//	}
+//
+//	public static void setDictConfig(Properties dictConfig) {
+//		World.dictConfig = dictConfig;
+//	}
+//
+//	public static Properties getRoomConfig() {
+//		return roomConfig;
+//	}
+//
+//	public static void setRoomConfig(Properties roomConfig) {
+//		World.roomConfig = roomConfig;
+//	}
+//
+//	public static Properties getContainerConfig() {
+//		return containerConfig;
+//	}
+//
+//	public static void setContainerConfig(Properties containerConfig) {
+//		World.containerConfig = containerConfig;
+//	}
+//
+//	public static Properties getItemConfig() {
+//		return itemConfig;
+//	}
+//
+//	public static void setItemConfig(Properties itemConfig) {
+//		World.itemConfig = itemConfig;
+//	}
+//
+//	public static Properties getConnectorConfig() {
+//		return connectorConfig;
+//	}
+//
+//	public static void setConnectorConfig(Properties connectorConfig) {
+//		World.connectorConfig = connectorConfig;
+//	}
 
-	public static Properties getDictConfig() {
-		return dictConfig;
-	}
-
-	public static void setDictConfig(Properties dictConfig) {
-		World.dictConfig = dictConfig;
-	}
-
-	public static Properties getRoomConfig() {
-		return roomConfig;
-	}
-
-	public static void setRoomConfig(Properties roomConfig) {
-		World.roomConfig = roomConfig;
-	}
-
-	public static Properties getContainerConfig() {
-		return containerConfig;
-	}
-
-	public static void setContainerConfig(Properties containerConfig) {
-		World.containerConfig = containerConfig;
-	}
-
-	public static Properties getItemConfig() {
-		return itemConfig;
-	}
-
-	public static void setItemConfig(Properties itemConfig) {
-		World.itemConfig = itemConfig;
-	}
-
-	public static Properties getConnectorConfig() {
-		return connectorConfig;
-	}
-
-	public static void setConnectorConfig(Properties connectorConfig) {
-		World.connectorConfig = connectorConfig;
-	}
-
-	public static List<Room> getRoomList() {
+	public List<Room> getRoomList() {
 		return roomList;
 	}
 
-	public static void setRoomList(List<Room> roomList) {
+	public void setRoomList(List<Room> roomList) {
 		World.roomList = roomList;
+	}
+	public Configuration getWorldConfig() {
+		return worldConfig;
+	}
+	public void setWorldConfig(Configuration worldConfig) {
+		this.worldConfig = worldConfig;
+	}
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	public static World getCurrentWorld() {
+		return currentWorld;
+	}
+	public static void setCurrentWorld(World currentWorld) {
+		World.currentWorld = currentWorld;
 	}
 }

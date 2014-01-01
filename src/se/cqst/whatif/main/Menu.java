@@ -81,8 +81,8 @@ public class Menu {
 			case TextLib.WEST:
 				try
 				{
-					World.setCurrentRoom(World.getCurrentRoom().travel(cmdList.get(1)));
-					Room.enterRoom(World.getCurrentRoom());
+					World.getCurrentWorld().setCurrentRoom(World.getCurrentWorld().getCurrentRoom().travel(cmdList.get(1)));
+					Room.enterRoom(World.getCurrentWorld().getCurrentRoom());
 				}
 				catch(InvalidRoomConnectionException ex)
 				{
@@ -124,15 +124,15 @@ public class Menu {
 						targetObject = targetObject + " " + word;
 					i++;
 				}
-				if(World.isValidObject(World.getObjectID(targetObject)) && World.getCurrentRoom().inRoom(World.getObjectID(targetObject)))
-					World.getObject(World.getObjectID(targetObject)).printDescription();
+				if(World.getCurrentWorld().isValidObject(World.getCurrentWorld().getObjectID(targetObject)) && World.getCurrentWorld().getCurrentRoom().inRoom(World.getCurrentWorld().getObjectID(targetObject)))
+					World.getCurrentWorld().getObject(World.getCurrentWorld().getObjectID(targetObject)).printDescription();
 				else
 					System.out.println("Object is not here");
 			}
 		}
 		else
 		{
-			Room.enterRoom(World.getCurrentRoom());
+			Room.enterRoom(World.getCurrentWorld().getCurrentRoom());
 		}
 		
 		

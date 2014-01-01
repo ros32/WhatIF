@@ -18,7 +18,8 @@ public class MainProject {
 	public static void main(String[] args) {
 
 		System.out.println(TextLib.SYS_STRING);
-		World.init();
+		World.setCurrentWorld(new World());
+		World.getCurrentWorld().init();
 		Scanner sc = new Scanner(System.in);
 		boolean sysExit = false;
 		do

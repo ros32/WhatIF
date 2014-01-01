@@ -49,7 +49,6 @@ public class Room extends GenericObject implements ItemStore, Lookable {
 	 * 			Basic set Methods
 	 */
 	
-//	public void 		setDescription(String desc)	{	this.description=desc;		}
 	public void 		setEnvironment(String desc)	{	this.environment=desc;		}	
 	
 	

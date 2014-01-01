@@ -18,12 +18,6 @@ public class World implements ItemStore {
 	
 	private static List<Room> roomList = new ArrayList<Room>();
 
-//	private static Properties worldConfig;
-//	private static Properties dictConfig;
-//	private static Properties roomConfig;
-//	private static Properties containerConfig;
-//	private static Properties itemConfig;
-//	private static Properties connectorConfig;
 	private Room currentRoom = null;
 	
 	public Room getCurrentRoom()		{	return this.currentRoom;	}
@@ -180,54 +174,6 @@ public class World implements ItemStore {
 		}
 		return null;
 	}
-
-//	public static Properties getWorldConfig() {
-//		return worldConfig;
-//	}
-//
-//	public static void setWorldConfig(Properties worldConfig) {
-//		World.worldConfig = worldConfig;
-//	}
-
-//	public static Properties getDictConfig() {
-//		return dictConfig;
-//	}
-//
-//	public static void setDictConfig(Properties dictConfig) {
-//		World.dictConfig = dictConfig;
-//	}
-//
-//	public static Properties getRoomConfig() {
-//		return roomConfig;
-//	}
-//
-//	public static void setRoomConfig(Properties roomConfig) {
-//		World.roomConfig = roomConfig;
-//	}
-//
-//	public static Properties getContainerConfig() {
-//		return containerConfig;
-//	}
-//
-//	public static void setContainerConfig(Properties containerConfig) {
-//		World.containerConfig = containerConfig;
-//	}
-//
-//	public static Properties getItemConfig() {
-//		return itemConfig;
-//	}
-//
-//	public static void setItemConfig(Properties itemConfig) {
-//		World.itemConfig = itemConfig;
-//	}
-//
-//	public static Properties getConnectorConfig() {
-//		return connectorConfig;
-//	}
-//
-//	public static void setConnectorConfig(Properties connectorConfig) {
-//		World.connectorConfig = connectorConfig;
-//	}
 
 	public List<Room> getRoomList() {
 		return roomList;

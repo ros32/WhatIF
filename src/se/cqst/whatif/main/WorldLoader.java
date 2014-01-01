@@ -65,24 +65,7 @@ public class WorldLoader {
 				{
 					CmdLib.writeLog("DEBUG", "Unknown Item type \"" + itemType + "\" for object " + itemID + ".");
 				}
-			}/*
-			else if(World.getRoom(itemLoc) != null)
-			{
-				if(itemType.equalsIgnoreCase("staticitem"))
-				{
-					World.getRoom(itemLoc).putItem(new StaticItem(itemName,itemID));
-					World.getRoom(itemLoc).getItem(itemID).setDescription(itemDesc);
-				}
-				else if(itemType.equalsIgnoreCase("movableitem"))
-				{
-					World.getRoom(itemLoc).putItem(new MovableItem(itemName,itemID));
-					World.getRoom(itemLoc).getItem(itemID).setDescription(itemDesc);
-				}
-				else
-				{
-					CmdLib.writeLog("DEBUG", "Unknown Item type \"" + itemType + "\" for object " + itemID + ".");
-				}	
-			} */
+			}
 			else
 			{
 				CmdLib.writeLog("DEBUG", "Item location " + itemLoc + " does not exist.");
@@ -148,7 +131,6 @@ public class WorldLoader {
 			containerID = containerID.replace("_NAME","");
 			String containerName = CmdLib.getProperty(world.getWorldConfig().getContainerConfig(), containerID + "_NAME");
 			String containerDesc = CmdLib.getProperty(world.getWorldConfig().getContainerConfig(), containerID + "_DESC");
-//			String containerEnv = CmdLib.getProperty(World.getContainerConfig(), containerID + "_ENV");
 			String containerLoc = CmdLib.getProperty(world.getWorldConfig().getContainerConfig(), containerID + "_LOCATION");
 			if(world.getWorldRoom(containerLoc) != null)
 			{

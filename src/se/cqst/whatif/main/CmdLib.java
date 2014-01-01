@@ -191,7 +191,6 @@ public class CmdLib {
 		try
 		{
 			properties.load(filepath);
-//			properties.load(new FileInputStream(filepath));
 			filteredProperties = filterProperties(properties, filter);
 		}
 		catch (IOException ex)

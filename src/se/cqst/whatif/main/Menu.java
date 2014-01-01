@@ -10,8 +10,6 @@ public class Menu {
 
 	public static boolean drawMenu(Scanner sc, List<String> cmdList)
 	{
-		//	int cmdArgs = cmdList.size();
-//		System.out.println("DEBUG: " + cmdList.toString());
 		switch(cmdList.get(0))
 		{
 		case TextLib.SW_GO:

@@ -3,11 +3,12 @@ package se.cqst.whatif.main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class World {
+public class World implements ItemStore {
 	
 	private static World currentWorld = null;
 	private Configuration worldConfig;
 	private boolean isActive;
+	private List<Item> itemList;
 	
 	public World()
 	{
@@ -35,11 +36,11 @@ public class World {
 		WorldLoader.containerCreator(this);
 		WorldLoader.itemCreator(this);
 		WorldLoader.roomConnectionCreator(this);
-		this.currentRoom = getRoom(CmdLib.getProperty(this.getWorldConfig().getRoomConfig(), "ROOM_START"));
+		this.currentRoom = getWorldRoom(CmdLib.getProperty(this.getWorldConfig().getRoomConfig(), "ROOM_START"));
 		Room.enterRoom(this.currentRoom);
 	}
 	
-	public Room getRoom(String identifier)
+	public Room getWorldRoom(String identifier)
 	{
 		for(Room place : this.getRoomList())
 		{
@@ -50,6 +51,26 @@ public class World {
 	}
 	
 	public Item getItem(String identifier)
+	{
+		for(Item thing : this.getItemList())
+		{
+			if(thing.toString().equalsIgnoreCase(identifier))
+				return thing;
+		}
+		return null;
+	}
+	
+	public void putItem(Item thing)
+	{
+		this.getItemList().add(thing);
+	}
+	
+	public List<Item> getItemList()
+	{
+		return this.itemList;
+	}
+	
+	public Item getWorldItem(String identifier)
 	{
 		for(Room place : getRoomList())
 		{
@@ -67,7 +88,7 @@ public class World {
 		return null;
 	}
 	
-	public Container getContainer(String identifier)
+	public Container getWorldContainer(String identifier)
 	{
 		for(Room place : getRoomList())
 		{
@@ -80,7 +101,7 @@ public class World {
 		return null;
 	}
 	
-	public ItemStore getItemStore(String identifier)
+	public ItemStore getWorldItemStore(String identifier)
 	{
 		for(Room place : this.getRoomList())
 		{

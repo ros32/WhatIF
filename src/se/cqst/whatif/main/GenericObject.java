@@ -1,5 +1,14 @@
+/*
+ * 
+ */
 package se.cqst.whatif.main;
 
+/**
+ * <p>GenericObject is the abstract superclass for all object that are imported from file.</p>
+ * 
+ * <p>The class contains the basic properites needed for handling these objects, such as an
+ * {@code identifier} value, a {@code name} and a {@code description}.</p>
+ */
 public abstract class GenericObject {
 
 	/*
@@ -23,6 +32,12 @@ public abstract class GenericObject {
 	
 //	public			GenericObject(String name)		{	this(name, name + counter++); counter--;	}
 	
+	/**
+	 * Instantiates a new GenericObject with a {@code name} and an {@code identifier}.
+	 *
+	 * @param name Name of the GenericObject.
+	 * @param identifier Identifier used to identify the object.
+	 */
 	public			GenericObject(String name, String identifier)
 	{
 		this.name = name;
@@ -56,11 +71,17 @@ public abstract class GenericObject {
 	 * 			Other Methods
 	 */
 	
+	/**
+	 * Using the look()-method displays the textual representation of the object from {@code GenericObject.printDescription()}.
+	 */
 	public void		look()
 	{
 		this.printDescription();
 	}
 	
+	/**
+	 * Prints a textual representation of the object ({@code name} plus {@code description}).
+	 */
 	public void		printDescription()
 	{
 		System.out.println();

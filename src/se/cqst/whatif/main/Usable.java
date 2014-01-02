@@ -1,3 +1,4 @@
+//	TODO: Deprecated, To Be Deleted
 package se.cqst.whatif.main;
 
 public interface Usable {

@@ -1,3 +1,4 @@
+//	TODO: Cohersion
 package se.cqst.whatif.main;
 
 import java.io.Serializable;
@@ -6,6 +7,7 @@ import java.util.List;
 
 public class World implements ItemStore, Serializable {
 	
+	//	XXX: Fix code formatting/sorting
 	private static final long serialVersionUID = -3766562480367208771L;
 	private static World currentWorld = null;
 	private static int counter = 0;

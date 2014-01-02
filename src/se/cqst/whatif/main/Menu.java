@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 public class Menu {
 
+	//	TODO: Allow load/save function through drawMenu()
 	public static boolean drawMenu(Scanner sc, List<String> cmdList)
 	{
 		switch(cmdList.get(0))
@@ -67,6 +68,10 @@ public class Menu {
 			System.out.println(TextLib.TXT_HELP_CONTENT);
 		}
 	}
+	
+	//	TODO: Add overloaded drawHelp(String[] command)
+	//		This will allow methods to call drawHelp with
+	//		specific args
 	
 	public static void drawGo(List<String> cmdList)
 	{

@@ -1,3 +1,4 @@
+//	XXX: Cleanup old logic
 package se.cqst.whatif.main;
 
 public abstract class Item extends GenericObject {

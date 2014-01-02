@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 
 public class TextLib {
 	
+	//	XXX: Needs sorting
+	//	TODO: Use dict_en.properties instead
 	public static final String	SYS_NAME		=	"WhatIF";
 	public static final String 	SYS_VERSION		=	"0.2";
 	public static final String	SYS_PHASE		=	"alpha";

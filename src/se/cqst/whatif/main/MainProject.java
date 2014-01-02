@@ -13,6 +13,9 @@ public class MainProject {
  *		2  = Show error, warning & info messages
  *		3  = Show error, warning, info & debug messages 
  */	
+	//	TODO: Import debug from config.properties?
+	//		Set to initial 1, load config, then
+	//		set to configured value
 	private static int debug = 3;
 	
 	public static void main(String[] args) {

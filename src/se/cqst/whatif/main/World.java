@@ -19,6 +19,7 @@ public class World implements ItemStore, Serializable {
 		this.setActive(true);
 		this.setWorldConfig(new Configuration());
 		this.identifier = "WORLD" + counter++;
+		this.itemList = new ArrayList<Item>();
 	}
 	
 	private static List<Room> roomList = new ArrayList<Room>();
@@ -35,8 +36,8 @@ public class World implements ItemStore, Serializable {
 		WorldLoader.containerCreator(this);
 		WorldLoader.itemCreator(this);
 		WorldLoader.roomConnectionCreator(this);
-		this.currentRoom = getWorldRoom(CmdLib.getProperty(this.getWorldConfig().getRoomConfig(), "ROOM_START"));
-		Room.enterRoom(this.currentRoom);
+		this.setCurrentRoom(getWorldRoom(CmdLib.getProperty(this.getWorldConfig().getRoomConfig(), "ROOM_START")));
+		Room.enterRoom(this.getCurrentRoom());
 	}
 	
 	public String toString()	{	return this.identifier;		}

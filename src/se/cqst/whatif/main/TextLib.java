@@ -46,11 +46,7 @@ public class TextLib {
 	public static final String 	ERR_INVALID_Y_N_INPUT	=	"Please enter Y/y for Yes or N/n for No";
 	public static final String 	ERR_NO_INPUT		=	"You must enter a value!";
 	public static final String 	ERR_NUM_FORMAT		=	"The value entered is not correct. Please enter a number.";
-	
-	public static final String	TXT_HELP_CONTENT	=	"";
-	public static final String	TXT_HELP_HELP		=	"";
-	public static final String	TXT_HELP_EXIT		=	"";
-	
+		
 	public static final String	NORTH			=	"north";
 	public static final String	NORTH_LOC		=	"To the" + NORTH;
 	public static final String	SOUTH			=	"south";
@@ -83,6 +79,12 @@ public class TextLib {
 	public static final String	ROOM_ENTER_ITEMS_NONE	=	"There are no items on the ground.";
 
 	public static final String 	ERR_PROPERTY_NOT_FOUND 	= 	"ERROR: Could not load property:";
+	
+	public static final String	TXT_HELP_CONTENT	=	CmdLib.getProperty(World.getCurrentWorld().getWorldConfig().getRoomConfig(), "TXT_HELP_CONTENT");
+	public static final String	TXT_HELP_HELP		=	CmdLib.getProperty(World.getCurrentWorld().getWorldConfig().getRoomConfig(), "TXT_HELP_HELP");
+	public static final String	TXT_HELP_EXIT		=	CmdLib.getProperty(World.getCurrentWorld().getWorldConfig().getRoomConfig(), "TXT_HELP_EXIT");
+	public static final String	TXT_HELP_GO		=	CmdLib.getProperty(World.getCurrentWorld().getWorldConfig().getRoomConfig(), "TXT_HELP_GO");
+	public static final String	TXT_HELP_LOOK		=	CmdLib.getProperty(World.getCurrentWorld().getWorldConfig().getRoomConfig(), "TXT_HELP_LOOK");
 
 	public static String[] 		multi_GO_INVALID_DIR()
 	{	return new String[]

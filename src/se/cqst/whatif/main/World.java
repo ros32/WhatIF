@@ -1,10 +1,12 @@
 package se.cqst.whatif.main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class World implements ItemStore {
+public class World implements ItemStore, Serializable {
 	
+	private static final long serialVersionUID = -3766562480367208771L;
 	private static World currentWorld = null;
 	private Configuration worldConfig;
 	private boolean isActive;

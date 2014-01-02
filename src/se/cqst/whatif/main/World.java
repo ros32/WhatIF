@@ -106,6 +106,8 @@ public class World implements ItemStore, Serializable {
 	
 	public ItemStore getWorldItemStore(String identifier)
 	{
+		if(identifier.equalsIgnoreCase("WORLD"))
+			return this;
 		for(Room place : this.getRoomList())
 		{
 			if(place.toString().equalsIgnoreCase(identifier))

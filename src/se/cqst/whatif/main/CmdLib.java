@@ -218,13 +218,13 @@ public class CmdLib {
 
 	public static void writeLog(String importance, String message)
 	{	
-		if(importance.equalsIgnoreCase("DEBUG") && MainProject.debug >= 3)
+		if(importance.equalsIgnoreCase("DEBUG") && MainProject.getDebug() >= 3)
 			System.out.println(importance.toUpperCase() + ": " + message);	
-		if(importance.equalsIgnoreCase("INFO") && MainProject.debug >= 2)
+		if(importance.equalsIgnoreCase("INFO") && MainProject.getDebug() >= 2)
 			System.out.println(importance.toUpperCase() + ": " + message);	
-		if(importance.equalsIgnoreCase("WARNING") && MainProject.debug >= 1)
+		if(importance.equalsIgnoreCase("WARNING") && MainProject.getDebug() >= 1)
 			System.out.println(importance.toUpperCase() + ": " + message);	
-		if(importance.equalsIgnoreCase("ERROR") && MainProject.debug >= 0)
+		if(importance.equalsIgnoreCase("ERROR") && MainProject.getDebug() >= 0)
 			System.out.println(importance.toUpperCase() + ": " + message);	
 	}
 }

@@ -56,6 +56,7 @@ public class Menu {
 			case TextLib.SW_EXIT_2:
 				System.out.println(TextLib.TXT_HELP_EXIT);
 				break;
+			//	TODO: Implement all supported commands
 			default:
 				System.out.println(TextLib.TXT_HELP_CONTENT);
 				break;
@@ -116,15 +117,18 @@ public class Menu {
 				int i = 0;
 				for(String word : cmdList)
 				{
+					//	The first word should not have a leading space
 					if (i == 0)
 						targetObject += word;
 					else
 						targetObject = targetObject + " " + word;
 					i++;
 				}
+				//	If target object is a valid object AND is in the current room, look() at the object
 				if(World.getCurrentWorld().isValidObject(World.getCurrentWorld().getObjectID(targetObject)) && World.getCurrentWorld().getCurrentRoom().inRoom(World.getCurrentWorld().getObjectID(targetObject)))
-					World.getCurrentWorld().getObject(World.getCurrentWorld().getObjectID(targetObject)).printDescription();
+					World.getCurrentWorld().getObject(World.getCurrentWorld().getObjectID(targetObject)).look();
 				else
+					//	TODO: Change to TextLib
 					System.out.println("Object is not here");
 			}
 		}

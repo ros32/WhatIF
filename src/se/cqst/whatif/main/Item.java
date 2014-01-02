@@ -1,6 +1,6 @@
 package se.cqst.whatif.main;
 
-public abstract class Item extends GenericObject implements Usable, Readable, Lookable {
+public abstract class Item extends GenericObject {
 	
 	/*
 	 * 			Static Variables

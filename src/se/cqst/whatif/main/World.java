@@ -5,6 +5,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>The World class is the representation of the world in-game. This class contains all information about
+ * what state the world is in, where every {@link GenericObject} is located and what state they are in.</p>
+ * 
+ * <p>World is a Singleton object and should be accessed through {@code World.getInstance()}, upon calling that
+ * creates a new instance of World.</p>
+ * @see {@link ItemStore} (interface), {@link Serializable} (interface)
+ */
 public class World implements ItemStore, Serializable {
 	
 	//	XXX: Fix code formatting/sorting

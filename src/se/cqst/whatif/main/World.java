@@ -64,7 +64,7 @@ public class World implements ItemStore, Serializable {
 		//	TODO: Write working saveInstance();
 	}
 	
-	private static List<Room> roomList = new ArrayList<Room>();
+	private List<Room> roomList = new ArrayList<Room>();
 
 	private Room currentRoom = null;
 	
@@ -234,7 +234,7 @@ public class World implements ItemStore, Serializable {
 	}
 
 	public void setRoomList(List<Room> roomList) {
-		World.roomList = roomList;
+		this.roomList = roomList;
 	}
 	public Configuration getWorldConfig() {
 		return worldConfig;

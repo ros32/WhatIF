@@ -1,9 +1,10 @@
+//	TODO: Cohersion
 package se.cqst.whatif.main;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room extends GenericObject implements ItemStore, Lookable {
+public class Room extends GenericObject implements ItemStore {
 	
 	/*
 	 * 			Static variables

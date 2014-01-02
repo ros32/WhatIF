@@ -24,7 +24,7 @@ public class WorldLoader {
 		try
 		{
 			world.getWorldConfig().setDictConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.DICT_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded");
+			CmdLib.writeLog("INFO", "Configuration file loaded.");
 		}
 		catch(NullPointerException ex)
 		{
@@ -37,7 +37,7 @@ public class WorldLoader {
 		try
 		{
 			world.getWorldConfig().setRoomConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.ROOM_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded");
+			CmdLib.writeLog("INFO", "Configuration file loaded.");
 		}
 		catch(NullPointerException ex)
 		{
@@ -50,7 +50,7 @@ public class WorldLoader {
 		try
 		{
 			world.getWorldConfig().setContainerConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONT_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded");
+			CmdLib.writeLog("INFO", "Configuration file loaded.");
 		}
 		catch(NullPointerException ex)
 		{
@@ -63,7 +63,7 @@ public class WorldLoader {
 		try
 		{
 			world.getWorldConfig().setItemConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.ITEM_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded");
+			CmdLib.writeLog("INFO", "Configuration file loaded.");
 		}
 		catch(NullPointerException ex)
 		{
@@ -76,7 +76,7 @@ public class WorldLoader {
 		try
 		{
 			world.getWorldConfig().setConnectorConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONN_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded");
+			CmdLib.writeLog("INFO", "Configuration file loaded.");
 		}
 		catch(NullPointerException ex)
 		{

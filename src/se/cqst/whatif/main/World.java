@@ -9,7 +9,7 @@ public class World implements ItemStore, Serializable {
 	
 	//	XXX: Fix code formatting/sorting
 	private static final long serialVersionUID = -3766562480367208771L;
-	private static World currentWorld = null;
+//	private static World currentWorld = null;
 	private static World instance = null;
 	private static int counter = 0;
 	private String identifier;
@@ -27,10 +27,12 @@ public class World implements ItemStore, Serializable {
 	*/
 	private World()
 	{
+		CmdLib.writeLog("INFO", "Starting new game...");
 //		this.setActive(true);
 		this.setWorldConfig(new Configuration());
 		this.identifier = "WORLD" + counter++;
 		this.itemList = new ArrayList<Item>();
+		this.init();
 	}
 	
 	public static World getInstance()
@@ -42,12 +44,16 @@ public class World implements ItemStore, Serializable {
 	
 	public static void loadInstance(World loadedInstance)
 	{
+		//	TODO: Write working loadInstance();
 		instance=loadedInstance;
+		instance.setCurrentRoom(instance.getWorldRoom(CmdLib.getProperty(instance.getWorldConfig().getRoomConfig(), "ROOM_START")));
+		Room.enterRoom(instance.getCurrentRoom());
+//		instance.init();
 	}
 	
 	public static void saveInstance()
 	{
-		
+		//	TODO: Write working saveInstance();
 	}
 	
 	private static List<Room> roomList = new ArrayList<Room>();
@@ -234,10 +240,10 @@ public class World implements ItemStore, Serializable {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public static World getCurrentWorld() {
-		return currentWorld;
-	}
-	public static void setCurrentWorld(World currentWorld) {
-		World.currentWorld = currentWorld;
-	}
+//	public static World getCurrentWorld() {
+//		return currentWorld;
+//	}
+//	public static void setCurrentWorld(World currentWorld) {
+//		World.currentWorld = currentWorld;
+//	}
 }

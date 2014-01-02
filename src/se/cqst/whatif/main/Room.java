@@ -4,6 +4,16 @@ package se.cqst.whatif.main;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>The Room class is an extension of {@link GenericObject}, and represents a Room in the game.</p>
+ * 
+ * <p>Each Room has six {@link RoomConnector} objects associated with it through the {@code roomConnection[]} array,
+ * which connects Rooms with eachother.</p>
+ * 
+ * <p>Room also implements the {@link ItemStore} interface, allowing it to have an {@link Item} inventory-system like the {@link Container}- and {@link World}-class.</p>
+ * 
+ * @see {@link GenericObject} (parent), {@link ItemStore} (interface)
+ */
 public class Room extends GenericObject implements ItemStore {
 	
 	/*

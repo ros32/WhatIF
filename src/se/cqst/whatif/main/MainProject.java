@@ -27,8 +27,7 @@ public class MainProject {
 		System.out.println(TextLib.SYS_STRING);
 		
 		//	Create new game and initialize
-		World.setCurrentWorld(new World());
-		World.getCurrentWorld().init();
+		World.getInstance();
 		
 		//	Draw menu and loop until exit
 		do

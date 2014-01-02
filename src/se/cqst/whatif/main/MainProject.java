@@ -13,15 +13,21 @@ public class MainProject {
  *		2  = Show error, warning & info messages
  *		3  = Show error, warning, info & debug messages 
  */	
-	public static int debug = 3;
+	private static int debug = 3;
 	
 	public static void main(String[] args) {
-
-		System.out.println(TextLib.SYS_STRING);
-		World.setCurrentWorld(new World());
-		World.getCurrentWorld().init();
+		
 		Scanner sc = new Scanner(System.in);
 		boolean sysExit = false;
+
+		//	Print version information
+		System.out.println(TextLib.SYS_STRING);
+		
+		//	Create new game and initialize
+		World.setCurrentWorld(new World());
+		World.getCurrentWorld().init();
+		
+		//	Draw menu and loop until exit
 		do
 		{
 			if(Menu.drawMenu(sc,Menu.getParam(CmdLib.readString(sc,TextLib.TXT_PROMPT))))
@@ -29,6 +35,14 @@ public class MainProject {
 		} while (!sysExit);
 		sc.close();
 
+	}
+
+	public static int getDebug() {
+		return debug;
+	}
+
+	public static void setDebug(int debug) {
+		MainProject.debug = debug;
 	}
 
 }

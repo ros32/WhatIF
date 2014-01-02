@@ -10,18 +10,44 @@ public class World implements ItemStore, Serializable {
 	//	XXX: Fix code formatting/sorting
 	private static final long serialVersionUID = -3766562480367208771L;
 	private static World currentWorld = null;
+	private static World instance = null;
 	private static int counter = 0;
 	private String identifier;
 	private Configuration worldConfig;
 	private boolean isActive;
 	private List<Item> itemList;
-	
+	/*
 	public World()
 	{
 		this.setActive(true);
 		this.setWorldConfig(new Configuration());
 		this.identifier = "WORLD" + counter++;
 		this.itemList = new ArrayList<Item>();
+	}
+	*/
+	private World()
+	{
+//		this.setActive(true);
+		this.setWorldConfig(new Configuration());
+		this.identifier = "WORLD" + counter++;
+		this.itemList = new ArrayList<Item>();
+	}
+	
+	public static World getInstance()
+	{
+		if(instance==null)
+			instance = new World();
+		return instance;
+	}
+	
+	public static void loadInstance(World loadedInstance)
+	{
+		instance=loadedInstance;
+	}
+	
+	public static void saveInstance()
+	{
+		
 	}
 	
 	private static List<Room> roomList = new ArrayList<Room>();

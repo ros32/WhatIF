@@ -85,8 +85,8 @@ public class Menu {
 			case TextLib.WEST:
 				try
 				{
-					World.getCurrentWorld().setCurrentRoom(World.getCurrentWorld().getCurrentRoom().travel(cmdList.get(1)));
-					Room.enterRoom(World.getCurrentWorld().getCurrentRoom());
+					World.getInstance().setCurrentRoom(World.getInstance().getCurrentRoom().travel(cmdList.get(1)));
+					Room.enterRoom(World.getInstance().getCurrentRoom());
 				}
 				catch(InvalidRoomConnectionException ex)
 				{
@@ -130,8 +130,8 @@ public class Menu {
 					i++;
 				}
 				//	If target object is a valid object AND is in the current room, look() at the object
-				if(World.getCurrentWorld().isValidObject(World.getCurrentWorld().getObjectID(targetObject)) && World.getCurrentWorld().getCurrentRoom().inRoom(World.getCurrentWorld().getObjectID(targetObject)))
-					World.getCurrentWorld().getObject(World.getCurrentWorld().getObjectID(targetObject)).look();
+				if(World.getInstance().isValidObject(World.getInstance().getObjectID(targetObject)) && World.getInstance().getCurrentRoom().inRoom(World.getInstance().getObjectID(targetObject)))
+					World.getInstance().getObject(World.getInstance().getObjectID(targetObject)).look();
 				else
 					//	TODO: Change to TextLib
 					System.out.println("Object is not here");
@@ -139,7 +139,7 @@ public class Menu {
 		}
 		else
 		{
-			Room.enterRoom(World.getCurrentWorld().getCurrentRoom());
+			Room.enterRoom(World.getInstance().getCurrentRoom());
 		}
 		
 		

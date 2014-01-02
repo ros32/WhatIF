@@ -10,9 +10,9 @@ import java.util.Properties;
 import java.util.Scanner;
 
 /**
- * The CmdLib class contains generic methods used throughout the project.
- * Methods in the CmdLib class are generic in the form that they aren't explictly associated
- * with any other class. Most methods handle data input with some kind of data validation control.
+ * <p>The CmdLib class contains generic methods used throughout the project.</p>
+ * <p>Methods in the CmdLib class are generic in the form that they aren't explictly associated
+ * with any other class. Most methods handle data input with some kind of data validation control.</p>
  * 
  */
 public class CmdLib {

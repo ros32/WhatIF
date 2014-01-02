@@ -86,7 +86,9 @@ public class WorldLoader {
 	}
 	
 	public static void roomCreator(World world)
-	{		
+	{	
+		int counter = 0;
+		CmdLib.writeLog("INFO", "Creating rooms...");
 		Enumeration<?> e = CmdLib.filterProperties(world.getWorldConfig().getRoomConfig(), "_NAME").propertyNames();
 		while(e.hasMoreElements())
 		{
@@ -98,12 +100,16 @@ public class WorldLoader {
 			world.getRoomList().add(new Room(roomName, roomID));
 			world.getWorldRoom(roomID).setDescription(roomDesc);
 			world.getWorldRoom(roomID).setEnvironment(roomEnv);
+			counter++;
 		}
+		CmdLib.writeLog("INFO", "Finished creating " + counter + " rooms.");
 		
 	}
 	
 	public static void itemCreator(World world)
 	{		
+		int counter = 0;
+		CmdLib.writeLog("INFO", "Creating items...");
 		Enumeration<?> e = CmdLib.filterProperties(world.getWorldConfig().getItemConfig(), "_NAME").propertyNames();
 		while(e.hasMoreElements())
 		{
@@ -119,11 +125,13 @@ public class WorldLoader {
 				{
 					world.getWorldItemStore(itemLoc).putItem(new StaticItem(itemName,itemID));
 					world.getWorldItemStore(itemLoc).getItem(itemID).setDescription(itemDesc);
+					counter++;
 				}
 				else if(itemType.equalsIgnoreCase("movableitem"))
 				{
 					world.getWorldItemStore(itemLoc).putItem(new MovableItem(itemName,itemID));
 					world.getWorldItemStore(itemLoc).getItem(itemID).setDescription(itemDesc);
+					counter++;
 				}
 				else
 				{
@@ -135,11 +143,13 @@ public class WorldLoader {
 				CmdLib.writeLog("DEBUG", "Item location " + itemLoc + " does not exist.");
 			}
 		}
-		
+		CmdLib.writeLog("INFO", "Finished creating " + counter + " items.");
 	}
 	
 	public static void roomConnectionCreator(World world)
 	{		
+		int counter = 0;
+		CmdLib.writeLog("INFO", "Creating room connections...");
 		Enumeration<?> e = CmdLib.filterProperties(world.getWorldConfig().getConnectorConfig(), "_NAME").propertyNames();
 		while(e.hasMoreElements())
 		{
@@ -172,6 +182,7 @@ public class WorldLoader {
 				case TextLib.UP:
 				case TextLib.DOWN:
 					Room.connect(world.getWorldRoom(connectorOrigin), connectorPrefix, connectorName, connectorID, world.getWorldRoom(connectorTarget), connectorDir.toLowerCase());
+					counter++;
 					break;
 				default:
 					break;	
@@ -183,11 +194,14 @@ public class WorldLoader {
 				System.out.println("Invalid connector: " + connectorID);
 			}
 		}
+		CmdLib.writeLog("INFO", "Finished creating " + counter + " room connections.");
 		
 	}
 	
 	public static void containerCreator(World world)
-	{		
+	{
+		int counter = 0;
+		CmdLib.writeLog("INFO", "Creating containers...");
 		Enumeration<?> e = CmdLib.filterProperties(world.getWorldConfig().getContainerConfig(), "_NAME").propertyNames();
 		while(e.hasMoreElements())
 		{
@@ -200,6 +214,7 @@ public class WorldLoader {
 			{
 				world.getWorldRoom(containerLoc).getContainerList().add(new Container(containerName,containerID));
 				world.getWorldRoom(containerLoc).getContainer(containerID).setDescription(containerDesc);
+				counter++;
 			}
 			else
 			{
@@ -207,6 +222,7 @@ public class WorldLoader {
 			}
 
 		}
+		CmdLib.writeLog("INFO", "Finished creating " + counter + " containers.");
 		
 	}
 

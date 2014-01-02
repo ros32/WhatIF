@@ -8,6 +8,8 @@ public class World implements ItemStore, Serializable {
 	
 	private static final long serialVersionUID = -3766562480367208771L;
 	private static World currentWorld = null;
+	private static int counter = 0;
+	private String identifier;
 	private Configuration worldConfig;
 	private boolean isActive;
 	private List<Item> itemList;
@@ -16,6 +18,7 @@ public class World implements ItemStore, Serializable {
 	{
 		this.setActive(true);
 		this.setWorldConfig(new Configuration());
+		this.identifier = "WORLD" + counter++;
 	}
 	
 	private static List<Room> roomList = new ArrayList<Room>();
@@ -35,6 +38,8 @@ public class World implements ItemStore, Serializable {
 		this.currentRoom = getWorldRoom(CmdLib.getProperty(this.getWorldConfig().getRoomConfig(), "ROOM_START"));
 		Room.enterRoom(this.currentRoom);
 	}
+	
+	public String toString()	{	return this.identifier;		}
 	
 	public Room getWorldRoom(String identifier)
 	{

@@ -73,6 +73,8 @@ public class World implements ItemStore, Serializable {
 	
 	public Item getWorldItem(String identifier)
 	{
+		if(this.getItem(identifier) != null)
+			return this.getItem(identifier);
 		for(Room place : getRoomList())
 		{
 			if(place.getItem(identifier) != null)

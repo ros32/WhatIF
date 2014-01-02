@@ -4,6 +4,8 @@ import java.util.Enumeration;
 
 public class WorldLoader {
 	
+	private WorldLoader()	{}
+	
 	public static void loadConfigs(World world)
 	{
 		//	Global configuration file

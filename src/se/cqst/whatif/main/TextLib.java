@@ -1,3 +1,5 @@
+//	FIXME: Constant classes are not Best Practice!
+//		http://stackoverflow.com/questions/479565/how-do-you-define-a-class-of-constants-in-java
 package se.cqst.whatif.main;
 
 import java.lang.reflect.Array;

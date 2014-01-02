@@ -6,6 +6,11 @@ public class WorldLoader {
 	
 	private WorldLoader()	{}
 	
+	/**
+	 * Load configuration files for the World Configuration object
+	 *
+	 * @param world Target World object
+	 */
 	public static void loadConfigs(World world)
 	{
 		//	Global configuration file
@@ -87,6 +92,11 @@ public class WorldLoader {
 		}
 	}
 	
+	/**
+	 * Create Room objects from the property-objects imported by the loadConfigs-method
+	 *
+	 * @param world Target World object
+	 */
 	public static void roomCreator(World world)
 	{	
 		int counter = 0;
@@ -108,6 +118,11 @@ public class WorldLoader {
 		
 	}
 	
+	/**
+	 * Create Item objects from the property-objects imported by the loadConfigs-method
+	 *
+	 * @param world Target World object
+	 */
 	public static void itemCreator(World world)
 	{		
 		int counter = 0;
@@ -148,6 +163,11 @@ public class WorldLoader {
 		CmdLib.writeLog("INFO", "Finished creating " + counter + " items.");
 	}
 	
+	/**
+	 * Create Room Connector objects from the property-objects imported by the loadConfigs-method
+	 *
+	 * @param world Target World object
+	 */
 	public static void roomConnectionCreator(World world)
 	{		
 		int counter = 0;
@@ -200,6 +220,11 @@ public class WorldLoader {
 		
 	}
 	
+	/**
+	 * Create Container objects from the property-objects imported by the loadConfigs-method
+	 *
+	 * @param world Target World object
+	 */
 	public static void containerCreator(World world)
 	{
 		int counter = 0;

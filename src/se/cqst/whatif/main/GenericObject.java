@@ -56,6 +56,11 @@ public abstract class GenericObject {
 	 * 			Other Methods
 	 */
 	
+	public void		look()
+	{
+		this.printDescription();
+	}
+	
 	public void		printDescription()
 	{
 		System.out.println();

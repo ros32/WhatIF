@@ -31,6 +31,8 @@ public class CmdLib {
 	public static final String 	ERR_NUM_FORMAT				=	"The value entered is not correct. Please enter a number.";
 	public static final String 	ERR_PROPERTY_NOT_FOUND 		= 	"ERROR: Could not load property:";
 	
+	private static int debug;
+	
 	/**
 	 * Read an int from the provided Scanner-object.
 	 *
@@ -358,23 +360,33 @@ public class CmdLib {
 	{	return config.getProperty(key, ERR_PROPERTY_NOT_FOUND + " " + key);}
 
 	/**
-	 * Writes log outputs to {@link System.out} depending on the {@code MainProject.debug} value.  
+	 * Writes log outputs to {@link System.out} depending on the {@code CmdLib.debug} value.  
 	 *
 	 * @param importance Severity of log entry. Could be {@code DEBUG, INFO, WARNING or ERROR}
 	 * @param message Message to be printed with the entry
 	 */
 	public static void writeLog(String importance, String message)
 	{	
-		if(importance.equalsIgnoreCase("DEBUG") && MainProject.getDebug() >= 3)
+		if(importance.equalsIgnoreCase("DEBUG") && getDebug() >= 3)
 			System.out.println(importance.toUpperCase() + ": " + message);	
-		if(importance.equalsIgnoreCase("INFO") && MainProject.getDebug() >= 2)
+		if(importance.equalsIgnoreCase("INFO") && getDebug() >= 2)
 			System.out.println(importance.toUpperCase() + ": " + message);	
-		if(importance.equalsIgnoreCase("WARNING") && MainProject.getDebug() >= 1)
+		if(importance.equalsIgnoreCase("WARNING") && getDebug() >= 1)
 			System.out.println(importance.toUpperCase() + ": " + message);	
-		if(importance.equalsIgnoreCase("ERROR") && MainProject.getDebug() >= 0)
+		if(importance.equalsIgnoreCase("ERROR") && getDebug() >= 0)
 			System.out.println(importance.toUpperCase() + ": " + message);	
 	}
 	
 	public static String getRandElement(String[] array)
 	{	return array[(int)(Math.random() * ((Array.getLength(array))))];	}
+
+
+	public static int getDebug() {
+		return debug;
+	}
+
+
+	public static void setDebug(int debugValue) {
+		debug = debugValue;
+	}
 }

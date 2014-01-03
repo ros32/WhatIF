@@ -3,20 +3,6 @@ package se.cqst.whatif.main;
 import java.util.Scanner;
 
 public class MainProject {
-
-	
-/*
- * 	Set debug status:
- *		-1 = No messages
- *		0  = Show error messages
- *		1  = Show error & warning messages
- *		2  = Show error, warning & info messages
- *		3  = Show error, warning, info & debug messages 
- */	
-	//	TODO: Import debug from config.properties?
-	//		Set to initial 1, load config, then
-	//		set to configured value
-	private static int debug = 3;
 	
 	public static final String	SYS_NAME		=	"WhatIF";
 	public static final String 	SYS_VERSION		=	"0.2";
@@ -26,6 +12,15 @@ public class MainProject {
 	public static final String 	TXT_PROMPT		=	"Enter command: ";
 	
 	public static void main(String[] args) {
+		/*
+		 * 	Set debug status:
+		 *		-1 = No messages
+		 *		0  = Show error messages
+		 *		1  = Show error & warning messages
+		 *		2  = Show error, warning & info messages
+		 *		3  = Show error, warning, info & debug messages 
+		 */	
+		CmdLib.setDebug(3);
 		
 		Scanner sc = new Scanner(System.in);
 		boolean sysExit = false;
@@ -44,14 +39,6 @@ public class MainProject {
 		} while (!sysExit);
 		sc.close();
 
-	}
-
-	public static int getDebug() {
-		return debug;
-	}
-
-	public static void setDebug(int debug) {
-		MainProject.debug = debug;
 	}
 
 }

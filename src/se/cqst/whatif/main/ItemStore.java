@@ -19,11 +19,19 @@ public interface ItemStore {
 	public abstract Item getItem(String identifier);
 	
 	
-	//	TODO: Javadoc
+	/**
+	 * Puts an {@link Item} into an {@code ItemStore} object
+	 *
+	 * @param thing Object to be stored
+	 */
 	public abstract void putItem(Item thing);
 	
 	
-	//	TODO: Javadoc
+	/**
+	 * Returns the {@code List<}{@link Item}{@code >} object from the {@code ItemStore}
+	 *
+	 * @return {@code List<Item>}
+	 */
 	public abstract List<Item> getItemList();
 	
 	

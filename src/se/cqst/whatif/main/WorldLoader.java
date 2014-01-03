@@ -2,7 +2,7 @@ package se.cqst.whatif.main;
 
 import java.util.Enumeration;
 
-public class WorldLoader {
+public final class WorldLoader {
 	
 	public static final String	CONF_FILEPATH		=	"/se/cqst/whatif/resources/config.properties";
 	public static final String	DICT_FILEPATH		=	"/se/cqst/whatif/resources/dict_en.properties";

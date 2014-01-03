@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class MainProject {
 	
 	public static final String	SYS_NAME		=	"WhatIF";
-	public static final String 	SYS_VERSION		=	"0.2";
+	public static final String 	SYS_VERSION		=	"0.3";
 	public static final String	SYS_PHASE		=	"alpha";
 	public static final String	SYS_STRING		=	SYS_NAME + "-" + SYS_PHASE + "-" + SYS_VERSION;
 	
@@ -20,7 +20,7 @@ public class MainProject {
 		 *		2  = Show error, warning & info messages
 		 *		3  = Show error, warning, info & debug messages 
 		 */	
-		CmdLib.setDebug(3);
+		CmdLib.setDebug(1);
 		
 		Scanner sc = new Scanner(System.in);
 		boolean sysExit = false;

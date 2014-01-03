@@ -14,12 +14,6 @@ public class StaticItem extends Item {
 	 * 			Constructors
 	 */
 	
-//	public			StaticItem(String name)				
-//	{
-//		super(name);
-//		super.setMovable(false);
-//	}
-	
 	public			StaticItem(String name, String identifier)	
 	{
 		super(name,identifier);		

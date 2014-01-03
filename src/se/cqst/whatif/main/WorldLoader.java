@@ -4,6 +4,14 @@ import java.util.Enumeration;
 
 public class WorldLoader {
 	
+	public static final String	CONF_FILEPATH		=	"/se/cqst/whatif/resources/config.properties";
+	public static final String	DICT_FILEPATH		=	"/se/cqst/whatif/resources/dict_en.properties";
+	public static final String	ROOM_FILEPATH		=	"/se/cqst/whatif/resources/rooms.properties";
+	public static final String	ZONE_FILEPATH		=	"/se/cqst/whatif/resources/zones.properties";
+	public static final String	CONT_FILEPATH		=	"/se/cqst/whatif/resources/containers.properties";
+	public static final String	ITEM_FILEPATH		=	"/se/cqst/whatif/resources/items.properties";
+	public static final String	CONN_FILEPATH		=	"/se/cqst/whatif/resources/roomconnectors.properties";
+	
 	private WorldLoader()	{}
 	
 	/**
@@ -17,77 +25,77 @@ public class WorldLoader {
 		CmdLib.writeLog("INFO", "Loading global settings from " + TextLib.CONF_FILEPATH + "...");
 		try
 		{
-			world.getWorldConfig().setWorldConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONF_FILEPATH)));	
+			world.getWorldConfig().setWorldConfig(CmdLib.loadProperties(World.class.getResourceAsStream(CONF_FILEPATH)));	
 			CmdLib.writeLog("INFO", "Configuration file loaded");
 		}
 		catch(NullPointerException ex)
 		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + TextLib.CONF_FILEPATH);
+			CmdLib.writeLog("ERROR", "Configuration file not found: " + CONF_FILEPATH);
 			System.exit(-1);
 		}
 	
 		//	Dictionary file
-		CmdLib.writeLog("INFO", "Loading dictionary from " + TextLib.DICT_FILEPATH + "...");
+		CmdLib.writeLog("INFO", "Loading dictionary from " + DICT_FILEPATH + "...");
 		try
 		{
-			world.getWorldConfig().setDictConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.DICT_FILEPATH)));	
+			world.getWorldConfig().setDictConfig(CmdLib.loadProperties(World.class.getResourceAsStream(DICT_FILEPATH)));	
 			CmdLib.writeLog("INFO", "Configuration file loaded.");
 		}
 		catch(NullPointerException ex)
 		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + TextLib.DICT_FILEPATH);
+			CmdLib.writeLog("ERROR", "Configuration file not found: " + DICT_FILEPATH);
 			System.exit(-1);
 		}
 	
 		//	Room file
-		CmdLib.writeLog("INFO", "Loading rooms from " + TextLib.ROOM_FILEPATH + "...");
+		CmdLib.writeLog("INFO", "Loading rooms from " + ROOM_FILEPATH + "...");
 		try
 		{
-			world.getWorldConfig().setRoomConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.ROOM_FILEPATH)));	
+			world.getWorldConfig().setRoomConfig(CmdLib.loadProperties(World.class.getResourceAsStream(ROOM_FILEPATH)));	
 			CmdLib.writeLog("INFO", "Configuration file loaded.");
 		}
 		catch(NullPointerException ex)
 		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + TextLib.ROOM_FILEPATH);
+			CmdLib.writeLog("ERROR", "Configuration file not found: " + ROOM_FILEPATH);
 			System.exit(-1);
 		}
 		
 		//	Container file
-		CmdLib.writeLog("INFO", "Loading containers from " + TextLib.CONT_FILEPATH + "...");
+		CmdLib.writeLog("INFO", "Loading containers from " + CONT_FILEPATH + "...");
 		try
 		{
-			world.getWorldConfig().setContainerConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONT_FILEPATH)));	
+			world.getWorldConfig().setContainerConfig(CmdLib.loadProperties(World.class.getResourceAsStream(CONT_FILEPATH)));	
 			CmdLib.writeLog("INFO", "Configuration file loaded.");
 		}
 		catch(NullPointerException ex)
 		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + TextLib.CONT_FILEPATH);
+			CmdLib.writeLog("ERROR", "Configuration file not found: " + CONT_FILEPATH);
 			System.exit(-1);
 		}
 	
 		//	Item file
-		CmdLib.writeLog("INFO", "Loading items from " + TextLib.ITEM_FILEPATH + "...");
+		CmdLib.writeLog("INFO", "Loading items from " + ITEM_FILEPATH + "...");
 		try
 		{
-			world.getWorldConfig().setItemConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.ITEM_FILEPATH)));	
+			world.getWorldConfig().setItemConfig(CmdLib.loadProperties(World.class.getResourceAsStream(ITEM_FILEPATH)));	
 			CmdLib.writeLog("INFO", "Configuration file loaded.");
 		}
 		catch(NullPointerException ex)
 		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + TextLib.ITEM_FILEPATH);
+			CmdLib.writeLog("ERROR", "Configuration file not found: " + ITEM_FILEPATH);
 			System.exit(-1);
 		}
 	
 		//	Room Connections file
-		CmdLib.writeLog("INFO", "Loading room connections from " + TextLib.CONN_FILEPATH + "...");
+		CmdLib.writeLog("INFO", "Loading room connections from " + CONN_FILEPATH + "...");
 		try
 		{
-			world.getWorldConfig().setConnectorConfig(CmdLib.loadProperties(World.class.getResourceAsStream(TextLib.CONN_FILEPATH)));	
+			world.getWorldConfig().setConnectorConfig(CmdLib.loadProperties(World.class.getResourceAsStream(CONN_FILEPATH)));	
 			CmdLib.writeLog("INFO", "Configuration file loaded.");
 		}
 		catch(NullPointerException ex)
 		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + TextLib.CONN_FILEPATH);
+			CmdLib.writeLog("ERROR", "Configuration file not found: " + CONN_FILEPATH);
 			System.exit(-1);
 		}
 	}
@@ -195,21 +203,12 @@ public class WorldLoader {
 			}
 			if(connectorName != null && connectorDesc != null && connectorPrefix != null && connectorDir != null && connectorOrigin != null && connectorTarget != null)
 			{
-				switch(connectorDir.toLowerCase())
+				if(Room.isValidDirection(connectorDir.toLowerCase()))
 				{
-				case TextLib.NORTH:
-				case TextLib.SOUTH:
-				case TextLib.EAST:
-				case TextLib.WEST:
-				case TextLib.UP:
-				case TextLib.DOWN:
 					Room.connect(world.getWorldRoom(connectorOrigin), connectorPrefix, connectorName, connectorID, world.getWorldRoom(connectorTarget), connectorDir.toLowerCase());
-					counter++;
-					break;
-				default:
-					break;	
+					world.getWorldRoom(connectorOrigin).getRoomConnection(connectorDir.toLowerCase()).setDescription(connectorDesc);
+					counter++;	
 				}
-				world.getWorldRoom(connectorOrigin).getRoomConnection(connectorDir.toLowerCase()).setDescription(connectorDesc);
 			}
 			else
 			{

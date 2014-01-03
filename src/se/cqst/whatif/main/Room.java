@@ -20,6 +20,12 @@ public class Room extends GenericObject implements ItemStore {
 	 * 			Static variables
 	 */
 	
+	public static final String	NORTH			=	"north";
+	public static final String	SOUTH			=	"south";
+	public static final String	EAST			=	"east";
+	public static final String	WEST			=	"west";
+	public static final String	UP				=	"up";
+	public static final String	DOWN			=	"down";
 	
 	/*
 	 *			Variables
@@ -91,36 +97,20 @@ public class Room extends GenericObject implements ItemStore {
 	{
 		switch(direction)
 		{
-		case TextLib.NORTH:
+		case NORTH:
 			return roomConnection[0];
-		case TextLib.SOUTH:
+		case SOUTH:
 			return roomConnection[1];
-		case TextLib.EAST:
+		case EAST:
 			return roomConnection[2];
-		case TextLib.WEST:
+		case WEST:
 			return roomConnection[3];
-		case TextLib.UP:
+		case UP:
 			return roomConnection[4];
-		case TextLib.DOWN:
+		case DOWN:
 			return roomConnection[5];
 		default:
 			return null;
-		}
-	}
-	
-	public boolean 		isValidDirection(String direction)
-	{
-		switch(direction)
-		{
-		case TextLib.NORTH:
-		case TextLib.SOUTH:
-		case TextLib.EAST:
-		case TextLib.WEST:
-		case TextLib.UP:
-		case TextLib.DOWN:
-			return true;
-		default:
-			return false;
 		}
 	}
 	
@@ -128,22 +118,22 @@ public class Room extends GenericObject implements ItemStore {
 	{
 		switch(direction)
 		{
-		case TextLib.NORTH:
+		case NORTH:
 			roomConnection[0]		=	destination;
 			break;
-		case TextLib.SOUTH:
+		case SOUTH:
 			roomConnection[1]		=	destination;
 			break;
-		case TextLib.EAST:
+		case EAST:
 			roomConnection[2]		=	destination;
 			break;
-		case TextLib.WEST:
+		case WEST:
 			roomConnection[3]		=	destination;
 			break;
-		case TextLib.UP:
+		case UP:
 			roomConnection[4]		=	destination;
 			break;
-		case TextLib.DOWN:
+		case DOWN:
 			roomConnection[5]		=	destination;
 			break;
 		default:
@@ -243,6 +233,22 @@ public class Room extends GenericObject implements ItemStore {
 	/*
 	 * 			Static Methods
 	 */
+	
+	public static boolean 		isValidDirection(String direction)
+	{
+		switch(direction)
+		{
+		case NORTH:
+		case SOUTH:
+		case EAST:
+		case WEST:
+		case UP:
+		case DOWN:
+			return true;
+		default:
+			return false;
+		}
+	}
 	
 	public static void 	connect(Room origin, String prefix, String name, String identifier, Room target, String direction)
 	{

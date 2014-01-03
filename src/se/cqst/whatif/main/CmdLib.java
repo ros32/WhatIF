@@ -17,6 +17,14 @@ import java.util.Scanner;
  */
 public class CmdLib {
 	
+	public static final String 	ERR_OUT_OF_RANGE_1			=	"Please enter a value between ";
+	public static final String 	ERR_OUT_OF_RANGE_2			=	" and ";
+	public static final String 	ERR_OUT_OF_RANGE_3			=	".";
+	public static final String 	ERR_INVALID_Y_N_INPUT		=	"Please enter Y/y for Yes or N/n for No";
+	public static final String 	ERR_NO_INPUT				=	"You must enter a value!";
+	public static final String 	ERR_NUM_FORMAT				=	"The value entered is not correct. Please enter a number.";
+	public static final String 	ERR_PROPERTY_NOT_FOUND 		= 	"ERROR: Could not load property:";
+	
 	/**
 	 * Read an int from the provided Scanner-object.
 	 *
@@ -38,7 +46,7 @@ public class CmdLib {
 			}
 			catch (NumberFormatException ex)
 			{
-				System.out.println(TextLib.ERR_NUM_FORMAT);
+				System.out.println(ERR_NUM_FORMAT);
 				getValue=false;
 			}
 		}
@@ -65,8 +73,8 @@ public class CmdLib {
 				getValue = true;
 				if (!((value >= min) && (value <= max)))
 				{
-					System.out.println(TextLib.ERR_OUT_OF_RANGE_1 + min + 
-							TextLib.ERR_OUT_OF_RANGE_2 + max + TextLib.ERR_OUT_OF_RANGE_3);
+					System.out.println(ERR_OUT_OF_RANGE_1 + min + 
+							ERR_OUT_OF_RANGE_2 + max + ERR_OUT_OF_RANGE_3);
 					getValue=false;
 				}
 		}
@@ -94,7 +102,7 @@ public class CmdLib {
 			}
 			catch (NumberFormatException ex)
 			{
-				System.out.println(TextLib.ERR_NUM_FORMAT);
+				System.out.println(ERR_NUM_FORMAT);
 				getValue=false;
 			}
 		}
@@ -120,8 +128,8 @@ public class CmdLib {
 				getValue = true;
 				if (!((value >= min) && (value <= max)))
 				{
-					System.out.println(TextLib.ERR_OUT_OF_RANGE_1 + min + 
-							TextLib.ERR_OUT_OF_RANGE_2 + max + TextLib.ERR_OUT_OF_RANGE_3);
+					System.out.println(ERR_OUT_OF_RANGE_1 + min + 
+							ERR_OUT_OF_RANGE_2 + max + ERR_OUT_OF_RANGE_3);
 					getValue=false;
 				}
 		}
@@ -161,7 +169,7 @@ public class CmdLib {
 			
 			if (!allowEmpty && (value.equals("")))
 			{
-				System.out.println(TextLib.ERR_NO_INPUT);
+				System.out.println(ERR_NO_INPUT);
 				getValue = false;
 			}
 		}
@@ -209,7 +217,7 @@ public class CmdLib {
 				}
 				else
 				{
-					System.out.print(TextLib.ERR_INVALID_Y_N_INPUT);
+					System.out.print(ERR_INVALID_Y_N_INPUT);
 					break;	
 				}
 			}
@@ -341,7 +349,7 @@ public class CmdLib {
 	 * @return The value from the fetched key, or a message stating the value could not be found.
 	 */
 	public static String getProperty(Properties config, String key)
-	{	return config.getProperty(key, TextLib.ERR_PROPERTY_NOT_FOUND + " " + key);}
+	{	return config.getProperty(key, ERR_PROPERTY_NOT_FOUND + " " + key);}
 
 	/**
 	 * Writes log outputs to {@link System.out} depending on the {@code MainProject.debug} value.  

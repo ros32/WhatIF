@@ -79,10 +79,12 @@ public class Menu {
 		{
 			switch(cmdList.get(1))
 			{
-			case TextLib.NORTH:
-			case TextLib.SOUTH:
-			case TextLib.EAST:
-			case TextLib.WEST:
+			case Room.NORTH:
+			case Room.SOUTH:
+			case Room.EAST:
+			case Room.WEST:
+			case Room.UP:
+			case Room.DOWN:
 				try
 				{
 					World.getInstance().setCurrentRoom(World.getInstance().getCurrentRoom().travel(cmdList.get(1)));

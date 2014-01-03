@@ -5,6 +5,7 @@ package se.cqst.whatif.main;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Scanner;
@@ -16,6 +17,11 @@ import java.util.Scanner;
  * 
  */
 public class CmdLib {
+	
+	public static final String 	SW_Y			=	"y";
+	public static final String 	SW_N			=	"n";
+	
+//	public static final String 	TXT_Y_N_PROMPT				=	"[Y]es/[N]o:";
 	
 	public static final String 	ERR_OUT_OF_RANGE_1			=	"Please enter a value between ";
 	public static final String 	ERR_OUT_OF_RANGE_2			=	" and ";
@@ -206,9 +212,9 @@ public class CmdLib {
 			value = sc.nextLine();
 			switch(value.toLowerCase())
 			{
-			case TextLib.SW_Y:
+			case SW_Y:
 				return true;
-			case TextLib.SW_N:
+			case SW_N:
 				return false;
 			default:
 				if(useDefault && value.equalsIgnoreCase(""))
@@ -368,4 +374,7 @@ public class CmdLib {
 		if(importance.equalsIgnoreCase("ERROR") && MainProject.getDebug() >= 0)
 			System.out.println(importance.toUpperCase() + ": " + message);	
 	}
+	
+	public static String getRandElement(String[] array)
+	{	return array[(int)(Math.random() * ((Array.getLength(array))))];	}
 }

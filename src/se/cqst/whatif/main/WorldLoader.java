@@ -22,7 +22,7 @@ public class WorldLoader {
 	public static void loadConfigs(World world)
 	{
 		//	Global configuration file
-		CmdLib.writeLog("INFO", "Loading global settings from " + TextLib.CONF_FILEPATH + "...");
+		CmdLib.writeLog("INFO", "Loading global settings from " + CONF_FILEPATH + "...");
 		try
 		{
 			world.getWorldConfig().setWorldConfig(CmdLib.loadProperties(World.class.getResourceAsStream(CONF_FILEPATH)));	

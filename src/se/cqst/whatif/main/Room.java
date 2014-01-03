@@ -27,6 +27,14 @@ public class Room extends GenericObject implements ItemStore {
 	public static final String	UP				=	"up";
 	public static final String	DOWN			=	"down";
 	
+	public static final String	TXT_LINE_HOR		=	"================================================================================";
+	
+	public static final String	ROOM_ENTER_ZONES	=	"The following containers exist here:";
+	public static final String	ROOM_ENTER_ZONES_NONE	=	"There are no containers in this room.";
+	public static final String	ROOM_ENTER_ITEMS	=	"You see the following items on the ground here:";	
+	public static final String	ROOM_ENTER_ITEMS_NONE	=	"There are no items on the ground.";
+	public static final String	EX_INVALID_ROOM_CONN	=	"You can not go that way.";
+	
 	/*
 	 *			Variables
 	 */
@@ -145,7 +153,7 @@ public class Room extends GenericObject implements ItemStore {
 	{	if(this.getRoomConnection(destination) != null)
 			return this.getRoomConnection(destination).getTarget();
 		else
-			throw new InvalidRoomConnectionException(TextLib.EX_INVALID_ROOM_CONN);
+			throw new InvalidRoomConnectionException(EX_INVALID_ROOM_CONN);
 	}
 	
 	/*
@@ -182,7 +190,7 @@ public class Room extends GenericObject implements ItemStore {
 		}
 		else
 		{
-			zoneString = TextLib.ROOM_ENTER_ITEMS_NONE;
+			zoneString = ROOM_ENTER_ITEMS_NONE;
 		}
 		return zoneString;
 	}
@@ -216,7 +224,7 @@ public class Room extends GenericObject implements ItemStore {
 		}
 		else
 		{
-			zoneString = TextLib.ROOM_ENTER_ZONES_NONE;
+			zoneString = ROOM_ENTER_ZONES_NONE;
 		}
 		return zoneString;
 	}
@@ -260,17 +268,17 @@ public class Room extends GenericObject implements ItemStore {
 	{
 		System.out.println();
 		System.out.println(place.getName());
-		System.out.println(TextLib.TXT_LINE_HOR);
+		System.out.println(TXT_LINE_HOR);
 		System.out.println(place.getDescription());
 		System.out.println();
-		System.out.println(TextLib.ROOM_ENTER_ZONES);
+		System.out.println(ROOM_ENTER_ZONES);
 		System.out.println(place.printContainer());
 		System.out.println();
-		System.out.println(TextLib.ROOM_ENTER_ITEMS);
+		System.out.println(ROOM_ENTER_ITEMS);
 		System.out.println(place.printItem());
 		System.out.println();
 		System.out.println(place.getEnvironment());
-		System.out.println(TextLib.TXT_LINE_HOR);
+		System.out.println(TXT_LINE_HOR);
 	}
 	
 	

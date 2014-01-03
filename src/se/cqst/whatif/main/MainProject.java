@@ -18,13 +18,20 @@ public class MainProject {
 	//		set to configured value
 	private static int debug = 3;
 	
+	public static final String	SYS_NAME		=	"WhatIF";
+	public static final String 	SYS_VERSION		=	"0.2";
+	public static final String	SYS_PHASE		=	"alpha";
+	public static final String	SYS_STRING		=	SYS_NAME + "-" + SYS_PHASE + "-" + SYS_VERSION;
+	
+	public static final String 	TXT_PROMPT		=	"Enter command: ";
+	
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
 		boolean sysExit = false;
 
 		//	Print version information
-		System.out.println(TextLib.SYS_STRING);
+		System.out.println(SYS_STRING);
 		
 		//	Create new game and initialize
 		World.getInstance();
@@ -32,7 +39,7 @@ public class MainProject {
 		//	Draw menu and loop until exit
 		do
 		{
-			if(Menu.drawMenu(sc,Menu.getParam(CmdLib.readString(sc,TextLib.TXT_PROMPT))))
+			if(Menu.drawMenu(sc,Menu.getParam(CmdLib.readString(sc,TXT_PROMPT))))
 				sysExit = true;
 		} while (!sysExit);
 		sc.close();

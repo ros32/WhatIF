@@ -15,6 +15,8 @@ public abstract class GenericObject {
 	 * 			Static variables
 	 */
 	
+	public static final String	TXT_LINE_HOR		=	"================================================================================";
+	
 //	private static int 	counter;
 	
 	/*
@@ -86,9 +88,9 @@ public abstract class GenericObject {
 	{
 		System.out.println();
 		System.out.println("You examine the " + this.name + ":");
-		System.out.println(TextLib.TXT_LINE_HOR);
+		System.out.println(TXT_LINE_HOR);
 		System.out.println(this.description);
-		System.out.println(TextLib.TXT_LINE_HOR);
+		System.out.println(TXT_LINE_HOR);
 	}
 	
 /*	public boolean 		equals(Object obj)

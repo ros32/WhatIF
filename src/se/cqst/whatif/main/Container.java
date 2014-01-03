@@ -53,8 +53,16 @@ public class Container extends GenericObject implements ItemStore {
 	 * 			Other Methods
 	 */
 	
+	public void			use()
+	{
+		CmdLib.writeLog("DEBUG", "A Container cannot be used");
+	}
 	
-	
+	public void			use(GenericObject object)
+	{
+		CmdLib.writeLog("DEBUG", "A Container cannot be used");
+	}
+		
 	/*
 	 * 			Interface Methods - ItemStore
 	 */

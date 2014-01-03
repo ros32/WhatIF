@@ -81,6 +81,18 @@ public class Room extends GenericObject implements ItemStore {
 	 * 			Other Methods
 	 */
 	
+	public void			use()
+	{
+		//	A Room cannot be used
+		CmdLib.writeLog("DEBUG", "A Room cannot be used");
+	}
+	
+	public void			use(GenericObject object)
+	{
+		//	A Room cannot be used
+		CmdLib.writeLog("DEBUG", "A Room cannot be used");
+	}
+	
 	public boolean		inRoom(String identifier)
 	{
 		for(Item thing : this.itemList)

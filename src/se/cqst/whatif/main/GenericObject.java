@@ -93,6 +93,10 @@ public abstract class GenericObject {
 		System.out.println(TXT_LINE_HOR);
 	}
 	
+	public abstract void	use();
+	
+	public abstract void	use(GenericObject object);
+	
 /*	public boolean 		equals(Object obj)
 	{
 		if(obj.toString().equals(this.toString()))

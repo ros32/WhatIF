@@ -63,21 +63,15 @@ public abstract class Item extends GenericObject {
 	 * 			Interface Methods - Usable
 	 */
 	
-	public abstract void	use();
+	public void	use()
+	{
+		
+	}
 	
-	public abstract void	use(GenericObject object);
-	
-	/*
-	 * 			Interface Methods - Readable
-	 */
-	
-	public abstract void	read();
-	
-	/*
-	 * 			Interface Methods - Lookable
-	 */
-	
-	public abstract void	look();
+	public void	use(GenericObject object)
+	{
+		
+	}
 
 	/*
 	 * 			Static Methods

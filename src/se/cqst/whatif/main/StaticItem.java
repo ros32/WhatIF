@@ -59,6 +59,16 @@ public class StaticItem extends Item {
 		
 	}
 	
+	public void		get()
+	{
+		//	StaticItem cannot be moved
+	}
+	
+	public void		put(ItemStore target)
+	{
+		//	StaticItem cannot be moved
+	}
+	
 	/*
 	 * 			Interface Methods - Readable
 	 */

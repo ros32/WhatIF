@@ -1,80 +1,68 @@
-//	XXX: Cleanup old logic
 package se.cqst.whatif.main;
 
 public abstract class Item extends GenericObject {
 	
 	/*
-	 * 			Static Variables
+	 * 						Static Variables
 	 */
-	
-//	private static int 	counter;
 	
 	/*
-	 * 			Variables
+	 * 						Variables
 	 */
 	
-//	private String		identifier;
-//	private String		name;
-//	private String		description;
-	private String		longDescription;
-	private boolean		isMovable;
+	private String			longDescription;
+	private boolean			isMovable;
 	
 	/*
-	 * 			Constructors
+	 * 						Constructors
 	 */
 	
-//	public			Item(String name)		{	this(name, name + counter++); counter--;	}
-	
-	public			Item(String name, String identifier)
+	public					Item(String name, String identifier)
 	{
 		super(name,identifier);
 		this.longDescription = "";
-//		CmdLib.writeLog("DEBUG", "Item Object " + identifier + " created.");
 	}
 	
 	/*
-	 * 			Overwritten Object Methods
-	 */
-	
-//	public String		toString()			{	return this.identifier;		}
-	
-	/*
-	 * 			Basic get Methods
-	 */
-	
-//	public String		getName()			{	return this.name;		}
-//	public String		getDescription()		{	return this.description;	}
-	public String		getLongDescription()		{	return this.longDescription;	}
-	public boolean 		isMovable() 			{	return isMovable;		}
-	
-	/*
-	 * 			Basic set Methods
-	 */
-	
-//	public void		setDescription(String desc)	{	this.description=desc;		}
-	public void		setLongDescription(String desc)	{	this.longDescription=desc;	}
-	public void		setMovable(boolean movable)	{	this.isMovable=movable;		}
-	
-	/*
-	 * 			Other Methods
+	 * 						Overwritten Object Methods
 	 */
 	
 	/*
-	 * 			Interface Methods - Usable
+	 * 						Basic get Methods
+	 */
+
+	public String			getLongDescription()			{	return this.longDescription;	}
+	public boolean 			isMovable() 					{	return isMovable;		}
+	
+	/*
+	 * 						Basic set Methods
 	 */
 	
-	public void	use()
+	public void				setLongDescription(String desc)	{	this.longDescription=desc;	}
+	public void				setMovable(boolean movable)		{	this.isMovable=movable;		}
+	
+	/*
+	 * 						Other Methods
+	 */
+	
+	public void				use()
 	{
-		
+		//	TODO: Write use() method
+		//		Items are usable and should have a use() method
 	}
 	
-	public void	use(GenericObject object)
+	public void				use(GenericObject object)
 	{
-		
+		//	TODO: Write use(GenericObject) method
+		//		Items are usable and should have a use() method
 	}
 
+	public abstract void	get();
+	
+	public abstract void	put(ItemStore target);
+	
 	/*
-	 * 			Static Methods
+	 * 						Static Methods
 	 */
 
 }

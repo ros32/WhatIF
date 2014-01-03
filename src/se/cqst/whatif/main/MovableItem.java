@@ -59,13 +59,14 @@ public class MovableItem extends Item {
 		
 	}
 	
-	/*
-	 * 			Interface Methods - Readable
-	 */
-	
-	public void		read()
+	public void		get()
 	{
-		
+		//	TODO: Write get() for MovableItem
+	}
+	
+	public void		put(ItemStore target)
+	{
+		//	TODO: Write put(ItemStore) for MovableItem
 	}
 	
 	/*

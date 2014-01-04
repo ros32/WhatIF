@@ -56,7 +56,7 @@ public abstract class Item extends GenericObject {
 
 	public abstract void	get(ItemStore target);
 	
-	public abstract void	put(ItemStore target);
+	public abstract void	put(ItemStore source);
 	
 	/*
 	 * 						Static Methods

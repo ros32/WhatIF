@@ -21,7 +21,6 @@ public class World implements ItemStore, Serializable {
 	
 	private static final long 	serialVersionUID = -3766562480367208771L;
 	private static World 		instance = null;
-//	private static int 			counter = 0;
 	
 	/*
 	 * 							Variables
@@ -53,8 +52,6 @@ public class World implements ItemStore, Serializable {
 		this.roomList = new ArrayList<Room>();
 		WorldLoader.loadWorld(this);
 		this.init();
-		
-//		this.init();
 	}
 	
 	/*
@@ -81,8 +78,6 @@ public class World implements ItemStore, Serializable {
 		//	Enter currentRoom
 		Room.enterRoom(this.getCurrentRoom());
 	}
-	
-	
 	
 	/*
 	 * 							Interface Methods - ItemStore
@@ -132,7 +127,7 @@ public class World implements ItemStore, Serializable {
 		World.setInstance(loadedInstance);
 		
 		//	Enter Room
-		Room.enterRoom(loadedInstance.getCurrentRoom());
+		World.getInstance().init();
 	}
 	
 	public static void 			saveInstance()

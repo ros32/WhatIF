@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class MainProject {
 	
 	public static final String	SYS_NAME		=	"WhatIF";
-	public static final String 	SYS_VERSION		=	"0.3";
+	public static final String 	SYS_VERSION		=	"0.4";
 	public static final String	SYS_PHASE		=	"alpha";
 	public static final String	SYS_STRING		=	SYS_NAME + "-" + SYS_PHASE + "-" + SYS_VERSION;
 	

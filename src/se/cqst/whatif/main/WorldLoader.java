@@ -2,102 +2,26 @@ package se.cqst.whatif.main;
 
 import java.util.Enumeration;
 
-public final class WorldLoader {
-	
-	public static final String	CONF_FILEPATH		=	"/se/cqst/whatif/resources/config.properties";
-	public static final String	DICT_FILEPATH		=	"/se/cqst/whatif/resources/dict_en.properties";
-	public static final String	ROOM_FILEPATH		=	"/se/cqst/whatif/resources/rooms.properties";
-	public static final String	ZONE_FILEPATH		=	"/se/cqst/whatif/resources/zones.properties";
-	public static final String	CONT_FILEPATH		=	"/se/cqst/whatif/resources/containers.properties";
-	public static final String	ITEM_FILEPATH		=	"/se/cqst/whatif/resources/items.properties";
-	public static final String	CONN_FILEPATH		=	"/se/cqst/whatif/resources/roomconnectors.properties";
+public class WorldLoader {
 	
 	private WorldLoader()	{}
 	
-	/**
-	 * Load configuration files for the World Configuration object
-	 *
-	 * @param world Target World object
-	 */
-	public static void loadConfigs(World world)
+	public static void loadWorld(World world)
 	{
-		//	Global configuration file
-		CmdLib.writeLog("INFO", "Loading global settings from " + CONF_FILEPATH + "...");
-		try
-		{
-			world.getWorldConfig().setWorldConfig(CmdLib.loadProperties(World.class.getResourceAsStream(CONF_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded");
-		}
-		catch(NullPointerException ex)
-		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + CONF_FILEPATH);
-			System.exit(-1);
-		}
-	
-		//	Dictionary file
-		CmdLib.writeLog("INFO", "Loading dictionary from " + DICT_FILEPATH + "...");
-		try
-		{
-			world.getWorldConfig().setDictConfig(CmdLib.loadProperties(World.class.getResourceAsStream(DICT_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded.");
-		}
-		catch(NullPointerException ex)
-		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + DICT_FILEPATH);
-			System.exit(-1);
-		}
-	
-		//	Room file
-		CmdLib.writeLog("INFO", "Loading rooms from " + ROOM_FILEPATH + "...");
-		try
-		{
-			world.getWorldConfig().setRoomConfig(CmdLib.loadProperties(World.class.getResourceAsStream(ROOM_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded.");
-		}
-		catch(NullPointerException ex)
-		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + ROOM_FILEPATH);
-			System.exit(-1);
-		}
+		//	Create Rooms
+		roomCreator(world);
 		
-		//	Container file
-		CmdLib.writeLog("INFO", "Loading containers from " + CONT_FILEPATH + "...");
-		try
-		{
-			world.getWorldConfig().setContainerConfig(CmdLib.loadProperties(World.class.getResourceAsStream(CONT_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded.");
-		}
-		catch(NullPointerException ex)
-		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + CONT_FILEPATH);
-			System.exit(-1);
-		}
-	
-		//	Item file
-		CmdLib.writeLog("INFO", "Loading items from " + ITEM_FILEPATH + "...");
-		try
-		{
-			world.getWorldConfig().setItemConfig(CmdLib.loadProperties(World.class.getResourceAsStream(ITEM_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded.");
-		}
-		catch(NullPointerException ex)
-		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + ITEM_FILEPATH);
-			System.exit(-1);
-		}
-	
-		//	Room Connections file
-		CmdLib.writeLog("INFO", "Loading room connections from " + CONN_FILEPATH + "...");
-		try
-		{
-			world.getWorldConfig().setConnectorConfig(CmdLib.loadProperties(World.class.getResourceAsStream(CONN_FILEPATH)));	
-			CmdLib.writeLog("INFO", "Configuration file loaded.");
-		}
-		catch(NullPointerException ex)
-		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + CONN_FILEPATH);
-			System.exit(-1);
-		}
+		//	Create Containers
+		containerCreator(world);
+		
+		//	Create Items
+		itemCreator(world);
+		
+		//	Create RoomConnectors
+		roomConnectionCreator(world);
+		
+		//	Set currentRoom
+		world.setCurrentRoom(WorldBrowser.getWorldRoom(world,CmdLib.getProperty(world.getWorldConfig().getRoomConfig(), "ROOM_START")));
 	}
 	
 	/**
@@ -105,7 +29,7 @@ public final class WorldLoader {
 	 *
 	 * @param world Target World object
 	 */
-	public static void roomCreator(World world)
+	private static void roomCreator(World world)
 	{	
 		int counter = 0;
 		CmdLib.writeLog("INFO", "Creating rooms...");
@@ -117,9 +41,7 @@ public final class WorldLoader {
 			String roomName = CmdLib.getProperty(world.getWorldConfig().getRoomConfig(), roomID + "_NAME");
 			String roomDesc = CmdLib.getProperty(world.getWorldConfig().getRoomConfig(), roomID + "_DESC");
 			String roomEnv = CmdLib.getProperty(world.getWorldConfig().getRoomConfig(), roomID + "_ENV");
-			world.getRoomList().add(new Room(roomName, roomID));
-			world.getWorldRoom(roomID).setDescription(roomDesc);
-			world.getWorldRoom(roomID).setEnvironment(roomEnv);
+			world.getRoomList().add(new Room(roomName, roomID, roomDesc, roomEnv));
 			counter++;
 		}
 		CmdLib.writeLog("INFO", "Finished creating " + counter + " rooms.");
@@ -131,7 +53,7 @@ public final class WorldLoader {
 	 *
 	 * @param world Target World object
 	 */
-	public static void itemCreator(World world)
+	private static void itemCreator(World world)
 	{		
 		int counter = 0;
 		CmdLib.writeLog("INFO", "Creating items...");
@@ -144,18 +66,18 @@ public final class WorldLoader {
 			String itemType = CmdLib.getProperty(world.getWorldConfig().getItemConfig(), itemID + "_TYPE");
 			String itemDesc = CmdLib.getProperty(world.getWorldConfig().getItemConfig(), itemID + "_DESC");
 			String itemLoc = CmdLib.getProperty(world.getWorldConfig().getItemConfig(), itemID + "_LOCATION");
-			if(world.getWorldItemStore(itemLoc) != null)
+			if(WorldBrowser.getWorldItemStore(world,itemLoc) != null)
 			{
 				if(itemType.equalsIgnoreCase("staticitem"))
 				{
-					world.getWorldItemStore(itemLoc).putItem(new StaticItem(itemName,itemID));
-					world.getWorldItemStore(itemLoc).getItem(itemID).setDescription(itemDesc);
+					WorldBrowser.getWorldItemStore(world,itemLoc).putItem(new StaticItem(itemName,itemID));
+					WorldBrowser.getWorldItemStore(world,itemLoc).getItem(itemID).setDescription(itemDesc);
 					counter++;
 				}
 				else if(itemType.equalsIgnoreCase("movableitem"))
 				{
-					world.getWorldItemStore(itemLoc).putItem(new MovableItem(itemName,itemID));
-					world.getWorldItemStore(itemLoc).getItem(itemID).setDescription(itemDesc);
+					WorldBrowser.getWorldItemStore(world,itemLoc).putItem(new MovableItem(itemName,itemID));
+					WorldBrowser.getWorldItemStore(world,itemLoc).getItem(itemID).setDescription(itemDesc);
 					counter++;
 				}
 				else
@@ -176,7 +98,7 @@ public final class WorldLoader {
 	 *
 	 * @param world Target World object
 	 */
-	public static void roomConnectionCreator(World world)
+	private static void roomConnectionCreator(World world)
 	{		
 		int counter = 0;
 		CmdLib.writeLog("INFO", "Creating room connections...");
@@ -191,12 +113,12 @@ public final class WorldLoader {
 			String connectorDir = CmdLib.getProperty(world.getWorldConfig().getConnectorConfig(), connectorID + "_DIRECTION");
 			String connectorOrigin = CmdLib.getProperty(world.getWorldConfig().getConnectorConfig(), connectorID + "_ORIGIN");
 			String connectorTarget = CmdLib.getProperty(world.getWorldConfig().getConnectorConfig(), connectorID + "_TARGET");
-			if(world.getWorldRoom(connectorOrigin) == null)
+			if(WorldBrowser.getWorldRoom(world,connectorOrigin) == null)
 			{
 				System.out.println("Invalid Origin \"" + connectorOrigin + "\" for connector: " + connectorID);
 				continue;
 			}
-			if(world.getWorldRoom(connectorTarget) == null)
+			if(WorldBrowser.getWorldRoom(world,connectorTarget) == null)
 			{
 				System.out.println("Invalid Target \"" + connectorTarget + "\" for connector: " + connectorID);
 				continue;
@@ -205,8 +127,8 @@ public final class WorldLoader {
 			{
 				if(Room.isValidDirection(connectorDir.toLowerCase()))
 				{
-					Room.connect(world.getWorldRoom(connectorOrigin), connectorPrefix, connectorName, connectorID, world.getWorldRoom(connectorTarget), connectorDir.toLowerCase());
-					world.getWorldRoom(connectorOrigin).getRoomConnection(connectorDir.toLowerCase()).setDescription(connectorDesc);
+					Room.connect(WorldBrowser.getWorldRoom(world,connectorOrigin), connectorPrefix, connectorName, connectorID, WorldBrowser.getWorldRoom(world,connectorTarget), connectorDir.toLowerCase());
+					WorldBrowser.getWorldRoom(world,connectorOrigin).getRoomConnection(connectorDir.toLowerCase()).setDescription(connectorDesc);
 					counter++;	
 				}
 			}
@@ -224,7 +146,7 @@ public final class WorldLoader {
 	 *
 	 * @param world Target World object
 	 */
-	public static void containerCreator(World world)
+	private static void containerCreator(World world)
 	{
 		int counter = 0;
 		CmdLib.writeLog("INFO", "Creating containers...");
@@ -236,10 +158,10 @@ public final class WorldLoader {
 			String containerName = CmdLib.getProperty(world.getWorldConfig().getContainerConfig(), containerID + "_NAME");
 			String containerDesc = CmdLib.getProperty(world.getWorldConfig().getContainerConfig(), containerID + "_DESC");
 			String containerLoc = CmdLib.getProperty(world.getWorldConfig().getContainerConfig(), containerID + "_LOCATION");
-			if(world.getWorldRoom(containerLoc) != null)
+			if(WorldBrowser.getWorldRoom(world,containerLoc) != null)
 			{
-				world.getWorldRoom(containerLoc).getContainerList().add(new Container(containerName,containerID));
-				world.getWorldRoom(containerLoc).getContainer(containerID).setDescription(containerDesc);
+				WorldBrowser.getWorldRoom(world,containerLoc).getContainerList().add(new Container(containerName,containerID));
+				WorldBrowser.getWorldRoom(world,containerLoc).getContainer(containerID).setDescription(containerDesc);
 				counter++;
 			}
 			else

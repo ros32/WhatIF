@@ -174,8 +174,8 @@ public class Menu {
 					i++;
 				}
 				//	If target object is a valid object AND is in the current room, look() at the object
-				if(World.getInstance().isValidObject(World.getInstance().getObjectID(targetObject)) && World.getInstance().getCurrentRoom().inRoom(World.getInstance().getObjectID(targetObject)))
-					World.getInstance().getObject(World.getInstance().getObjectID(targetObject)).look();
+				if(WorldBrowser.isValidObject(World.getInstance(),WorldBrowser.getObjectID(World.getInstance(),targetObject)) && World.getInstance().getCurrentRoom().inRoom(WorldBrowser.getObjectID(World.getInstance(),targetObject)))
+					WorldBrowser.getObject(World.getInstance(),WorldBrowser.getObjectID(World.getInstance(),targetObject)).look();
 				else
 					//	TODO: Change to TextLib
 					System.out.println("Object is not here");

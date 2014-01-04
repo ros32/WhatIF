@@ -10,22 +10,38 @@ public class Configuration {
 	private Properties containerConfig;
 	private Properties itemConfig;
 	private Properties connectorConfig;
-
-	public Configuration()
+	
+	public Configuration(String worldConf, String dictConf, String roomConf, String containerConf, String itemConf, String connectorConf)
 	{
-		this.setWorldConfig(null);
-		this.setDictConfig(null);
-		this.setRoomConfig(null);
-		this.setContainerConfig(null);
-		this.setItemConfig(null);
-		this.setConnectorConfig(null);
+		this.setWorldConfig(loadConfiguration(worldConf));
+		this.setDictConfig(loadConfiguration(dictConf));
+		this.setRoomConfig(loadConfiguration(roomConf));
+		this.setContainerConfig(loadConfiguration(containerConf));
+		this.setItemConfig(loadConfiguration(itemConf));
+		this.setConnectorConfig(loadConfiguration(connectorConf));
+	}
+	
+	private Properties loadConfiguration(String filePath)
+	{
+		Properties target = null;
+		try
+		{
+			CmdLib.writeLog("INFO", "Loading settings from " + filePath + "...");
+			target = CmdLib.loadProperties(World.class.getResourceAsStream(filePath));
+		}
+		catch(NullPointerException ex)
+		{
+			CmdLib.writeLog("ERROR", "Configuration file not found: " + filePath);
+			System.exit(-1);
+		}
+		return target;
 	}
 
 	public Properties getWorldConfig() {
 		return worldConfig;
 	}
 
-	public void setWorldConfig(Properties worldConfig) {
+	private void setWorldConfig(Properties worldConfig) {
 		this.worldConfig = worldConfig;
 	}
 
@@ -33,7 +49,7 @@ public class Configuration {
 		return dictConfig;
 	}
 
-	public void setDictConfig(Properties dictConfig) {
+	private void setDictConfig(Properties dictConfig) {
 		this.dictConfig = dictConfig;
 	}
 
@@ -41,7 +57,7 @@ public class Configuration {
 		return roomConfig;
 	}
 
-	public void setRoomConfig(Properties roomConfig) {
+	private void setRoomConfig(Properties roomConfig) {
 		this.roomConfig = roomConfig;
 	}
 
@@ -49,7 +65,7 @@ public class Configuration {
 		return containerConfig;
 	}
 
-	public void setContainerConfig(Properties containerConfig) {
+	private void setContainerConfig(Properties containerConfig) {
 		this.containerConfig = containerConfig;
 	}
 
@@ -57,7 +73,7 @@ public class Configuration {
 		return itemConfig;
 	}
 
-	public void setItemConfig(Properties itemConfig) {
+	private void setItemConfig(Properties itemConfig) {
 		this.itemConfig = itemConfig;
 	}
 
@@ -65,7 +81,7 @@ public class Configuration {
 		return connectorConfig;
 	}
 
-	public void setConnectorConfig(Properties connectorConfig) {
+	private void setConnectorConfig(Properties connectorConfig) {
 		this.connectorConfig = connectorConfig;
 	}
 	

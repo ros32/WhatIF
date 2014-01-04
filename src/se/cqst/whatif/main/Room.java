@@ -51,6 +51,13 @@ public class Room extends GenericObject implements ItemStore {
 	
 //	public			Room(String name)		{	this(name, name + counter++); counter--;	}
 	
+	public			Room(String name, String identifier, String description, String environment)
+	{
+		this(name, identifier);
+		this.setDescription(description);
+		this.setEnvironment(environment);
+	}
+	
 	public 			Room(String name, String identifier)
 	{
 		super(name,identifier);

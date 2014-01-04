@@ -15,86 +15,80 @@ import java.util.List;
  */
 public class World implements ItemStore, Serializable {
 	
-	//	XXX: Fix code formatting/sorting
-	private static final long serialVersionUID = -3766562480367208771L;
-//	private static World currentWorld = null;
-	private static World instance = null;
-	private static int counter = 0;
-	private String identifier;
-	private Configuration worldConfig;
-	private boolean isActive;
-	private List<Item> itemList;
 	/*
-	public World()
-	{
-		this.setActive(true);
-		this.setWorldConfig(new Configuration());
-		this.identifier = "WORLD" + counter++;
-		this.itemList = new ArrayList<Item>();
-	}
-	*/
-	private World()
+	 * 							Static Variables
+	 */
+	
+	private static final long 	serialVersionUID = -3766562480367208771L;
+	private static World 		instance = null;
+//	private static int 			counter = 0;
+	
+	/*
+	 * 							Variables
+	 */
+	
+	private String 				identifier;
+	private Configuration 		worldConfig;
+	private List<Item> 			itemList;
+	private List<Room> 			roomList;
+	private Room 				currentRoom = null;
+	
+	private final String		CONF_FILEPATH		=	"/se/cqst/whatif/resources/config.properties";
+	private final String		DICT_FILEPATH		=	"/se/cqst/whatif/resources/dict_en.properties";
+	private final String		ROOM_FILEPATH		=	"/se/cqst/whatif/resources/rooms.properties";
+	private final String		CONT_FILEPATH		=	"/se/cqst/whatif/resources/containers.properties";
+	private final String		ITEM_FILEPATH		=	"/se/cqst/whatif/resources/items.properties";
+	private final String		CONN_FILEPATH		=	"/se/cqst/whatif/resources/roomconnectors.properties";
+
+	/*
+	 * 							Constructors
+	 */
+	
+	private 					World()
 	{
 		CmdLib.writeLog("INFO", "Starting new game...");
-//		this.setActive(true);
-		this.setWorldConfig(new Configuration());
-		this.identifier = "WORLD" + counter++;
+		this.setWorldConfig(new Configuration(CONF_FILEPATH, DICT_FILEPATH, ROOM_FILEPATH, CONT_FILEPATH, ITEM_FILEPATH, CONN_FILEPATH));
+		this.identifier = "WORLD";
 		this.itemList = new ArrayList<Item>();
+		this.roomList = new ArrayList<Room>();
+		WorldLoader.loadWorld(this);
 		this.init();
+		
+//		this.init();
 	}
 	
-	public static World getInstance()
+	/*
+	 * 							Basic get Methods
+	 */
+	
+	public Room 				getCurrentRoom()				{	return this.currentRoom;	}
+	public List<Room> 			getRoomList() 					{	return this.roomList;		}
+	public Configuration 		getWorldConfig() 				{	return this.worldConfig;	}
+	public String 				toString()						{	return this.identifier;		}
+	
+	/*
+	 * 							Basic set Methods
+	 */
+	
+	public void 				setCurrentRoom(Room room)		{	this.currentRoom=room;		}
+	
+	/*
+	 * 							Other Methods
+	 */
+	
+	public void 				init()
 	{
-		if(instance==null)
-			instance = new World();
-		return instance;
-	}
-	
-	public static void loadInstance(World loadedInstance)
-	{
-		//	TODO: Write working loadInstance();
-		instance=loadedInstance;
-		instance.setCurrentRoom(instance.getWorldRoom(CmdLib.getProperty(instance.getWorldConfig().getRoomConfig(), "ROOM_START")));
-		Room.enterRoom(instance.getCurrentRoom());
-//		instance.init();
-	}
-	
-	public static void saveInstance()
-	{
-		//	TODO: Write working saveInstance();
-	}
-	
-	private List<Room> roomList = new ArrayList<Room>();
-
-	private Room currentRoom = null;
-	
-	public Room getCurrentRoom()		{	return this.currentRoom;	}
-	public void setCurrentRoom(Room room)	{	this.currentRoom=room;		}
-	
-	public void init()
-	{
-		WorldLoader.loadConfigs(this);
-		WorldLoader.roomCreator(this);
-		WorldLoader.containerCreator(this);
-		WorldLoader.itemCreator(this);
-		WorldLoader.roomConnectionCreator(this);
-		this.setCurrentRoom(getWorldRoom(CmdLib.getProperty(this.getWorldConfig().getRoomConfig(), "ROOM_START")));
+		//	Enter currentRoom
 		Room.enterRoom(this.getCurrentRoom());
 	}
 	
-	public String toString()	{	return this.identifier;		}
 	
-	public Room getWorldRoom(String identifier)
-	{
-		for(Room place : this.getRoomList())
-		{
-			if(place.toString().equals(identifier))
-				return place;
-		}
-		return null;
-	}
 	
-	public Item getItem(String identifier)
+	/*
+	 * 							Interface Methods - ItemStore
+	 */
+	
+	public Item 				getItem(String identifier)
 	{
 		for(Item thing : this.getItemList())
 		{
@@ -104,154 +98,54 @@ public class World implements ItemStore, Serializable {
 		return null;
 	}
 	
-	public void putItem(Item thing)
+	public void 				putItem(Item thing)
 	{
 		this.getItemList().add(thing);
 	}
 	
-	public List<Item> getItemList()
+	public List<Item> 			getItemList()
 	{
 		return this.itemList;
 	}
 	
-	public Item getWorldItem(String identifier)
+	/*
+	 * 			Static Methods
+	 */
+	
+	public static World 		getInstance()
 	{
-		if(this.getItem(identifier) != null)
-			return this.getItem(identifier);
-		for(Room place : getRoomList())
-		{
-			if(place.getItem(identifier) != null)
-				return place.getItem(identifier);
-			else
-			{
-				for(Container store : place.getContainerList())
-				{
-					if(store.getItem(identifier) != null)
-						return store.getItem(identifier);
-				}
-			}
-		}
-		return null;
+		if(instance==null)
+			instance = new World();
+		return instance;
 	}
 	
-	public Container getWorldContainer(String identifier)
+	private static void			setInstance(World world)
 	{
-		for(Room place : getRoomList())
-		{
-			for(Container store : place.getContainerList())
-			{
-				if(store.toString().equals(identifier))
-					return store;
-			}
-		}
-		return null;
+		World.instance = world;
 	}
 	
-	public ItemStore getWorldItemStore(String identifier)
+	public static void 			loadInstance(World loadedInstance)
 	{
-		if(identifier.equalsIgnoreCase("WORLD"))
-			return this;
-		for(Room place : this.getRoomList())
-		{
-			if(place.toString().equalsIgnoreCase(identifier))
-				return place;
-			for(ItemStore store : place.getContainerList())
-			{
-				if(store.toString().equalsIgnoreCase(identifier))
-					return store;
-			}
-		}
-		return null;
+		//	TODO: Write working loadInstance();
+		
+		//	Set instance to loaded object
+		World.setInstance(loadedInstance);
+		
+		//	Enter Room
+		Room.enterRoom(loadedInstance.getCurrentRoom());
 	}
 	
-	public boolean isValidObject(String identifier)
+	public static void 			saveInstance()
 	{
-		if(this.getObject(identifier) != null)
-			return true;
-		else
-			return false;
-			
-	}
-	
-	public String getObjectID(String name)
-	{
-		for(Room place : this.getRoomList())
-		{
-			if(place.getName().equalsIgnoreCase(name))
-				return place.toString();
-			for(Item something : place.getItemList())
-			{
-				if(something.getName().equalsIgnoreCase(name))
-					return something.toString();
-			}
-			for(Container store : place.getContainerList())
-			{
-				if(store.getName().equalsIgnoreCase(name))
-					return store.toString();
-				for(Item thing : store.getItemList())
-				{
-					if(thing.getName().equalsIgnoreCase(name))
-						return thing.toString();
-				}
-			}
-		}
-		return null;
-	}
-	
-	public GenericObject getObject(String identifier)
-	{
-		for(Room place : this.getRoomList())
-		{
-			if(place.toString().equalsIgnoreCase(identifier))
-				return (GenericObject) place;
-			else
-			{
-				for(GenericObject thing : place.getItemList())
-				{
-					if(thing.toString().equalsIgnoreCase(identifier))
-						return thing;
-				}
-				for(Container store : place.getContainerList())
-				{
-					if(store.toString().equalsIgnoreCase(identifier))
-						return (GenericObject) store;
-					else
-					{
-						for(GenericObject something : store.getItemList())
-						{
-							if(something.toString().equalsIgnoreCase(identifier))
-								return something;
-						}
-					}
-				}
-			}
-		}
-		return null;
-	}
-
-	public List<Room> getRoomList() {
-		return roomList;
+		//	TODO: Write working saveInstance();
 	}
 
 	public void setRoomList(List<Room> roomList) {
 		this.roomList = roomList;
 	}
-	public Configuration getWorldConfig() {
-		return worldConfig;
-	}
+
 	public void setWorldConfig(Configuration worldConfig) {
 		this.worldConfig = worldConfig;
 	}
-	public boolean isActive() {
-		return isActive;
-	}
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-//	public static World getCurrentWorld() {
-//		return currentWorld;
-//	}
-//	public static void setCurrentWorld(World currentWorld) {
-//		World.currentWorld = currentWorld;
-//	}
+
 }

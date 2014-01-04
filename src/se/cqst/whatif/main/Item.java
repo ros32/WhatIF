@@ -11,7 +11,6 @@ public abstract class Item extends GenericObject {
 	 */
 	
 	private String			longDescription;
-	private boolean			isMovable;
 	
 	/*
 	 * 						Constructors
@@ -32,14 +31,12 @@ public abstract class Item extends GenericObject {
 	 */
 
 	public String			getLongDescription()			{	return this.longDescription;	}
-	public boolean 			isMovable() 					{	return isMovable;		}
 	
 	/*
 	 * 						Basic set Methods
 	 */
 	
 	public void				setLongDescription(String desc)	{	this.longDescription=desc;	}
-	public void				setMovable(boolean movable)		{	this.isMovable=movable;		}
 	
 	/*
 	 * 						Other Methods
@@ -57,7 +54,7 @@ public abstract class Item extends GenericObject {
 		//		Items are usable and should have a use() method
 	}
 
-	public abstract void	get();
+	public abstract void	get(ItemStore target);
 	
 	public abstract void	put(ItemStore target);
 	

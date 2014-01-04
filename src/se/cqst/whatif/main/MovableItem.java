@@ -23,7 +23,6 @@ public class MovableItem extends Item {
 	public			MovableItem(String name, String identifier)	
 	{
 		super(name,identifier);		
-		super.setMovable(true);
 		CmdLib.writeLog("DEBUG", "MovableItem Object " + identifier + " created.");
 	}
 	
@@ -59,7 +58,7 @@ public class MovableItem extends Item {
 		
 	}
 	
-	public void		get()
+	public void		get(ItemStore target)
 	{
 		//	TODO: Write get() for MovableItem
 	}
@@ -73,10 +72,10 @@ public class MovableItem extends Item {
 	 * 			Interface Methods - Lookable
 	 */
 	
-	public void		look()
-	{
-		
-	}
+//	public void		look()
+//	{
+//		
+//	}
 	
 	/*
 	 * 			Static Methods

@@ -17,7 +17,6 @@ public class StaticItem extends Item {
 	public			StaticItem(String name, String identifier)	
 	{
 		super(name,identifier);		
-		super.setMovable(false);
 		CmdLib.writeLog("DEBUG", "StaticItem Object " + identifier + " created.");
 	}
 	
@@ -53,7 +52,7 @@ public class StaticItem extends Item {
 		
 	}
 	
-	public void		get()
+	public void		get(ItemStore target)
 	{
 		//	StaticItem cannot be moved
 	}
@@ -76,10 +75,10 @@ public class StaticItem extends Item {
 	 * 			Interface Methods - Lookable
 	 */
 	
-	public void		look()
-	{
-		
-	}
+//	public void		look()
+//	{
+//		
+//	}
 	
 	/*
 	 * 			Static Methods

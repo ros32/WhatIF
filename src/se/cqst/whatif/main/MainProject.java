@@ -1,5 +1,7 @@
 package se.cqst.whatif.main;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainProject {
@@ -11,6 +13,14 @@ public class MainProject {
 	
 	public static final String 	TXT_PROMPT		=	"Enter command: ";
 	
+	private static final String		ACTR_FILEPATH		=	"/se/cqst/whatif/resources/actors.properties";
+	private static final String		CONF_FILEPATH		=	"/se/cqst/whatif/resources/config.properties";
+	private static final String		DICT_FILEPATH		=	"/se/cqst/whatif/resources/dict_en.properties";
+	private static final String		ROOM_FILEPATH		=	"/se/cqst/whatif/resources/rooms.properties";
+	private static final String		CONT_FILEPATH		=	"/se/cqst/whatif/resources/containers.properties";
+	private static final String		ITEM_FILEPATH		=	"/se/cqst/whatif/resources/items.properties";
+	private static final String		CONN_FILEPATH		=	"/se/cqst/whatif/resources/roomconnectors.properties";
+	
 	public static void main(String[] args) {
 		/*
 		 * 	Set debug status:
@@ -20,7 +30,7 @@ public class MainProject {
 		 *		2  = Show error, warning & info messages
 		 *		3  = Show error, warning, info & debug messages 
 		 */	
-		CmdLib.setDebug(1);
+		CmdLib.setDebug(3);
 		
 		Scanner sc = new Scanner(System.in);
 		boolean sysExit = false;
@@ -29,16 +39,94 @@ public class MainProject {
 		System.out.println(SYS_STRING);
 		
 		//	Create new game and initialize
-		World.getInstance();
+//		World.getInstance();
+		Game game = null;
 		
-		//	Draw menu and loop until exit
+		List<Configuration> configList = getConfigList();
+		
+		//	Create Menu
+		Menu mainMenu = new Menu(getConfig(configList, "dictConfig"));
+
+		
 		do
 		{
-			if(Menu.drawMenu(sc,Menu.getParam(CmdLib.readString(sc,TXT_PROMPT))))
+			mainMenu.printStart();
+			if(!mainMenu.drawStart(Menu.getParam(CmdLib.readString(sc, TXT_PROMPT))))
 				sysExit = true;
-		} while (!sysExit);
+		} while(mainMenu.displayStart() && !sysExit);
+		
+		if(!sysExit)
+		{
+			switch(mainMenu.getLoadState())
+			{
+			case NEW_GAME:
+				CmdLib.writeLog("INFO", "Starting new game...");
+				game = new Game();
+				game.setWorld(WorldLoader.create(configList));
+				game.setCurrentActor(game.findActor(getConfig(configList, "actorConfig").getProperty("ACTOR_START")));
+				game.setCurrentRoom(game.getCurrentActor().getCurrentLocation());
+				break;
+			case LOAD_GAME:
+				CmdLib.writeLog("INFO", "Loading saved game...");
+				//	TODO: Write logic for loading games
+				break;
+			case NO_SELECTION:
+			default:
+				//	You should not be able to get here
+				System.exit(-1);
+				break;		
+			}
+			
+			//	Enter room
+			game.getCurrentRoom().enterRoom();
+			
+			//	Draw menu and loop until exit
+			while(!sysExit)
+			{
+				if(mainMenu.drawMenu(game, Menu.getParam(CmdLib.readString(sc,TXT_PROMPT))))
+					sysExit = true;
+			}
+		}
 		sc.close();
 
+	}
+	
+	private static List<Configuration> getConfigList()
+	{
+		List<Configuration> configList = new ArrayList<Configuration>();
+		
+		//	Add Actor configuration file
+		configList.add(new Configuration("actorConfig", Configuration.Type.ACTOR_CONFIG, ACTR_FILEPATH));
+		
+		//	Add Room configuration file
+		configList.add(new Configuration("roomConfig", Configuration.Type.ROOM_CONFIG, ROOM_FILEPATH));
+		
+		//	Add Container configuration file
+		configList.add(new Configuration("containerConfig", Configuration.Type.CONTAINER_CONFIG, CONT_FILEPATH));
+		
+		//	Add Item configuration file
+		configList.add(new Configuration("itemConfig", Configuration.Type.ITEM_CONFIG, ITEM_FILEPATH));
+		
+		//	Add RoomConnection configuration file
+		configList.add(new Configuration("connectionConfig", Configuration.Type.ROOMCONN_CONFIG, CONN_FILEPATH));
+		
+		//	Add General configuration file
+		configList.add(new Configuration("mainConfig", Configuration.Type.GAME_CONFIG, CONF_FILEPATH));
+		
+		//	Add Dictionary configuration file
+		configList.add(new Configuration("dictConfig", Configuration.Type.DICT_CONFIG, DICT_FILEPATH));		
+		
+		return configList;
+	}
+	
+	private static Configuration getConfig(List<Configuration> configList, String name)
+	{
+		for(Configuration config : configList)
+		{
+			if(config.getName().equals(name))
+				return config;
+		}
+		throw new NullPointerException();
 	}
 
 }

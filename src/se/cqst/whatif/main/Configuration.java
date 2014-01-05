@@ -33,12 +33,12 @@ public class Configuration {
 		Properties target = null;
 		try
 		{
-			CmdLib.writeLog("INFO", "Loading settings from " + filePath + "...");
+			CmdLib.writeLog("DEBUG", "Loading settings from " + filePath + "...");
 			target = this.loadProperties(Configuration.class.getResourceAsStream(filePath));
 		}
 		catch(NullPointerException ex)
 		{
-			CmdLib.writeLog("ERROR", "Configuration file not found: " + filePath);
+			CmdLib.writeLog("DEBUG", "Configuration file not found: " + filePath);
 //			System.exit(-1);
 		}
 		return target;

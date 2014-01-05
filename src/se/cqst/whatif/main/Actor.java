@@ -7,11 +7,20 @@ public class Actor extends GenericObject implements ItemStore {
 	
 	private List<Item> itemStore = new ArrayList<Item>();
 	
+	private Room currentLocation = null;
+	
 	
 	
 	public Actor(String name, String identifier)
 	{
 		super(name, identifier);
+	}
+	
+	public Actor(String name, String identifier, Room currentRoom)
+	{
+		super(name,identifier);
+		this.setCurrentLocation(currentRoom);
+		CmdLib.writeLog("DEBUG", "Actor Object " + identifier + " created.");
 	}
 	
 	public void use()
@@ -42,6 +51,14 @@ public class Actor extends GenericObject implements ItemStore {
 	public List<Item> getItemList()
 	{
 		return this.itemStore;
+	}
+
+	public Room getCurrentLocation() {
+		return currentLocation;
+	}
+
+	public void setCurrentLocation(Room currentLocation) {
+		this.currentLocation = currentLocation;
 	}
 	
 	

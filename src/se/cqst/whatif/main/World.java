@@ -25,16 +25,16 @@ public class World implements Serializable {
 	 */
 	
 	private List<Room> 			roomList;
-	private Actor				player;
+	private List<Actor>			actorList;
 
 	/*
 	 * 							Constructors
 	 */
 
-	public					World(List<Room> roomList, Actor player)
+	public					World(List<Room> roomList, List<Actor> actorList)
 	{
 		this.roomList=roomList;
-		this.setPlayer(player);
+		this.actorList=actorList;
 	}
 	
 	/*
@@ -59,12 +59,12 @@ public class World implements Serializable {
 		this.roomList = roomList;
 	}
 
-	public Actor getPlayer() {
-		return player;
+	public List<Actor> getActorList() {
+		return actorList;
 	}
 
-	public void setPlayer(Actor player) {
-		this.player = player;
+	public void setActorList(List<Actor> actorList) {
+		this.actorList = actorList;
 	}
 
 }

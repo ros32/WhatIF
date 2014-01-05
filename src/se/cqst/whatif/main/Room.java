@@ -283,6 +283,11 @@ public class Room extends GenericObject implements ItemStore {
 		origin.getRoomConnection(direction).setPrefix(prefix);
 	}
 	
+	public void enterRoom()
+	{
+		Room.enterRoom(this);
+	}
+	
 	public static void 	enterRoom(Room place)
 	{
 		System.out.println();

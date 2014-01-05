@@ -8,10 +8,10 @@ public class WorldLoader {
 	
 	private WorldLoader()	{}
 	
-	public World create(List<Configuration> configList)
+	public static World create(List<Configuration> configList)
 	{
 		List<Room> roomList = new ArrayList<Room>();
-		Actor player = null;
+		List<Actor> actorList = new ArrayList<Actor>();
 		
 		Configuration 	actorConfig = null,
 						roomConfig = null, 
@@ -70,15 +70,15 @@ public class WorldLoader {
 		}
 		
 		roomList = roomCreator(roomConfig, roomList);
-		player = actorCreator(actorConfig, player);
+		actorList = actorCreator(actorConfig, roomList, actorList);
 		roomList = containerCreator(containerConfig, roomList);
-		roomList = itemCreator(itemConfig, roomList, player);
+		roomList = itemCreator(itemConfig, roomList, actorList);
 		roomList = roomConnectionCreator(connectionConfig, roomList);
 		
-		return new World(roomList, player);
+		return new World(roomList, actorList);
 	}
 	
-	private Configuration getConfig(List<Configuration> configList, Configuration.Type type)
+	private static Configuration getConfig(List<Configuration> configList, Configuration.Type type)
 	{
 		for(Configuration config : configList)
 		{
@@ -88,7 +88,7 @@ public class WorldLoader {
 		throw new NullPointerException();
 	}
 	
-	private static Actor actorCreator(Configuration actorConfig, Actor player)
+	private static List<Actor> actorCreator(Configuration actorConfig, List<Room> roomList, List<Actor> actorList)
 	{
 		int counter = 0;
 		CmdLib.writeLog("INFO", "Creating actor...");
@@ -98,10 +98,15 @@ public class WorldLoader {
 			String actorID = (String) e.nextElement();
 			actorID = actorID.replace("_NAME","");
 			String actorName = actorConfig.getProperty(actorID + "_NAME");
-			return new Actor(actorName, actorID);
+			String actorLoc = actorConfig.getProperty(actorID + "_LOCATION");
+			if(findRoom(roomList, actorLoc) != null)
+			{
+				actorList.add(new Actor(actorName, actorID, findRoom(roomList, actorLoc)));
+				counter++;
+			}
 		}
-		CmdLib.writeLog("INFO", "Finished creating " + counter + " rooms.");
-		return player;
+		CmdLib.writeLog("INFO", "Finished creating " + counter + " actors.");
+		return actorList;
 	}
 	
 	/**
@@ -167,7 +172,7 @@ public class WorldLoader {
 	 *
 	 * @param world Target World object
 	 */
-	private static List<Room> itemCreator(Configuration itemConfig, List<Room> roomList, Actor player)
+	private static List<Room> itemCreator(Configuration itemConfig, List<Room> roomList, List<Actor> actorList)
 	{		
 		int counter = 0;
 		CmdLib.writeLog("INFO", "Creating items...");
@@ -180,18 +185,18 @@ public class WorldLoader {
 			String itemType = itemConfig.getProperty(itemID + "_TYPE");
 			String itemDesc = itemConfig.getProperty(itemID + "_DESC");
 			String itemLoc = itemConfig.getProperty(itemID + "_LOCATION");
-			if(findItemStore(roomList, player, itemLoc) != null)
+			if(findItemStore(roomList, actorList, itemLoc) != null)
 			{
 				if(itemType.equalsIgnoreCase("staticitem"))
 				{
-					findItemStore(roomList, player, itemLoc).putItem(new StaticItem(itemName,itemID));
-					findItemStore(roomList,player, itemLoc).getItem(itemID).setDescription(itemDesc);
+					findItemStore(roomList, actorList, itemLoc).putItem(new StaticItem(itemName,itemID));
+					findItemStore(roomList, actorList, itemLoc).getItem(itemID).setDescription(itemDesc);
 					counter++;
 				}
 				else if(itemType.equalsIgnoreCase("movableitem"))
 				{
-					findItemStore(roomList, player, itemLoc).putItem(new MovableItem(itemName,itemID));
-					findItemStore(roomList, player, itemLoc).getItem(itemID).setDescription(itemDesc);
+					findItemStore(roomList, actorList, itemLoc).putItem(new MovableItem(itemName,itemID));
+					findItemStore(roomList, actorList, itemLoc).getItem(itemID).setDescription(itemDesc);
 					counter++;
 				}
 				else
@@ -267,12 +272,15 @@ public class WorldLoader {
 		return null;
 	}
 	
-	private static ItemStore findItemStore(List<Room> roomList, Actor player, String identifier)
+	private static ItemStore findItemStore(List<Room> roomList, List<Actor> actorList, String identifier)
 	{
-		for(Room place : roomList)
+		for(Actor player : actorList)
 		{
 			if(player.toString().equalsIgnoreCase(identifier))
 				return (ItemStore) player;
+		}
+		for(Room place : roomList)
+		{
 			if(place.toString().equalsIgnoreCase(identifier))
 				return (ItemStore) place;
 			for(Container holder : place.getContainerList())

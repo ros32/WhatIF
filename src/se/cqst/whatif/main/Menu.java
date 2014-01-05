@@ -2,7 +2,6 @@ package se.cqst.whatif.main;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,15 +21,63 @@ public class Menu {
 	
 	public static final String	TXT_INVALID_COMMAND	=	"Invalid command. Please type \"" + SW_HELP_1 + "\" for a list of commands.\n";
 	
-	public static final String	TXT_HELP_CONTENT	=	CmdLib.getProperty(World.getInstance().getWorldConfig().getDictConfig(), "TXT_HELP_CONTENT");
-	public static final String	TXT_HELP_HELP		=	CmdLib.getProperty(World.getInstance().getWorldConfig().getDictConfig(), "TXT_HELP_HELP");
-	public static final String	TXT_HELP_EXIT		=	CmdLib.getProperty(World.getInstance().getWorldConfig().getDictConfig(), "TXT_HELP_EXIT");
-	public static final String	TXT_HELP_GO			=	CmdLib.getProperty(World.getInstance().getWorldConfig().getDictConfig(), "TXT_HELP_GO");
-	public static final String	TXT_HELP_LOOK		=	CmdLib.getProperty(World.getInstance().getWorldConfig().getDictConfig(), "TXT_HELP_LOOK");
-	
 	public static final String	GO_VALID_CMDS		=	"";
 	public static final String	GO_VALID_DIRECTIONS	=	Room.NORTH + ", " + Room.SOUTH + ", " + Room.EAST + ", " + Room.WEST + ", " + Room.UP + " and " + Room.DOWN + " are valid inputs";
 	public static final String	GO_EMPTY_DIRECTION	=	"Go where? (" + GO_VALID_DIRECTIONS + ")";
+	
+	public static enum LoadOption {NO_SELECTION, NEW_GAME, LOAD_GAME;}
+	
+	private boolean displayStart = true;
+	private Configuration dictConfig;
+	private LoadOption loadState = LoadOption.NO_SELECTION;
+	
+	public final String		TXT_HELP_CONTENT,			TXT_HELP_HELP,			TXT_HELP_EXIT,
+							TXT_HELP_GO,				TXT_HELP_LOOK;
+	
+	
+	
+	
+	
+	
+	public Menu(Configuration dictConfig)
+	{
+		this.setDictConfig(dictConfig);
+		
+		this.TXT_HELP_CONTENT		=	dictConfig.getProperty("TXT_HELP_CONTENT");
+		this.TXT_HELP_HELP			=	dictConfig.getProperty("TXT_HELP_HELP");
+		this.TXT_HELP_EXIT			=	dictConfig.getProperty("TXT_HELP_EXIT");
+		this.TXT_HELP_GO			=	dictConfig.getProperty("TXT_HELP_GO");
+		this.TXT_HELP_LOOK			=	dictConfig.getProperty("TXT_HELP_LOOK");
+	}
+	
+	public void printStart()
+	{
+		System.out.println();
+		System.out.println("Cool into or header goes here");
+		System.out.println();
+		System.out.println("Type \"new game\" to start a new game.");
+	}
+	
+	public boolean drawStart(List<String> cmdList)
+	{
+		switch(cmdList.get(0))
+		{
+		case "new":
+			this.setLoadState(LoadOption.NEW_GAME);
+			this.setDisplayStart(false);
+			return true;
+		case "load":
+			this.setLoadState(LoadOption.LOAD_GAME);
+			this.setDisplayStart(false);
+			return true;
+		case SW_EXIT_1:
+			this.setDisplayStart(false);
+			return false;
+		default:
+			System.out.println(TXT_INVALID_COMMAND);
+			return true;
+		}
+	}
 
 	public static String[] 		multi_GO_INVALID_DIR()
 	{	return new String[]
@@ -51,15 +98,15 @@ public class Menu {
 	}
 	
 	//	TODO: Allow load/save function through drawMenu()
-	public static boolean drawMenu(Scanner sc, List<String> cmdList)
+	public boolean drawMenu(Game game, List<String> cmdList)
 	{
 		switch(cmdList.get(0))
 		{
 		case SW_GO:
-			drawGo(cmdList);
+			drawGo(game, cmdList);
 			break;
 		case SW_LOOK:
-			drawLook(cmdList);
+			drawLook(game, cmdList);
 			break;
 		case SW_HELP_1:
 		case SW_HELP_2:
@@ -84,7 +131,7 @@ public class Menu {
 		return list;
 	}
 		
-	public static void drawHelp(List<String> cmdList)
+	public void drawHelp(List<String> cmdList)
 	{
 		if(cmdList.size() != 1)
 		{
@@ -93,15 +140,15 @@ public class Menu {
 			case SW_HELP_1:
 			case SW_HELP_2:
 				//	A bit redundant perhaps
-				System.out.println(TXT_HELP_HELP);
+				System.out.println(this.TXT_HELP_HELP);
 				break;
 			case SW_EXIT_1:
 			case SW_EXIT_2:
-				System.out.println(TXT_HELP_EXIT);
+				System.out.println(this.TXT_HELP_EXIT);
 				break;
 			//	TODO: Implement all supported commands
 			default:
-				System.out.println(TXT_HELP_CONTENT);
+				System.out.println(this.TXT_HELP_CONTENT);
 				break;
 			}
 		}
@@ -115,7 +162,7 @@ public class Menu {
 	//		This will allow methods to call drawHelp with
 	//		specific args
 	
-	public static void drawGo(List<String> cmdList)
+	public  void drawGo(Game game, List<String> cmdList)
 	{
 		if(cmdList.size() != 1)
 		{
@@ -129,8 +176,8 @@ public class Menu {
 			case Room.DOWN:
 				try
 				{
-					World.getInstance().setCurrentRoom(World.getInstance().getCurrentRoom().travel(cmdList.get(1)));
-					Room.enterRoom(World.getInstance().getCurrentRoom());
+					game.setCurrentRoom(game.getCurrentRoom().travel(cmdList.get(1)));
+					Room.enterRoom(game.getCurrentRoom());
 				}
 				catch(InvalidRoomConnectionException ex)
 				{
@@ -151,7 +198,7 @@ public class Menu {
 		}
 	}
 	
-	public static void drawLook(List<String> cmdList)
+	public void drawLook(Game game, List<String> cmdList)
 	{
 		if(cmdList.size() != 1)
 		{
@@ -174,8 +221,8 @@ public class Menu {
 					i++;
 				}
 				//	If target object is a valid object AND is in the current room, look() at the object
-				if(WorldBrowser.isValidObject(World.getInstance(),WorldBrowser.getObjectID(World.getInstance(),targetObject)) && World.getInstance().getCurrentRoom().inRoom(WorldBrowser.getObjectID(World.getInstance(),targetObject)))
-					WorldBrowser.getObject(World.getInstance(),WorldBrowser.getObjectID(World.getInstance(),targetObject)).look();
+				if(game.isValidObject(game.findObjectID(targetObject)) && game.getCurrentRoom().inRoom(game.findObjectID(targetObject)))
+					game.findObject(game.findObjectID(targetObject)).look();
 				else
 					//	TODO: Change to TextLib
 					System.out.println("Object is not here");
@@ -183,10 +230,34 @@ public class Menu {
 		}
 		else
 		{
-			Room.enterRoom(World.getInstance().getCurrentRoom());
+			Room.enterRoom(game.getCurrentRoom());
 		}
 		
 		
+	}
+
+	public boolean displayStart() {
+		return displayStart;
+	}
+
+	public void setDisplayStart(boolean displayStart) {
+		this.displayStart = displayStart;
+	}
+
+	public LoadOption getLoadState() {
+		return loadState;
+	}
+
+	public void setLoadState(LoadOption loadState) {
+		this.loadState = loadState;
+	}
+
+	public Configuration getDictConfig() {
+		return dictConfig;
+	}
+
+	public void setDictConfig(Configuration dictConfig) {
+		this.dictConfig = dictConfig;
 	}
 	
 	

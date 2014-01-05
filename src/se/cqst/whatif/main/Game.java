@@ -6,22 +6,34 @@ public class Game implements Serializable {
 
 	private static final long serialVersionUID = 3038330173731198169L;
 	
-	private World currentWorld;
+	private World world;
+	private Room currentRoom;
+	private Actor currentActor;
 	
-	public Game(World world, Actor player)
+	public Game()
 	{
-		this.setCurrentWorld(world);
+//		this.setCurrentWorld(world);
 	}
 
-	public World getCurrentWorld() {
-		return currentWorld;
+	public World getWorld() {
+		return world;
 	}
 
-	public void setCurrentWorld(World currentWorld) {
-		this.currentWorld = currentWorld;
+	public void setWorld(World currentWorld) {
+		this.world = currentWorld;
 	}
 	
-	public static Room getWorldRoom(World world, String identifier)
+	public Actor findActor(String identifier)
+	{
+		for(Actor player : world.getActorList())
+		{
+			if(player.toString().equals(identifier))
+				return player;
+		}
+		return null;
+	}
+	
+	public Room findRoom(String identifier)
 	{
 		for(Room place : world.getRoomList())
 		{
@@ -33,7 +45,7 @@ public class Game implements Serializable {
 	
 	public Item findItem(String identifier)
 	{
-		for(Room place : this.getCurrentWorld().getRoomList())
+		for(Room place : this.getWorld().getRoomList())
 		{
 			if(place.getItem(identifier) != null)
 				return place.getItem(identifier);
@@ -51,7 +63,7 @@ public class Game implements Serializable {
 	
 	public Container findContainer(String identifier)
 	{
-		for(Room place : this.getCurrentWorld().getRoomList())
+		for(Room place : this.getWorld().getRoomList())
 		{
 			for(Container store : place.getContainerList())
 			{
@@ -64,7 +76,7 @@ public class Game implements Serializable {
 	
 	public ItemStore findItemStore(String identifier)
 	{
-		for(Room place : this.getCurrentWorld().getRoomList())
+		for(Room place : this.getWorld().getRoomList())
 		{
 			if(place.toString().equalsIgnoreCase(identifier))
 				return place;
@@ -88,7 +100,7 @@ public class Game implements Serializable {
 	
 	public String findObjectID(String name)
 	{
-		for(Room place : this.getCurrentWorld().getRoomList())
+		for(Room place : this.getWorld().getRoomList())
 		{
 			if(place.getName().equalsIgnoreCase(name))
 				return place.toString();
@@ -113,7 +125,7 @@ public class Game implements Serializable {
 	
 	public GenericObject findObject(String identifier)
 	{
-		for(Room place : this.getCurrentWorld().getRoomList())
+		for(Room place : this.getWorld().getRoomList())
 		{
 			if(place.toString().equalsIgnoreCase(identifier))
 				return (GenericObject) place;
@@ -140,6 +152,22 @@ public class Game implements Serializable {
 			}
 		}
 		return null;
+	}
+
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
+
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+
+	public Actor getCurrentActor() {
+		return currentActor;
+	}
+
+	public void setCurrentActor(Actor currentActor) {
+		this.currentActor = currentActor;
 	}
 
 }

@@ -29,7 +29,7 @@ public class CmdLib {
 	public static final String 	ERR_INVALID_Y_N_INPUT		=	"Please enter Y/y for Yes or N/n for No";
 	public static final String 	ERR_NO_INPUT				=	"You must enter a value!";
 	public static final String 	ERR_NUM_FORMAT				=	"The value entered is not correct. Please enter a number.";
-	public static final String 	ERR_PROPERTY_NOT_FOUND 		= 	"ERROR: Could not load property:";
+//	public static final String 	ERR_PROPERTY_NOT_FOUND 		= 	"ERROR: Could not load property:";
 	
 	private static int debug;
 	
@@ -348,16 +348,6 @@ public class CmdLib {
 		}
 		return filteredProperties;
 	}
-
-	/**
-	 * Return a key value from a {@link Properties} object.
-	 *
-	 * @param config Properties object
-	 * @param key Key whose value should be fetched
-	 * @return The value from the fetched key, or a message stating the value could not be found.
-	 */
-	public static String getProperty(Properties config, String key)
-	{	return config.getProperty(key, ERR_PROPERTY_NOT_FOUND + " " + key);}
 
 	/**
 	 * Writes log outputs to {@link System.out} depending on the {@code CmdLib.debug} value.  

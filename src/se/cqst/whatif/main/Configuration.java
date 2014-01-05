@@ -1,24 +1,31 @@
 package se.cqst.whatif.main;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.Properties;
 
 public class Configuration {
-
-	private Properties worldConfig;
-	private Properties dictConfig;
-	private Properties roomConfig;
-	private Properties containerConfig;
-	private Properties itemConfig;
-	private Properties connectorConfig;
 	
-	public Configuration(String worldConf, String dictConf, String roomConf, String containerConf, String itemConf, String connectorConf)
+	private static final String 	ERR_PROPERTY_NOT_FOUND 		= 	"ERROR: Could not load property:";
+	public static enum Type {ACTOR_CONFIG, GAME_CONFIG, DICT_CONFIG, WORLD_CONFIG, ROOM_CONFIG, CONTAINER_CONFIG, ITEM_CONFIG, ROOMCONN_CONFIG, MISC_CONFIG;	}
+
+	private String name;
+	private Type type;
+	private Properties config;
+	
+	public Configuration(String name, Type type, String path)
 	{
-		this.setWorldConfig(loadConfiguration(worldConf));
-		this.setDictConfig(loadConfiguration(dictConf));
-		this.setRoomConfig(loadConfiguration(roomConf));
-		this.setContainerConfig(loadConfiguration(containerConf));
-		this.setItemConfig(loadConfiguration(itemConf));
-		this.setConnectorConfig(loadConfiguration(connectorConf));
+		this.setConfig(loadConfiguration(path));
+		this.setType(type);
+		this.setName(name);
+	}
+	
+	public Configuration(String name, Type type, Properties config)
+	{
+		this.setConfig(config);
+		this.setType(type);
+		this.setName(name);
 	}
 	
 	private Properties loadConfiguration(String filePath)
@@ -27,62 +34,90 @@ public class Configuration {
 		try
 		{
 			CmdLib.writeLog("INFO", "Loading settings from " + filePath + "...");
-			target = CmdLib.loadProperties(World.class.getResourceAsStream(filePath));
+			target = this.loadProperties(Configuration.class.getResourceAsStream(filePath));
 		}
 		catch(NullPointerException ex)
 		{
 			CmdLib.writeLog("ERROR", "Configuration file not found: " + filePath);
-			System.exit(-1);
+//			System.exit(-1);
 		}
 		return target;
 	}
 
-	public Properties getWorldConfig() {
-		return worldConfig;
+	public String getName() {
+		return name;
 	}
 
-	private void setWorldConfig(Properties worldConfig) {
-		this.worldConfig = worldConfig;
+	private void setName(String name) {
+		this.name = name;
 	}
 
-	public Properties getDictConfig() {
-		return dictConfig;
+	public Properties getConfig() {
+		return config;
 	}
 
-	private void setDictConfig(Properties dictConfig) {
-		this.dictConfig = dictConfig;
+	private void setConfig(Properties config) {
+		this.config = config;
+	}
+	
+	/**
+	 * Return a key value from a {@link Properties} object.
+	 *
+	 * @param config Properties object
+	 * @param key Key whose value should be fetched
+	 * @return The value from the fetched key, or a message stating the value could not be found.
+	 */
+	public String getProperty(String key)
+	{	return this.getConfig().getProperty(key, ERR_PROPERTY_NOT_FOUND + " " + key);}
+	
+	/**
+	 * Load a Java {@link Properties} file from an {@link InputStream}.
+	 *
+	 * @param filepath InputStream containing a Java .properties file
+	 * @return properties
+	 */
+	private Properties loadProperties(InputStream filepath)
+	{
+		Properties properties = new Properties();
+		
+		try
+		{
+			properties.load(filepath);
+		}
+		catch (IOException ex)
+		{
+			System.out.println(ex.getMessage() + ex.getStackTrace());
+		}
+		return properties;
+	}
+	
+	/**
+	 * Filter a {@link Properties} file with the provided with the provided String, only returning
+	 * those keys that match the filter.
+	 *
+	 * @param toFilter Properties file to filter
+	 * @param filter Input filter. Only keys matching the filter will be included.
+	 * @return Filtered properties
+	 */
+	public static Properties filterProperties(Properties toFilter, String filter)
+	{
+		Properties filteredProperties = new Properties();
+		Enumeration<?> e = toFilter.propertyNames();
+		while(e.hasMoreElements())
+		{
+			String key = (String) e.nextElement(); 
+			if(key.contains(filter))
+				filteredProperties.setProperty(key, toFilter.getProperty(key));
+		}
+		return filteredProperties;
 	}
 
-	public Properties getRoomConfig() {
-		return roomConfig;
+	public Type getType() {
+		return type;
 	}
 
-	private void setRoomConfig(Properties roomConfig) {
-		this.roomConfig = roomConfig;
-	}
-
-	public Properties getContainerConfig() {
-		return containerConfig;
-	}
-
-	private void setContainerConfig(Properties containerConfig) {
-		this.containerConfig = containerConfig;
-	}
-
-	public Properties getItemConfig() {
-		return itemConfig;
-	}
-
-	private void setItemConfig(Properties itemConfig) {
-		this.itemConfig = itemConfig;
-	}
-
-	public Properties getConnectorConfig() {
-		return connectorConfig;
-	}
-
-	private void setConnectorConfig(Properties connectorConfig) {
-		this.connectorConfig = connectorConfig;
+	private void setType(Type type) {
+		this.type = type;
 	}
 	
 }

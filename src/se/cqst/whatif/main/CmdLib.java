@@ -3,11 +3,7 @@
  */
 package se.cqst.whatif.main;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Array;
-import java.util.Enumeration;
-import java.util.Properties;
 import java.util.Scanner;
 
 /**
@@ -281,73 +277,73 @@ public class CmdLib {
 		}
 	}
 
-	/**
-	 * Load a Java {@link Properties} file from an {@link InputStream}.
-	 *
-	 * @param filepath InputStream containing a Java .properties file
-	 * @return properties
-	 */
-	public static Properties loadProperties(InputStream filepath)
-	{
-		Properties properties = new Properties();
-		
-		try
-		{
-			properties.load(filepath);
-		}
-		catch (IOException ex)
-		{
-			System.out.println(ex.getMessage() + ex.getStackTrace());
-		}
-		return properties;
-	}
-	
-	/**
-	 * Load a Java {@link Properties} file from an {@link InputStream}.
-	 * The properties are filtered with the provided String, only returning
-	 * those keys that match the filter.
-	 *
-	 * @param filepath InputStream containing a Java .properties file
-	 * @param filter Input filter. Only keys matching the filter will be included
-	 * @return Filtered properties
-	 */
-	public static Properties loadProperties(InputStream filepath, String filter)
-	{
-		Properties properties = new Properties();
-		Properties filteredProperties = new Properties();
-		
-		try
-		{
-			properties.load(filepath);
-			filteredProperties = filterProperties(properties, filter);
-		}
-		catch (IOException ex)
-		{
-			System.out.println(ex.getMessage() + ex.getStackTrace());
-		}
-		return filteredProperties;
-	}
-	
-	/**
-	 * Filter a {@link Properties} file with the provided with the provided String, only returning
-	 * those keys that match the filter.
-	 *
-	 * @param toFilter Properties file to filter
-	 * @param filter Input filter. Only keys matching the filter will be included.
-	 * @return Filtered properties
-	 */
-	public static Properties filterProperties(Properties toFilter, String filter)
-	{
-		Properties filteredProperties = new Properties();
-		Enumeration<?> e = toFilter.propertyNames();
-		while(e.hasMoreElements())
-		{
-			String key = (String) e.nextElement(); 
-			if(key.contains(filter))
-				filteredProperties.setProperty(key, toFilter.getProperty(key));
-		}
-		return filteredProperties;
-	}
+//	/**
+//	 * Load a Java {@link Properties} file from an {@link InputStream}.
+//	 *
+//	 * @param filepath InputStream containing a Java .properties file
+//	 * @return properties
+//	 */
+//	public static Properties loadProperties(InputStream filepath)
+//	{
+//		Properties properties = new Properties();
+//		
+//		try
+//		{
+//			properties.load(filepath);
+//		}
+//		catch (IOException ex)
+//		{
+//			System.out.println(ex.getMessage() + ex.getStackTrace());
+//		}
+//		return properties;
+//	}
+//	
+//	/**
+//	 * Load a Java {@link Properties} file from an {@link InputStream}.
+//	 * The properties are filtered with the provided String, only returning
+//	 * those keys that match the filter.
+//	 *
+//	 * @param filepath InputStream containing a Java .properties file
+//	 * @param filter Input filter. Only keys matching the filter will be included
+//	 * @return Filtered properties
+//	 */
+//	public static Properties loadProperties(InputStream filepath, String filter)
+//	{
+//		Properties properties = new Properties();
+//		Properties filteredProperties = new Properties();
+//		
+//		try
+//		{
+//			properties.load(filepath);
+//			filteredProperties = filterProperties(properties, filter);
+//		}
+//		catch (IOException ex)
+//		{
+//			System.out.println(ex.getMessage() + ex.getStackTrace());
+//		}
+//		return filteredProperties;
+//	}
+//	
+//	/**
+//	 * Filter a {@link Properties} file with the provided with the provided String, only returning
+//	 * those keys that match the filter.
+//	 *
+//	 * @param toFilter Properties file to filter
+//	 * @param filter Input filter. Only keys matching the filter will be included.
+//	 * @return Filtered properties
+//	 */
+//	public static Properties filterProperties(Properties toFilter, String filter)
+//	{
+//		Properties filteredProperties = new Properties();
+//		Enumeration<?> e = toFilter.propertyNames();
+//		while(e.hasMoreElements())
+//		{
+//			String key = (String) e.nextElement(); 
+//			if(key.contains(filter))
+//				filteredProperties.setProperty(key, toFilter.getProperty(key));
+//		}
+//		return filteredProperties;
+//	}
 
 	/**
 	 * Writes log outputs to {@link System.out} depending on the {@code CmdLib.debug} value.  

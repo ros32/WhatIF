@@ -19,8 +19,6 @@ public class Menu {
 	public static final String	SW_PUT				=	"put";
 	public static final String	SW_DROP				=	"drop";
 	
-	public static final String	TXT_INVALID_COMMAND	=	"Invalid command. Please type \"" + SW_HELP_1 + "\" for a list of commands.\n";
-	
 	public static final String	GO_VALID_CMDS		=	"";
 	public static final String	GO_VALID_DIRECTIONS	=	Room.NORTH + ", " + Room.SOUTH + ", " + Room.EAST + ", " + Room.WEST + ", " + Room.UP + " and " + Room.DOWN + " are valid inputs";
 	public static final String	GO_EMPTY_DIRECTION	=	"Go where? (" + GO_VALID_DIRECTIONS + ")";
@@ -29,25 +27,11 @@ public class Menu {
 	
 	private boolean displayStart = true;
 	private Configuration dictConfig;
-	private LoadOption loadState = LoadOption.NO_SELECTION;
-	
-	public final String		TXT_HELP_CONTENT,			TXT_HELP_HELP,			TXT_HELP_EXIT,
-							TXT_HELP_GO,				TXT_HELP_LOOK;
-	
-	
-	
-	
-	
+	private LoadOption loadState = LoadOption.NO_SELECTION;	
 	
 	public Menu(Configuration dictConfig)
 	{
 		this.setDictConfig(dictConfig);
-		
-		this.TXT_HELP_CONTENT		=	dictConfig.getProperty("TXT_HELP_CONTENT");
-		this.TXT_HELP_HELP			=	dictConfig.getProperty("TXT_HELP_HELP");
-		this.TXT_HELP_EXIT			=	dictConfig.getProperty("TXT_HELP_EXIT");
-		this.TXT_HELP_GO			=	dictConfig.getProperty("TXT_HELP_GO");
-		this.TXT_HELP_LOOK			=	dictConfig.getProperty("TXT_HELP_LOOK");
 	}
 	
 	public void printStart()
@@ -74,21 +58,32 @@ public class Menu {
 			this.setDisplayStart(false);
 			return false;
 		default:
-			System.out.println(TXT_INVALID_COMMAND);
+			System.out.println(String.format(this.dictConfig.getProperty("TXT_INVALID_COMMAND"), SW_HELP_1));
 			return true;
 		}
 	}
 
-	public static String[] 		multi_GO_INVALID_DIR()
+	public String[] 		getGoInvalidDirArray()
 	{	return new String[]
 			{
-				"That was an unusual direction. Perhaps you should try a more well-known one instead?\n  (" + GO_VALID_DIRECTIONS + ")",
-				"I choose to disobey you; mostly because I don't understand you.\n  (" + GO_VALID_DIRECTIONS + ")",
-				"You have entered an unknown direction. Try a known direction instead.\n  (" + GO_VALID_DIRECTIONS + ")"		
+			
+				String.format(this.dictConfig.getProperty("GO_INVALID_DIR_1"), GO_VALID_DIRECTIONS),
+				String.format(this.dictConfig.getProperty("GO_INVALID_DIR_2"), GO_VALID_DIRECTIONS),
+				String.format(this.dictConfig.getProperty("GO_INVALID_DIR_3"), GO_VALID_DIRECTIONS)		
 			};
 	}
 	
-	public static String[] 		multi_GO_INVALID_ROOM_CONN()
+//	public static String[] 		getGoInvalidDirArray()
+//	{	return new String[]
+//			{
+//			
+//				String.format("That was an unusual direction. Perhaps you should try a more well-known one instead?\n  (%s)", GO_VALID_DIRECTIONS),
+//				String.format("I choose to disobey you; mostly because I don't understand you.\n  (%s)", GO_VALID_DIRECTIONS),
+//				String.format("You have entered an unknown direction. Try a known direction instead.\n  (%s)", GO_VALID_DIRECTIONS)		
+//			};
+//	}
+	
+	public static String[] 		getInvalidRoomConnArray()
 	{	return new String[]
 			{
 				"You see no path there.",
@@ -116,7 +111,7 @@ public class Menu {
 		case SW_EXIT_2:
 			return true;
 		default:
-			System.out.println(TXT_INVALID_COMMAND);
+			System.out.println(String.format(this.dictConfig.getProperty("TXT_INVALID_COMMAND"), SW_HELP_1));
 			break;
 		}
 		return false;
@@ -140,21 +135,21 @@ public class Menu {
 			case SW_HELP_1:
 			case SW_HELP_2:
 				//	A bit redundant perhaps
-				System.out.println(this.TXT_HELP_HELP);
+				System.out.println(this.dictConfig.getProperty("TXT_HELP_HELP"));
 				break;
 			case SW_EXIT_1:
 			case SW_EXIT_2:
-				System.out.println(this.TXT_HELP_EXIT);
+				System.out.println(this.dictConfig.getProperty("TXT_HELP_EXIT"));
 				break;
 			//	TODO: Implement all supported commands
 			default:
-				System.out.println(this.TXT_HELP_CONTENT);
+				System.out.println(this.dictConfig.getProperty("TXT_HELP_CONTENT"));
 				break;
 			}
 		}
 		else
 		{
-			System.out.println(TXT_HELP_CONTENT);
+			System.out.println(dictConfig.getProperty("TXT_HELP_CONTENT"));
 		}
 	}
 	
@@ -181,20 +176,20 @@ public class Menu {
 				}
 				catch(InvalidRoomConnectionException ex)
 				{
-					System.out.println(CmdLib.getRandElement(multi_GO_INVALID_ROOM_CONN()));
+					System.out.println(CmdLib.getRandElement(getInvalidRoomConnArray()));
 				}
 				break;
 			case SW_HELP_1:
 			case SW_HELP_2:
 				break;
 			default:
-				System.out.println(CmdLib.getRandElement(multi_GO_INVALID_DIR()));
+				System.out.println(CmdLib.getRandElement(getGoInvalidDirArray()));
 				break;
 			}
 		}
 		else
 		{
-			System.out.println(GO_EMPTY_DIRECTION);
+			System.out.println(dictConfig.getProperty("GO_EMPTY_DIRECTION"));
 		}
 	}
 	

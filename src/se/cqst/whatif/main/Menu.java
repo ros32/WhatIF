@@ -103,6 +103,12 @@ public class Menu {
 		case SW_LOOK:
 			drawLook(game, cmdList);
 			break;
+		case SW_TAKE:
+			break;
+		case SW_PUT:
+			break;
+		case SW_DROP:
+			break;
 		case SW_HELP_1:
 		case SW_HELP_2:
 			drawHelp(cmdList);

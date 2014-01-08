@@ -45,7 +45,7 @@ public class MainProject {
 		List<Configuration> configList = getConfigList();
 		
 		//	Create Menu
-		Menu mainMenu = new Menu(getConfig(configList, "dictConfig"));
+		Menu mainMenu = new Menu(getConfig("dictConfig", configList));
 
 		
 		do
@@ -62,8 +62,8 @@ public class MainProject {
 			case NEW_GAME:
 				CmdLib.writeLog("INFO", "Starting new game...");
 				game = new Game();
-				game.setWorld(WorldLoader.create(configList));
-				game.setCurrentActor(game.findActor(getConfig(configList, "actorConfig").getProperty("ACTOR_START")));
+				game.setWorld(new World("World", "WORLD001", configList));
+				game.setCurrentActor(game.findActor(getConfig("actorConfig", configList).getProperty("ACTOR_START")));
 				game.setCurrentRoom(game.getCurrentActor().getCurrentLocation());
 				break;
 			case LOAD_GAME:
@@ -119,7 +119,7 @@ public class MainProject {
 		return configList;
 	}
 	
-	private static Configuration getConfig(List<Configuration> configList, String name)
+	private static Configuration getConfig(String name, List<Configuration> configList)
 	{
 		for(Configuration config : configList)
 		{

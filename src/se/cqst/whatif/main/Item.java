@@ -10,7 +10,7 @@ public abstract class Item extends GenericObject {
 	 * 						Variables
 	 */
 	
-	private String			longDescription;
+//	private String			longDescription;
 	
 	/*
 	 * 						Constructors
@@ -19,7 +19,7 @@ public abstract class Item extends GenericObject {
 	public					Item(String name, String identifier)
 	{
 		super(name,identifier);
-		this.longDescription = "";
+//		this.longDescription = "";
 	}
 	
 	/*
@@ -30,13 +30,13 @@ public abstract class Item extends GenericObject {
 	 * 						Basic get Methods
 	 */
 
-	public String			getLongDescription()			{	return this.longDescription;	}
+//	public String			getLongDescription()			{	return this.longDescription;	}
 	
 	/*
 	 * 						Basic set Methods
 	 */
 	
-	public void				setLongDescription(String desc)	{	this.longDescription=desc;	}
+//	public void				setLongDescription(String desc)	{	this.longDescription=desc;	}
 	
 	/*
 	 * 						Other Methods

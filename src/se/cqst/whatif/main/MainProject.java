@@ -13,14 +13,6 @@ public class MainProject {
 	
 	public static final String 	TXT_PROMPT		=	"Enter command: ";
 	
-	private static final String		ACTR_FILEPATH		=	"/se/cqst/whatif/resources/actors.properties";
-	private static final String		CONF_FILEPATH		=	"/se/cqst/whatif/resources/config.properties";
-	private static final String		DICT_FILEPATH		=	"/se/cqst/whatif/resources/dict_en.properties";
-	private static final String		ROOM_FILEPATH		=	"/se/cqst/whatif/resources/rooms.properties";
-	private static final String		CONT_FILEPATH		=	"/se/cqst/whatif/resources/containers.properties";
-	private static final String		ITEM_FILEPATH		=	"/se/cqst/whatif/resources/items.properties";
-	private static final String		CONN_FILEPATH		=	"/se/cqst/whatif/resources/roomconnectors.properties";
-	
 	public static void main(String[] args) {
 		/*
 		 * 	Set debug status:
@@ -96,25 +88,25 @@ public class MainProject {
 		List<Configuration> configList = new ArrayList<Configuration>();
 		
 		//	Add Actor configuration file
-		configList.add(new Configuration("actorConfig", Configuration.Type.ACTOR_CONFIG, ACTR_FILEPATH));
+		configList.add(new Configuration("actorConfig", Configuration.Type.ACTOR_CONFIG, "/se/cqst/whatif/resources/actors.properties"));
 		
 		//	Add Room configuration file
-		configList.add(new Configuration("roomConfig", Configuration.Type.ROOM_CONFIG, ROOM_FILEPATH));
+		configList.add(new Configuration("roomConfig", Configuration.Type.ROOM_CONFIG, "/se/cqst/whatif/resources/rooms.properties"));
 		
 		//	Add Container configuration file
-		configList.add(new Configuration("containerConfig", Configuration.Type.CONTAINER_CONFIG, CONT_FILEPATH));
+		configList.add(new Configuration("containerConfig", Configuration.Type.CONTAINER_CONFIG, "/se/cqst/whatif/resources/containers.properties"));
 		
 		//	Add Item configuration file
-		configList.add(new Configuration("itemConfig", Configuration.Type.ITEM_CONFIG, ITEM_FILEPATH));
+		configList.add(new Configuration("itemConfig", Configuration.Type.ITEM_CONFIG, "/se/cqst/whatif/resources/items.properties"));
 		
 		//	Add RoomConnection configuration file
-		configList.add(new Configuration("connectionConfig", Configuration.Type.ROOMCONN_CONFIG, CONN_FILEPATH));
+		configList.add(new Configuration("connectionConfig", Configuration.Type.ROOMCONN_CONFIG, "/se/cqst/whatif/resources/roomconnectors.properties"));
 		
 		//	Add General configuration file
-		configList.add(new Configuration("mainConfig", Configuration.Type.GAME_CONFIG, CONF_FILEPATH));
+		configList.add(new Configuration("mainConfig", Configuration.Type.GAME_CONFIG, "/se/cqst/whatif/resources/config.properties"));
 		
 		//	Add Dictionary configuration file
-		configList.add(new Configuration("dictConfig", Configuration.Type.DICT_CONFIG, DICT_FILEPATH));		
+		configList.add(new Configuration("dictConfig", Configuration.Type.DICT_CONFIG, "/se/cqst/whatif/resources/dict_en.properties"));		
 		
 		return configList;
 	}

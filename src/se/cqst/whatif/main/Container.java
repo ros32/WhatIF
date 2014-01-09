@@ -10,8 +10,8 @@ public class Container extends GenericObject implements ItemStore {
 	 */
 	
 	public static final String	TXT_LINE_HOR		=	"================================================================================";
-	public static final String	ROOM_ENTER_ITEMS	=	"You see the following items on the ground here:";	
-	public static final String	ROOM_ENTER_ITEMS_NONE	=	"There are no items on the ground.";
+	public static final String	ROOM_ENTER_ITEMS	=	"You see the following items in this container:";	
+	public static final String	ROOM_ENTER_ITEMS_NONE	=	"There are no items here.";
 	
 //	private static int 	counter;
 	

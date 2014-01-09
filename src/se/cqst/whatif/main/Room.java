@@ -20,12 +20,12 @@ public class Room extends GenericObject implements ItemStore {
 	 * 			Static variables
 	 */
 	
-	public static final String	NORTH			=	"north";
-	public static final String	SOUTH			=	"south";
-	public static final String	EAST			=	"east";
-	public static final String	WEST			=	"west";
-	public static final String	UP				=	"up";
-	public static final String	DOWN			=	"down";
+//	public static final String	NORTH			=	"north";
+//	public static final String	SOUTH			=	"south";
+//	public static final String	EAST			=	"east";
+//	public static final String	WEST			=	"west";
+//	public static final String	UP				=	"up";
+//	public static final String	DOWN			=	"down";
 	
 	public static final String	TXT_LINE_HOR		=	"================================================================================";
 	
@@ -34,6 +34,8 @@ public class Room extends GenericObject implements ItemStore {
 	public static final String	ROOM_ENTER_ITEMS	=	"You see the following items on the ground here:";	
 	public static final String	ROOM_ENTER_ITEMS_NONE	=	"There are no items on the ground.";
 	public static final String	EX_INVALID_ROOM_CONN	=	"You can not go that way.";
+	
+	public static enum Direction {	NORTH, SOUTH, EAST, WEST, UP, DOWN;	}
 	
 	/*
 	 *			Variables
@@ -120,7 +122,7 @@ public class Room extends GenericObject implements ItemStore {
 		return false;
 	}
 	
-	public RoomConnector 	getRoomConnection(String direction)
+	public RoomConnector 	getRoomConnection(Direction direction)
 	{
 		switch(direction)
 		{
@@ -141,7 +143,7 @@ public class Room extends GenericObject implements ItemStore {
 		}
 	}
 	
-	public void 		setRoomConnection(RoomConnector destination, String direction)
+	public void 		setRoomConnection(RoomConnector destination, Direction direction)
 	{
 		switch(direction)
 		{
@@ -168,7 +170,7 @@ public class Room extends GenericObject implements ItemStore {
 		}		
 	}
 	
-	public Room 		travel(String destination) throws InvalidRoomConnectionException
+	public Room 		travel(Direction destination) throws InvalidRoomConnectionException
 	{	if(this.getRoomConnection(destination) != null)
 			return this.getRoomConnection(destination).getTarget();
 		else
@@ -261,26 +263,26 @@ public class Room extends GenericObject implements ItemStore {
 	 * 			Static Methods
 	 */
 	
-	public static boolean 		isValidDirection(String direction)
-	{
-		switch(direction)
-		{
-		case NORTH:
-		case SOUTH:
-		case EAST:
-		case WEST:
-		case UP:
-		case DOWN:
-			return true;
-		default:
-			return false;
-		}
-	}
+//	public static boolean 		isValidDirection(Direction direction)
+//	{
+//		switch(direction)
+//		{
+//		case NORTH:
+//		case SOUTH:
+//		case EAST:
+//		case WEST:
+//		case UP:
+//		case DOWN:
+//			return true;
+//		default:
+//			return false;
+//		}
+//	}
 	
-	public static void 	connect(Room origin, String prefix, String name, String identifier, Room target, String direction)
+	public static void 	connect(Room origin, String name, String identifier, Room target, Direction direction)
 	{
 		origin.setRoomConnection(new RoomConnector(name, identifier, target), direction);
-		origin.getRoomConnection(direction).setPrefix(prefix);
+//		origin.getRoomConnection(direction).setPrefix(prefix);
 	}
 	
 	public void enterRoom()

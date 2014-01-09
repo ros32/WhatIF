@@ -100,6 +100,9 @@ public class Game implements Serializable {
 	
 	public String findObjectID(String name)
 	{
+		//	Accept objectID
+		if(findObject(name) != null)
+			return findObject(name).toString();
 		for(Room place : this.getWorld().getRoomList())
 		{
 			if(place.getName().equalsIgnoreCase(name))

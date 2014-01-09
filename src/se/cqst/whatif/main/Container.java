@@ -77,14 +77,18 @@ public class Container extends GenericObject implements ItemStore {
 		return null;
 	}
 	
-	public void 		putItem(Item thing)
+	public void putItem(Item thing)
 	{
-		itemList.add(thing);
+		this.getItemList().add(thing);
 	}
 	
-	public void			removeItem(String identifier)
+	public void removeItem(String identifier)
 	{
-		
+		for(Item thing : this.getItemList())
+		{
+			if(thing.toString().equals(identifier))
+				this.getItemList().remove(thing);
+		}
 	}
 	
 	public List<Item> 	getItemList()			{	return this.itemList;		}

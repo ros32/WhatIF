@@ -137,6 +137,11 @@ public class Game implements Serializable {
 		{
 			if(actor.getName().equalsIgnoreCase(name))
 					return actor.toString();
+			for(GenericObject thing : actor.getItemList())
+			{
+				if(thing.getName().equalsIgnoreCase(name))
+					return thing.toString();
+			}
 		}
 		return null;
 	}

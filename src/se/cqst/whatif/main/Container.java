@@ -9,6 +9,10 @@ public class Container extends GenericObject implements ItemStore {
 	 * 			Static Variables
 	 */
 	
+	public static final String	TXT_LINE_HOR		=	"================================================================================";
+	public static final String	ROOM_ENTER_ITEMS	=	"You see the following items on the ground here:";	
+	public static final String	ROOM_ENTER_ITEMS_NONE	=	"There are no items on the ground.";
+	
 //	private static int 	counter;
 	
 	/*
@@ -61,6 +65,33 @@ public class Container extends GenericObject implements ItemStore {
 	public void			use(GenericObject object)
 	{
 		CmdLib.writeLog("DEBUG", "A Container cannot be used");
+	}
+	
+	public void		look()
+	{
+		this.printDescription();
+		System.out.println(ROOM_ENTER_ITEMS);
+		System.out.println(this.printItem());
+		System.out.println();
+		System.out.println(TXT_LINE_HOR);
+	}
+	
+	public String		printItem()
+	{
+		String zoneString = "";
+		for(Item thing : this.itemList)
+		{
+			zoneString += thing.getName() + ", ";
+		}
+		if(!zoneString.equals(""))
+		{
+			zoneString = zoneString.substring(0,zoneString.length()-2);
+		}
+		else
+		{
+			zoneString = ROOM_ENTER_ITEMS_NONE;
+		}
+		return zoneString;
 	}
 		
 	/*

@@ -90,7 +90,8 @@ public abstract class GenericObject {
 		System.out.println("You examine the " + this.name + ":");
 		System.out.println(TXT_LINE_HOR);
 		System.out.println(this.description);
-		System.out.println(TXT_LINE_HOR);
+		System.out.println();
+//		System.out.println(TXT_LINE_HOR);
 	}
 	
 	public abstract void	use();

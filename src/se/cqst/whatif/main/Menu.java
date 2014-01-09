@@ -14,9 +14,12 @@ public class Menu {
 	
 	public static final String	SW_GO				=	"go";
 	public static final String	SW_TAKE				=	"take";
+	public static final String	SW_GET				=	"get";
+	public static final String	SW_GRAB				=	"grab";
 	public static final String	SW_LOOK				=	"look";
 	public static final String	SW_USE				=	"use";
 	public static final String	SW_PUT				=	"put";
+	public static final String	SW_SET				=	"set";
 	public static final String	SW_DROP				=	"drop";
 	
 	public static final String	GO_VALID_CMDS		=	"";
@@ -95,13 +98,14 @@ public class Menu {
 			doLook(game, cmdList);
 			break;
 		case SW_TAKE:
+		case SW_GET:
+		case SW_GRAB:
 			doTake(game, cmdList);
 			break;
 		case SW_PUT:
-			doPut(game, cmdList);
-			break;
 		case SW_DROP:
-			doDrop(game, cmdList);
+		case SW_SET:
+			doPut(game, cmdList);
 			break;
 		case SW_HELP_1:
 		case SW_HELP_2:
@@ -360,11 +364,6 @@ public class Menu {
 		{
 			System.out.println("Take what?");
 		}
-	}
-	
-	public void doDrop(Game game, List<String> cmdList)
-	{
-		
 	}
 	
 	public String getObjectFromInput (ObjectType type, List<String> cmdList)

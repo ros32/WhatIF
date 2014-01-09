@@ -24,6 +24,7 @@ public class Menu {
 	public static final String	GO_EMPTY_DIRECTION	=	"Go where? (" + GO_VALID_DIRECTIONS + ")";
 	
 	public static enum LoadOption {NO_SELECTION, NEW_GAME, LOAD_GAME;}
+	public static enum ObjectType	{	ITEM, ITEM_STORE;	}
 	
 	private boolean displayStart = true;
 	private Configuration dictConfig;
@@ -170,18 +171,13 @@ public class Menu {
 			case "down":
 				try
 				{
-					//	valueOf needs uppercase letters
-					game.setCurrentRoom(game.getCurrentRoom().travel(Room.Direction.valueOf(cmdList.get(1).toUpperCase())));
-					Room.enterRoom(game.getCurrentRoom());
+					Room tempRoom = game.getCurrentRoom().travel(Room.Direction.valueOf(cmdList.get(1).toUpperCase()));
+					game.setCurrentRoom(tempRoom);
+					Room.enterRoom(tempRoom);
 				}
 				catch(InvalidRoomConnectionException ex)
 				{
 					System.out.println(CmdLib.getRandElement(getInvalidRoomConnArray()));
-				}
-				catch(IllegalArgumentException ex)
-				{
-					//	Should not get here
-					CmdLib.writeLog("WARNING", "Invalid direction \"" + cmdList.get(1).toUpperCase() + "\"!");
 				}
 				break;
 			case SW_HELP_1:
@@ -232,71 +228,65 @@ public class Menu {
 		{
 			Room.enterRoom(game.getCurrentRoom());
 		}
-		
-		
 	}
 	
 	public void doTake(Game game, List<String> cmdList)
 	{
 		if(cmdList.size() != 1)
 		{
-			int objectNameElements = 0;
-			int itemStoreNameElements = 0;
-			boolean foundFrom = false;
-			String objectName = null;
-			String itemStoreName = null;
-			cmdList.remove(0);
-			for(String word : cmdList)
-			{	
-				//	After "from" is the name of the target item store
-				if(foundFrom)
-				{
-					if(itemStoreNameElements == 0)
-						itemStoreName = word;
-					else
-						itemStoreName += " " + word;
-					
-					itemStoreNameElements++;
-				}
-				
-				//	If "from" is found, set foundFrom to true
-				if(word.equalsIgnoreCase("from"))
-					foundFrom = true;
-				
-				//	If "from" was not found we are still on the object name
-				if(!foundFrom)
-				{
-					if(objectNameElements == 0)
-						objectName = word;
-					else
-						objectName += " " + word;
-						
-					objectNameElements++;
-				}
-			}
+			String objectName = getObjectFromInput(ObjectType.ITEM, cmdList);
+			String itemStoreName = getObjectFromInput(ObjectType.ITEM_STORE, cmdList);
+			if(itemStoreName == null)
+				itemStoreName = "unknown";
+			if(objectName == null)
+				objectName = "unknown";
 			//	If object is floor or room, set objectName to RoomID
-			if(objectName.toLowerCase().equals("floor") || objectName.toLowerCase().equals("room"))
-				objectName = game.getCurrentRoom().toString();
+			if(itemStoreName.toLowerCase().equals("floor") || itemStoreName.toLowerCase().equals("room"))
+				itemStoreName = game.getCurrentRoom().toString();
 			CmdLib.writeLog("DEBUG", "Take \"" + objectName + "\" from \"" + itemStoreName + "\"");
 			
-			//Find itemStore with objectName, get ID and find out if it is in currentRoom
-			if((game.getCurrentRoom().inRoom(game.findItemStore(game.findObjectID(itemStoreName)).toString())))
+			ItemStore testItemStore = null;
+			Item testItem = null;
+			boolean validItem = false;
+			boolean validItemStore = false;
+			
+			if(game.findItemStore(game.findObjectID(itemStoreName)) != null)
 			{
-				//	If object is in itemStore
-				if(game.findItemStore(game.findObjectID(itemStoreName)).getItem(game.findObjectID(objectName)) != null)
+				testItemStore = game.findItemStore(game.findObjectID(itemStoreName));
+				validItemStore = true;
+			}
+			else
+			{
+				validItemStore = false;
+				CmdLib.writeLog("DEBUG", "Container \"" + itemStoreName + "\" does not exist!");
+			}
+			if(game.findItem(game.findObjectID(objectName)) != null)
+			{
+				testItem = game.findItem(game.findObjectID(objectName));
+				validItem = true;
+				
+			}
+			else
+			{
+				validItem = false;
+				CmdLib.writeLog("DEBUG", "Object \"" + objectName + "\" does not exist!");
+			}
+			
+			if(validItemStore && validItem)
+			{
+				if(game.getCurrentRoom().inRoom(testItemStore.toString()) || game.getCurrentRoom().toString().equals(testItemStore.toString()))
 				{
-					game.findItem(game.findObjectID(objectName)).get(game.getCurrentActor());
+					testItem.get(game.getCurrentActor());
+				}
+				else
+				{
+					CmdLib.writeLog("DEBUG", "Object or target not found in current room");
 				}
 			}
 			else
 			{
-				CmdLib.writeLog("INFO", "Object or target not found in current room");
+				CmdLib.writeLog("DEBUG", "Object or target does not exist!");
 			}
-				
-			
-					
-				
-			
 		}
 		else
 		{
@@ -307,13 +297,127 @@ public class Menu {
 	
 	public void doPut(Game game, List<String> cmdList)
 	{
-		
+		if(cmdList.size() != 1)
+		{
+			String objectName = getObjectFromInput(ObjectType.ITEM, cmdList);
+			String itemStoreName = getObjectFromInput(ObjectType.ITEM_STORE, cmdList);
+			if(itemStoreName == null)
+				itemStoreName = "unknown";
+			if(objectName == null)
+				objectName = "unknown";
+			//	If object is floor or room, set objectName to RoomID
+			if(itemStoreName.toLowerCase().equals("floor") || itemStoreName.toLowerCase().equals("room"))
+				itemStoreName = game.getCurrentRoom().toString();
+			CmdLib.writeLog("DEBUG", "Put \"" + objectName + "\" in \"" + itemStoreName + "\"");
+			
+			ItemStore testItemStore = null;
+			Item testItem = null;
+			boolean validItem = false;
+			boolean validItemStore = false;
+			
+			if(game.findItemStore(game.findObjectID(itemStoreName)) != null)
+			{
+				testItemStore = game.findItemStore(game.findObjectID(itemStoreName));
+				validItemStore = true;
+			}
+			else
+			{
+				validItemStore = false;
+				CmdLib.writeLog("DEBUG", "Container \"" + itemStoreName + "\" does not exist!");
+			}
+			if(game.findItem(game.findObjectID(objectName)) != null)
+			{
+				testItem = game.findItem(game.findObjectID(objectName));
+				validItem = true;
+				
+			}
+			else
+			{
+				validItem = false;
+				CmdLib.writeLog("DEBUG", "Object \"" + objectName + "\" does not exist!");
+			}
+			
+			if(validItemStore && validItem)
+			{
+				if(game.getCurrentRoom().inRoom(testItemStore.toString()) || game.getCurrentRoom().toString().equals(testItemStore.toString()))
+				{
+					testItem.put(game.getCurrentActor());
+				}
+				else
+				{
+					CmdLib.writeLog("DEBUG", "Object or target not found in current room");
+				}
+			}
+			else
+			{
+				CmdLib.writeLog("DEBUG", "Object or target does not exist!");
+			}
+
+		}
+		else
+		{
+			System.out.println("Take what?");
+		}
 	}
 	
 	public void doDrop(Game game, List<String> cmdList)
 	{
 		
 	}
+	
+	public String getObjectFromInput (ObjectType type, List<String> cmdList)
+	{
+		String[] separatorWords = {"from", "to", "on", "at"	};
+		
+		int objectNameElements = 0;
+		int itemStoreNameElements = 0;
+		boolean foundSeparator = false;
+		String firstName = null;
+		String secondName = null;
+		cmdList.remove(0);
+		for(String word : cmdList)
+		{	
+			//	After "from" is the name of the target item store
+			if(foundSeparator)
+			{
+				if(itemStoreNameElements == 0)
+					secondName = word;
+				else
+					secondName += " " + word;
+				
+				itemStoreNameElements++;
+			}
+			
+			//	If "from" is found, set foundFrom to true
+			if(!foundSeparator)
+			{
+				for(String delimiter : separatorWords)
+				{
+					if(word.equalsIgnoreCase(delimiter))
+						foundSeparator = true;
+				}
+			}
+
+			//	If "from" was not found we are still on the object name
+			if(!foundSeparator)
+			{
+				if(objectNameElements == 0)
+					firstName = word;
+				else
+					firstName += " " + word;
+					
+				objectNameElements++;
+			}
+		}
+		
+		if(type == ObjectType.ITEM)
+			return firstName;
+		if(type == ObjectType.ITEM_STORE)
+			return secondName;
+		else
+			return null;
+	}
+
 
 	public boolean displayStart() {
 		return displayStart;

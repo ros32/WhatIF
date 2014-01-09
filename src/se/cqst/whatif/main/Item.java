@@ -54,9 +54,9 @@ public abstract class Item extends GenericObject {
 		//		Items are usable and should have a use() method
 	}
 
-	public abstract void	get(ItemStore target);
+	public abstract void	get(ItemStore source, ItemStore target);
 	
-	public abstract void	put(ItemStore source);
+	public abstract void	put(ItemStore source, ItemStore target);
 	
 	/*
 	 * 						Static Methods

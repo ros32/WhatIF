@@ -58,12 +58,13 @@ public class MovableItem extends Item {
 		
 	}
 	
-	public void		get(ItemStore target)
+	public void		get(ItemStore source, ItemStore target)
 	{
 		//	TODO: Write get() for MovableItem
+		
 	}
 	
-	public void		put(ItemStore source)
+	public void		put(ItemStore source, ItemStore target)
 	{
 		//	TODO: Write put(ItemStore) for MovableItem
 	}

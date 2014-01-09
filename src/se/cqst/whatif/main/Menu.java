@@ -245,14 +245,14 @@ public class Menu {
 				itemStoreName = game.getCurrentRoom().toString();
 			CmdLib.writeLog("DEBUG", "Take \"" + objectName + "\" from \"" + itemStoreName + "\"");
 			
-			ItemStore testItemStore = null;
-			Item testItem = null;
+			ItemStore tempItemStore = null;
+			Item temptItem = null;
 			boolean validItem = false;
 			boolean validItemStore = false;
 			
 			if(game.findItemStore(game.findObjectID(itemStoreName)) != null)
 			{
-				testItemStore = game.findItemStore(game.findObjectID(itemStoreName));
+				tempItemStore = game.findItemStore(game.findObjectID(itemStoreName));
 				validItemStore = true;
 			}
 			else
@@ -262,7 +262,7 @@ public class Menu {
 			}
 			if(game.findItem(game.findObjectID(objectName)) != null)
 			{
-				testItem = game.findItem(game.findObjectID(objectName));
+				temptItem = game.findItem(game.findObjectID(objectName));
 				validItem = true;
 				
 			}
@@ -274,9 +274,9 @@ public class Menu {
 			
 			if(validItemStore && validItem)
 			{
-				if(game.getCurrentRoom().inRoom(testItemStore.toString()) || game.getCurrentRoom().toString().equals(testItemStore.toString()))
+				if(game.getCurrentRoom().inRoom(tempItemStore.toString()) || game.getCurrentRoom().toString().equals(tempItemStore.toString()))
 				{
-					testItem.get(game.getCurrentActor());
+					temptItem.get(tempItemStore, game.getCurrentActor());
 				}
 				else
 				{
@@ -310,14 +310,14 @@ public class Menu {
 				itemStoreName = game.getCurrentRoom().toString();
 			CmdLib.writeLog("DEBUG", "Put \"" + objectName + "\" in \"" + itemStoreName + "\"");
 			
-			ItemStore testItemStore = null;
-			Item testItem = null;
+			ItemStore tempItemStore = null;
+			Item tempItem = null;
 			boolean validItem = false;
 			boolean validItemStore = false;
 			
 			if(game.findItemStore(game.findObjectID(itemStoreName)) != null)
 			{
-				testItemStore = game.findItemStore(game.findObjectID(itemStoreName));
+				tempItemStore = game.findItemStore(game.findObjectID(itemStoreName));
 				validItemStore = true;
 			}
 			else
@@ -327,7 +327,7 @@ public class Menu {
 			}
 			if(game.findItem(game.findObjectID(objectName)) != null)
 			{
-				testItem = game.findItem(game.findObjectID(objectName));
+				tempItem = game.findItem(game.findObjectID(objectName));
 				validItem = true;
 				
 			}
@@ -339,9 +339,9 @@ public class Menu {
 			
 			if(validItemStore && validItem)
 			{
-				if(game.getCurrentRoom().inRoom(testItemStore.toString()) || game.getCurrentRoom().toString().equals(testItemStore.toString()))
+				if(game.getCurrentRoom().inRoom(tempItemStore.toString()) || game.getCurrentRoom().toString().equals(tempItemStore.toString()))
 				{
-					testItem.put(game.getCurrentActor());
+					tempItem.put(game.getCurrentActor(), tempItemStore);
 				}
 				else
 				{

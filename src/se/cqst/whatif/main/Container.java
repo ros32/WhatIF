@@ -84,11 +84,14 @@ public class Container extends GenericObject implements ItemStore {
 	
 	public void removeItem(String identifier)
 	{
+		Item tempItem = null;
 		for(Item thing : this.getItemList())
 		{
 			if(thing.toString().equals(identifier))
-				this.getItemList().remove(thing);
+				tempItem=thing;
 		}
+		if(tempItem != null)
+			this.getItemList().remove(tempItem);
 	}
 	
 	public List<Item> 	getItemList()			{	return this.itemList;		}

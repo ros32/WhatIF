@@ -58,6 +58,11 @@ public class Game implements Serializable {
 				}
 			}
 		}
+		for(Actor actor : this.getWorld().getActorList())
+		{
+			if(actor.getItem(identifier) != null)
+				return actor.getItem(identifier);
+		}
 		return null;
 	}
 	
@@ -85,6 +90,11 @@ public class Game implements Serializable {
 				if(store.toString().equalsIgnoreCase(identifier))
 					return store;
 			}
+		}
+		for(Actor actor : this.getWorld().getActorList())
+		{
+			if(actor.toString().equalsIgnoreCase(identifier))
+				return actor;
 		}
 		return null;
 	}
@@ -123,6 +133,11 @@ public class Game implements Serializable {
 				}
 			}
 		}
+		for(Actor actor : this.getWorld().getActorList())
+		{
+			if(actor.getName().equalsIgnoreCase(name))
+					return actor.toString();
+		}
 		return null;
 	}
 	
@@ -152,6 +167,16 @@ public class Game implements Serializable {
 						}
 					}
 				}
+			}
+		}
+		for(Actor actor : this.getWorld().getActorList())
+		{
+			if(actor.toString().equalsIgnoreCase(identifier))
+				return actor;
+			for(GenericObject thing : actor.getItemList())
+			{
+				if(thing.toString().equalsIgnoreCase(identifier))
+					return thing;
 			}
 		}
 		return null;

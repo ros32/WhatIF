@@ -52,13 +52,7 @@ public class StaticItem extends Item {
 		
 	}
 	
-	public void		get(ItemStore source, ItemStore target)
-	{
-		//	StaticItem cannot be moved
-		CmdLib.writeLog("DEBUG", "StaticItem \"" + this.toString() + "\" cannot be moved");
-	}
-	
-	public void		put(ItemStore source, ItemStore target)
+	public void		move(ItemStore source, ItemStore target)
 	{
 		//	StaticItem cannot be moved
 		CmdLib.writeLog("DEBUG", "StaticItem \"" + this.toString() + "\" cannot be moved");

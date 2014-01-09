@@ -276,7 +276,7 @@ public class Menu {
 			{
 				if(game.getCurrentRoom().inRoom(tempItemStore.toString()) || game.getCurrentRoom().toString().equals(tempItemStore.toString()))
 				{
-					temptItem.get(tempItemStore, game.getCurrentActor());
+					temptItem.move(tempItemStore, game.getCurrentActor());
 				}
 				else
 				{
@@ -341,7 +341,7 @@ public class Menu {
 			{
 				if(game.getCurrentRoom().inRoom(tempItemStore.toString()) || game.getCurrentRoom().toString().equals(tempItemStore.toString()))
 				{
-					tempItem.put(game.getCurrentActor(), tempItemStore);
+					tempItem.move(game.getCurrentActor(), tempItemStore);
 				}
 				else
 				{

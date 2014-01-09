@@ -58,15 +58,12 @@ public class MovableItem extends Item {
 		
 	}
 	
-	public void		get(ItemStore source, ItemStore target)
+	public void		move(ItemStore source, ItemStore target)
 	{
 		//	TODO: Write get() for MovableItem
-		
-	}
-	
-	public void		put(ItemStore source, ItemStore target)
-	{
-		//	TODO: Write put(ItemStore) for MovableItem
+		target.putItem(this);
+		source.removeItem(this.toString());
+		CmdLib.writeLog("DEBUG", this.toString() + " has been moved from " + source.toString() + " to " + target.toString() + ".");
 	}
 	
 	/*

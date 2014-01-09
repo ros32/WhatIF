@@ -22,7 +22,7 @@ public class MainProject {
 		 *		2  = Show error, warning & info messages
 		 *		3  = Show error, warning, info & debug messages 
 		 */	
-		CmdLib.setDebug(1);
+		CmdLib.setDebug(3);
 		
 		Scanner sc = new Scanner(System.in);
 		boolean sysExit = false;

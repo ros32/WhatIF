@@ -20,7 +20,7 @@ public class Menu {
 	public static final String	SW_DROP				=	"drop";
 	
 	public static final String	GO_VALID_CMDS		=	"";
-	public static final String	GO_VALID_DIRECTIONS	=	Room.NORTH + ", " + Room.SOUTH + ", " + Room.EAST + ", " + Room.WEST + ", " + Room.UP + " and " + Room.DOWN + " are valid inputs";
+	public static final String	GO_VALID_DIRECTIONS	=	"north, south, east, west, up and down are valid inputs";
 	public static final String	GO_EMPTY_DIRECTION	=	"Go where? (" + GO_VALID_DIRECTIONS + ")";
 	
 	public static enum LoadOption {NO_SELECTION, NEW_GAME, LOAD_GAME;}
@@ -73,16 +73,6 @@ public class Menu {
 			};
 	}
 	
-//	public static String[] 		getGoInvalidDirArray()
-//	{	return new String[]
-//			{
-//			
-//				String.format("That was an unusual direction. Perhaps you should try a more well-known one instead?\n  (%s)", GO_VALID_DIRECTIONS),
-//				String.format("I choose to disobey you; mostly because I don't understand you.\n  (%s)", GO_VALID_DIRECTIONS),
-//				String.format("You have entered an unknown direction. Try a known direction instead.\n  (%s)", GO_VALID_DIRECTIONS)		
-//			};
-//	}
-	
 	public static String[] 		getInvalidRoomConnArray()
 	{	return new String[]
 			{
@@ -95,13 +85,13 @@ public class Menu {
 	//	TODO: Allow load/save function through drawMenu()
 	public boolean drawMenu(Game game, List<String> cmdList)
 	{
-		switch(cmdList.get(0))
+		switch(cmdList.get(0).toLowerCase())
 		{
 		case SW_GO:
-			drawGo(game, cmdList);
+			doGo(game, cmdList);
 			break;
 		case SW_LOOK:
-			drawLook(game, cmdList);
+			doLook(game, cmdList);
 			break;
 		case SW_TAKE:
 			break;
@@ -136,7 +126,7 @@ public class Menu {
 	{
 		if(cmdList.size() != 1)
 		{
-			switch(cmdList.get(1))
+			switch(cmdList.get(1).toLowerCase())
 			{
 			case SW_HELP_1:
 			case SW_HELP_2:
@@ -163,26 +153,32 @@ public class Menu {
 	//		This will allow methods to call drawHelp with
 	//		specific args
 	
-	public  void drawGo(Game game, List<String> cmdList)
+	public  void doGo(Game game, List<String> cmdList)
 	{
 		if(cmdList.size() != 1)
 		{
-			switch(cmdList.get(1))
+			switch(cmdList.get(1).toLowerCase())
 			{
-			case Room.NORTH:
-			case Room.SOUTH:
-			case Room.EAST:
-			case Room.WEST:
-			case Room.UP:
-			case Room.DOWN:
+			case "north":
+			case "south":
+			case "east":
+			case "west":
+			case "up":
+			case "down":
 				try
 				{
-					game.setCurrentRoom(game.getCurrentRoom().travel(cmdList.get(1)));
+					//	valueOf needs uppercase letters
+					game.setCurrentRoom(game.getCurrentRoom().travel(Room.Direction.valueOf(cmdList.get(1).toUpperCase())));
 					Room.enterRoom(game.getCurrentRoom());
 				}
 				catch(InvalidRoomConnectionException ex)
 				{
 					System.out.println(CmdLib.getRandElement(getInvalidRoomConnArray()));
+				}
+				catch(IllegalArgumentException ex)
+				{
+					//	Should not get here
+					CmdLib.writeLog("WARNING", "Invalid direction \"" + cmdList.get(1).toUpperCase() + "\"!");
 				}
 				break;
 			case SW_HELP_1:
@@ -199,7 +195,7 @@ public class Menu {
 		}
 	}
 	
-	public void drawLook(Game game, List<String> cmdList)
+	public void doLook(Game game, List<String> cmdList)
 	{
 		if(cmdList.size() != 1)
 		{

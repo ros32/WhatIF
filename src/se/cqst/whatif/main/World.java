@@ -302,8 +302,8 @@ public class World extends GenericObject implements Serializable {
 			String connectorID = (String) e.nextElement();
 			connectorID = connectorID.replace("_NAME","");
 			String connectorName 	= connectionConfig.getProperty(connectorID + "_NAME");
-			String connectorDesc 	= connectionConfig.getProperty(connectorID + "_DESC");
-			String connectorPrefix 	= connectionConfig.getProperty(connectorID + "_PREFIX");
+//			String connectorDesc 	= connectionConfig.getProperty(connectorID + "_DESC");
+//			String connectorPrefix 	= connectionConfig.getProperty(connectorID + "_PREFIX");
 			String connectorDir 	= connectionConfig.getProperty(connectorID + "_DIRECTION");
 			String connectorOrigin 	= connectionConfig.getProperty(connectorID + "_ORIGIN");
 			String connectorTarget 	= connectionConfig.getProperty(connectorID + "_TARGET");
@@ -317,13 +317,18 @@ public class World extends GenericObject implements Serializable {
 				System.out.println("Invalid Target \"" + connectorTarget + "\" for connector: " + connectorID);
 				continue;
 			}
-			if(connectorName != null && connectorDesc != null && connectorPrefix != null && connectorDir != null && connectorOrigin != null && connectorTarget != null)
+			if(connectorDir != null)
 			{
-				if(Room.isValidDirection(connectorDir.toLowerCase()))
+				try
 				{
-					Room.connect(findRoom(roomList,connectorOrigin), connectorPrefix, connectorName, connectorID, findRoom(roomList,connectorTarget), connectorDir.toLowerCase());
-					findRoom(roomList,connectorOrigin).getRoomConnection(connectorDir.toLowerCase()).setDescription(connectorDesc);
+					Room.Direction dir = Room.Direction.valueOf(connectorDir.toUpperCase());
+					Room.connect(findRoom(roomList,connectorOrigin), connectorName, connectorID, findRoom(roomList,connectorTarget), dir);
+//					findRoom(roomList,connectorOrigin).getRoomConnection(dir).setDescription(connectorDesc);
 					counter++;	
+				}
+				catch(NullPointerException ex)
+				{
+					CmdLib.writeLog("WARNING", "Invalid direction for RoomConnector: " + connectorID);
 				}
 			}
 			else

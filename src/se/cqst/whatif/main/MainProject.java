@@ -56,7 +56,9 @@ public class MainProject {
 				game = new Game();
 				game.setWorld(new World("World", "WORLD001", configList));
 				game.setCurrentActor(game.findActor(getConfig("actorConfig", configList).getProperty("ACTOR_START")));
+				CmdLib.writeLog("DEBUG", "Starting Actor set to " + game.getCurrentActor().toString());
 				game.setCurrentRoom(game.getCurrentActor().getCurrentLocation());
+				CmdLib.writeLog("DEBUG", "Starting Room set to " + game.getCurrentRoom().toString());
 				break;
 			case LOAD_GAME:
 				CmdLib.writeLog("INFO", "Loading saved game...");
@@ -70,6 +72,7 @@ public class MainProject {
 			}
 			
 			//	Enter room
+			CmdLib.writeLog("DEBUG", "Starting game...");
 			game.getCurrentRoom().enterRoom();
 			
 			//	Draw menu and loop until exit
@@ -78,6 +81,7 @@ public class MainProject {
 				if(mainMenu.drawMenu(game, Menu.getParam(CmdLib.readString(sc,TXT_PROMPT))))
 					sysExit = true;
 			}
+			CmdLib.writeLog("DEBUG", "Exiting game...");
 		}
 		sc.close();
 

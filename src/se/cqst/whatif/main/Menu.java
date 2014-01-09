@@ -236,8 +236,9 @@ public class Menu {
 		{
 			String objectName = getObjectFromInput(ObjectType.ITEM, cmdList);
 			String itemStoreName = getObjectFromInput(ObjectType.ITEM_STORE, cmdList);
+			//	Default to room of no item store is set
 			if(itemStoreName == null)
-				itemStoreName = "unknown";
+				itemStoreName = game.getCurrentRoom().toString();
 			if(objectName == null)
 				objectName = "unknown";
 			//	If object is floor or room, set objectName to RoomID
@@ -301,8 +302,9 @@ public class Menu {
 		{
 			String objectName = getObjectFromInput(ObjectType.ITEM, cmdList);
 			String itemStoreName = getObjectFromInput(ObjectType.ITEM_STORE, cmdList);
+			//	Default to room of no item store is set
 			if(itemStoreName == null)
-				itemStoreName = "unknown";
+				itemStoreName = game.getCurrentRoom().toString();
 			if(objectName == null)
 				objectName = "unknown";
 			//	If object is floor or room, set objectName to RoomID
@@ -367,7 +369,7 @@ public class Menu {
 	
 	public String getObjectFromInput (ObjectType type, List<String> cmdList)
 	{
-		String[] separatorWords = {"from", "to", "on", "at"	};
+		String[] separatorWords = {"from", "to", "on", "at", "in"	};
 		
 		int objectNameElements = 0;
 		int itemStoreNameElements = 0;

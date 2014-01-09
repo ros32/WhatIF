@@ -216,8 +216,8 @@ public class Menu {
 						targetObject = targetObject + " " + word;
 					i++;
 				}
-				//	If target object is a valid object AND is in the current room, look() at the object
-				if(game.isValidObject(game.findObjectID(targetObject)) && game.getCurrentRoom().inRoom(game.findObjectID(targetObject)))
+				//	If target object is a valid object AND is in the current room OR on the current actor, look() at the object
+				if(game.isValidObject(game.findObjectID(targetObject)) && (game.getCurrentRoom().inRoom(game.findObjectID(targetObject)) || game.getCurrentActor().getItem(game.findObjectID(targetObject)) != null))
 					game.findObject(game.findObjectID(targetObject)).look();
 				else
 					//	TODO: Change to TextLib

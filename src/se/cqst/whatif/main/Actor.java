@@ -48,6 +48,11 @@ public class Actor extends GenericObject implements ItemStore {
 		
 	}
 	
+	public void removeItem(String identifier)
+	{
+		
+	}
+	
 	public List<Item> getItemList()
 	{
 		return this.itemStore;

@@ -196,6 +196,11 @@ public class Room extends GenericObject implements ItemStore {
 		itemList.add(thing);
 	}
 	
+	public void			removeItem(String identifier)
+	{
+		
+	}
+	
 	public List<Item> 	getItemList()			{	return this.itemList;		}
 	
 	public String		printItem()

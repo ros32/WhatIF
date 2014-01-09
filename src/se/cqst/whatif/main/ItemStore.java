@@ -26,6 +26,8 @@ public interface ItemStore {
 	 */
 	public abstract void putItem(Item thing);
 	
+	public abstract void removeItem(String identifier);
+	
 	
 	/**
 	 * Returns the {@code List<}{@link Item}{@code >} object from the {@code ItemStore}

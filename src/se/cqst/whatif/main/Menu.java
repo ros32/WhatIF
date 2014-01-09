@@ -94,10 +94,13 @@ public class Menu {
 			doLook(game, cmdList);
 			break;
 		case SW_TAKE:
+			doTake(game, cmdList);
 			break;
 		case SW_PUT:
+			doPut(game, cmdList);
 			break;
 		case SW_DROP:
+			doDrop(game, cmdList);
 			break;
 		case SW_HELP_1:
 		case SW_HELP_2:
@@ -230,6 +233,85 @@ public class Menu {
 			Room.enterRoom(game.getCurrentRoom());
 		}
 		
+		
+	}
+	
+	public void doTake(Game game, List<String> cmdList)
+	{
+		if(cmdList.size() != 1)
+		{
+			int objectNameElements = 0;
+			int itemStoreNameElements = 0;
+			boolean foundFrom = false;
+			String objectName = null;
+			String itemStoreName = null;
+			cmdList.remove(0);
+			for(String word : cmdList)
+			{	
+				//	After "from" is the name of the target item store
+				if(foundFrom)
+				{
+					if(itemStoreNameElements == 0)
+						itemStoreName = word;
+					else
+						itemStoreName += " " + word;
+					
+					itemStoreNameElements++;
+				}
+				
+				//	If "from" is found, set foundFrom to true
+				if(word.equalsIgnoreCase("from"))
+					foundFrom = true;
+				
+				//	If "from" was not found we are still on the object name
+				if(!foundFrom)
+				{
+					if(objectNameElements == 0)
+						objectName = word;
+					else
+						objectName += " " + word;
+						
+					objectNameElements++;
+				}
+			}
+			//	If object is floor or room, set objectName to RoomID
+			if(objectName.toLowerCase().equals("floor") || objectName.toLowerCase().equals("room"))
+				objectName = game.getCurrentRoom().toString();
+			CmdLib.writeLog("DEBUG", "Take \"" + objectName + "\" from \"" + itemStoreName + "\"");
+			
+			//Find itemStore with objectName, get ID and find out if it is in currentRoom
+			if((game.getCurrentRoom().inRoom(game.findItemStore(game.findObjectID(itemStoreName)).toString())))
+			{
+				//	If object is in itemStore
+				if(game.findItemStore(game.findObjectID(itemStoreName)).getItem(game.findObjectID(objectName)) != null)
+				{
+					game.findItem(game.findObjectID(objectName)).get(game.getCurrentActor());
+				}
+			}
+			else
+			{
+				CmdLib.writeLog("INFO", "Object or target not found in current room");
+			}
+				
+			
+					
+				
+			
+		}
+		else
+		{
+			System.out.println("Take what?");
+		}
+		
+	}
+	
+	public void doPut(Game game, List<String> cmdList)
+	{
+		
+	}
+	
+	public void doDrop(Game game, List<String> cmdList)
+	{
 		
 	}
 

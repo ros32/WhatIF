@@ -22,7 +22,17 @@ public class MainProject {
 		 *		2  = Show error, warning & info messages
 		 *		3  = Show error, warning, info & debug messages 
 		 */	
-		CmdLib.setDebug(3);
+		if(args.length > 0)
+		{
+			try
+			{
+				CmdLib.setDebug(Integer.parseInt(args[0]));
+			}
+			catch(NumberFormatException ex)
+			{
+				CmdLib.setDebug(0);
+			}
+		}
 		
 		Scanner sc = new Scanner(System.in);
 		boolean sysExit = false;

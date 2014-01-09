@@ -44,7 +44,7 @@ public class Menu {
 	
 	public boolean drawStart(List<String> cmdList)
 	{
-		switch(cmdList.get(0))
+		switch(cmdList.get(0).toLowerCase())
 		{
 		case "new":
 			this.setLoadState(LoadOption.NEW_GAME);
@@ -101,7 +101,7 @@ public class Menu {
 			break;
 		case SW_HELP_1:
 		case SW_HELP_2:
-			drawHelp(cmdList);
+			doHelp(cmdList);
 			break;
 		case SW_EXIT_1:
 		case SW_EXIT_2:
@@ -122,7 +122,7 @@ public class Menu {
 		return list;
 	}
 		
-	public void drawHelp(List<String> cmdList)
+	public void doHelp(List<String> cmdList)
 	{
 		if(cmdList.size() != 1)
 		{

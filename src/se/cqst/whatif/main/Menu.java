@@ -331,7 +331,7 @@ public class Menu {
 				validItemStore = false;
 				CmdLib.writeLog("DEBUG", "Container \"" + itemStoreName + "\" does not exist!");
 			}
-			if(game.findItem(game.findObjectID(objectName)) != null)
+			if(game.getCurrentActor().getItem(game.findObjectID(objectName)) != null)
 			{
 				tempItem = game.findItem(game.findObjectID(objectName));
 				validItem = true;

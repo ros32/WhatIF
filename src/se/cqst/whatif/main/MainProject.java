@@ -13,6 +13,8 @@ public class MainProject {
 	
 	public static final String 	TXT_PROMPT		=	"Enter command: ";
 	
+	private static Game game = null;
+	
 	public static void main(String[] args) {
 		/*
 		 * 	Set debug status:
@@ -42,7 +44,7 @@ public class MainProject {
 		
 		//	Create new game and initialize
 //		World.getInstance();
-		Game game = null;
+
 		
 		List<Configuration> configList = getConfigList();
 		

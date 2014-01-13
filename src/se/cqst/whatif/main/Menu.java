@@ -7,11 +7,6 @@ import java.util.regex.Pattern;
 
 public class Menu {
 	
-//	public static final String 	SW_EXIT_1			=	"exit";
-//	public static final String 	SW_EXIT_2			=	"quit";
-//	public static final String 	SW_HELP_1			=	"help";
-//	public static final String 	SW_HELP_2			=	"?";
-	
 	public static final String	GO_VALID_CMDS		=	"";
 	public static final String	GO_VALID_DIRECTIONS	=	"north, south, east, west, up and down are valid inputs";
 	public static final String	GO_EMPTY_DIRECTION	=	"Go where? (" + GO_VALID_DIRECTIONS + ")";

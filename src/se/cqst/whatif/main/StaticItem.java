@@ -38,10 +38,6 @@ public class StaticItem extends Item {
 	 * 			Other Methods
 	 */
 	
-	/*
-	 * 			Interface Methods - Usable
-	 */
-	
 	public void		use()
 	{
 		
@@ -57,15 +53,6 @@ public class StaticItem extends Item {
 		//	StaticItem cannot be moved
 		CmdLib.writeLog("DEBUG", "StaticItem \"" + this.toString() + "\" cannot be moved");
 	}
-	
-	/*
-	 * 			Interface Methods - Lookable
-	 */
-	
-//	public void		look()
-//	{
-//		
-//	}
 	
 	/*
 	 * 			Static Methods

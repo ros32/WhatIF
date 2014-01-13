@@ -42,10 +42,6 @@ public class MainProject {
 		//	Print version information
 		System.out.println(SYS_STRING);
 		
-		//	Create new game and initialize
-//		World.getInstance();
-
-		
 		List<Configuration> configList = getConfigList();
 		
 		//	Create Menu

@@ -14,12 +14,6 @@ public class MovableItem extends Item {
 	 * 			Constructors
 	 */
 	
-//	public			StaticItem(String name)				
-//	{
-//		super(name);
-//		super.setMovable(false);
-//	}
-	
 	public			MovableItem(String name, String identifier)	
 	{
 		super(name,identifier);		
@@ -44,10 +38,6 @@ public class MovableItem extends Item {
 	 * 			Other Methods
 	 */
 	
-	/*
-	 * 			Interface Methods - Usable
-	 */
-	
 	public void		use()
 	{
 		
@@ -65,15 +55,6 @@ public class MovableItem extends Item {
 		source.removeItem(this.toString());
 		CmdLib.writeLog("DEBUG", this.toString() + " has been moved from " + source.toString() + " to " + target.toString() + ".");
 	}
-	
-	/*
-	 * 			Interface Methods - Lookable
-	 */
-	
-//	public void		look()
-//	{
-//		
-//	}
 	
 	/*
 	 * 			Static Methods

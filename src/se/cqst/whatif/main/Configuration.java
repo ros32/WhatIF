@@ -7,7 +7,6 @@ import java.util.Properties;
 
 public class Configuration {
 	
-	private static final String 	ERR_PROPERTY_NOT_FOUND 		= 	"ERROR: Could not load property:";
 	public static enum Type {ACTOR_CONFIG, GAME_CONFIG, DICT_CONFIG, WORLD_CONFIG, ROOM_CONFIG, CONTAINER_CONFIG, ITEM_CONFIG, ROOMCONN_CONFIG, MISC_CONFIG;	}
 
 	private String name;
@@ -68,7 +67,7 @@ public class Configuration {
 	 * @return The value from the fetched key, or a message stating the value could not be found.
 	 */
 	public String getProperty(String key)
-	{	return this.getConfig().getProperty(key, ERR_PROPERTY_NOT_FOUND + " " + key);}
+	{	return this.getConfig().getProperty(key, "ERROR: Could not load property:" + " " + key);}
 	
 	/**
 	 * Load a Java {@link Properties} file from an {@link InputStream}.

@@ -4,36 +4,11 @@ package se.cqst.whatif.main;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * <p>The Room class is an extension of {@link GenericObject}, and represents a Room in the game.</p>
- * 
- * <p>Each Room has six {@link RoomConnector} objects associated with it through the {@code roomConnection[]} array,
- * which connects Rooms with eachother.</p>
- * 
- * <p>Room also implements the {@link ItemStore} interface, allowing it to have an {@link Item} inventory-system like the {@link Container}- and {@link World}-class.</p>
- * 
- * @see {@link GenericObject} (parent), {@link ItemStore} (interface)
- */
 public class Room extends GenericObject implements ItemStore {
 	
 	/*
 	 * 			Static variables
 	 */
-	
-//	public static final String	NORTH			=	"north";
-//	public static final String	SOUTH			=	"south";
-//	public static final String	EAST			=	"east";
-//	public static final String	WEST			=	"west";
-//	public static final String	UP				=	"up";
-//	public static final String	DOWN			=	"down";
-	
-	public static final String	TXT_LINE_HOR		=	"================================================================================";
-	
-	public static final String	ROOM_ENTER_ZONES	=	"The following containers exist here:";
-	public static final String	ROOM_ENTER_ZONES_NONE	=	"There are no containers in this room.";
-	public static final String	ROOM_ENTER_ITEMS	=	"You see the following items on the ground here:";	
-	public static final String	ROOM_ENTER_ITEMS_NONE	=	"There are no items on the ground.";
-	public static final String	EX_INVALID_ROOM_CONN	=	"You can not go that way.";
 	
 	public static enum Direction {	NORTH, SOUTH, EAST, WEST, UP, DOWN;	}
 	
@@ -50,8 +25,6 @@ public class Room extends GenericObject implements ItemStore {
 	/*
 	 * 			Constructors
 	 */
-	
-//	public			Room(String name)		{	this(name, name + counter++); counter--;	}
 	
 	public			Room(String name, String identifier, String description, String environment)
 	{
@@ -174,7 +147,7 @@ public class Room extends GenericObject implements ItemStore {
 	{	if(this.getRoomConnection(destination) != null)
 			return this.getRoomConnection(destination).getTarget();
 		else
-			throw new InvalidRoomConnectionException(EX_INVALID_ROOM_CONN);
+			throw new InvalidRoomConnectionException("You can not go that way.");
 	}
 	
 	/*
@@ -223,7 +196,7 @@ public class Room extends GenericObject implements ItemStore {
 		}
 		else
 		{
-			zoneString = ROOM_ENTER_ITEMS_NONE;
+			zoneString = "There are no items on the ground.";
 		}
 		return zoneString;
 	}
@@ -257,7 +230,7 @@ public class Room extends GenericObject implements ItemStore {
 		}
 		else
 		{
-			zoneString = ROOM_ENTER_ZONES_NONE;
+			zoneString = "There are no containers in this room.";
 		}
 		return zoneString;
 	}
@@ -275,26 +248,9 @@ public class Room extends GenericObject implements ItemStore {
 	 * 			Static Methods
 	 */
 	
-//	public static boolean 		isValidDirection(Direction direction)
-//	{
-//		switch(direction)
-//		{
-//		case NORTH:
-//		case SOUTH:
-//		case EAST:
-//		case WEST:
-//		case UP:
-//		case DOWN:
-//			return true;
-//		default:
-//			return false;
-//		}
-//	}
-	
 	public static void 	connect(Room origin, String name, String identifier, Room target, Direction direction)
 	{
 		origin.setRoomConnection(new RoomConnector(name, identifier, target), direction);
-//		origin.getRoomConnection(direction).setPrefix(prefix);
 	}
 	
 	public void enterRoom()
@@ -306,17 +262,17 @@ public class Room extends GenericObject implements ItemStore {
 	{
 		System.out.println();
 		System.out.println(place.getName());
-		System.out.println(TXT_LINE_HOR);
+		System.out.println("================================================================================");
 		System.out.println(place.getDescription());
 		System.out.println();
-		System.out.println(ROOM_ENTER_ZONES);
+		System.out.println("The following containers exist here:");
 		System.out.println(place.printContainer());
 		System.out.println();
-		System.out.println(ROOM_ENTER_ITEMS);
+		System.out.println("You see the following items on the ground here:");
 		System.out.println(place.printItem());
 		System.out.println();
 		System.out.println(place.getEnvironment());
-		System.out.println(TXT_LINE_HOR);
+		System.out.println("================================================================================");
 	}
 	
 	

@@ -12,7 +12,7 @@ public class Game implements Serializable {
 	
 	public Game()
 	{
-//		this.setCurrentWorld(world);
+		
 	}
 
 	public World getWorld() {

@@ -19,17 +19,11 @@ public class Container extends GenericObject implements ItemStore {
 	 * 			Variables
 	 */
 	
-
-//	private String 		identifier;
-//	private String 		name;
-//	private String 		description;
 	private List<Item> 	itemList;
 	
 	/*
 	 * 			Constructors
 	 */
-	
-//	public			Container(String name)		{	this(name, name + counter++); counter--;	}
 	
 	public			Container(String name, String identifier)
 	{

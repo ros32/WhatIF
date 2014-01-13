@@ -7,20 +7,10 @@ import java.util.regex.Pattern;
 
 public class Menu {
 	
-	public static final String 	SW_EXIT_1			=	"exit";
-	public static final String 	SW_EXIT_2			=	"quit";
-	public static final String 	SW_HELP_1			=	"help";
-	public static final String 	SW_HELP_2			=	"?";
-	
-	public static final String	SW_GO				=	"go";
-	public static final String	SW_TAKE				=	"take";
-	public static final String	SW_GET				=	"get";
-	public static final String	SW_GRAB				=	"grab";
-	public static final String	SW_LOOK				=	"look";
-	public static final String	SW_USE				=	"use";
-	public static final String	SW_PUT				=	"put";
-	public static final String	SW_SET				=	"set";
-	public static final String	SW_DROP				=	"drop";
+//	public static final String 	SW_EXIT_1			=	"exit";
+//	public static final String 	SW_EXIT_2			=	"quit";
+//	public static final String 	SW_HELP_1			=	"help";
+//	public static final String 	SW_HELP_2			=	"?";
 	
 	public static final String	GO_VALID_CMDS		=	"";
 	public static final String	GO_VALID_DIRECTIONS	=	"north, south, east, west, up and down are valid inputs";
@@ -58,11 +48,12 @@ public class Menu {
 			this.setLoadState(LoadOption.LOAD_GAME);
 			this.setDisplayStart(false);
 			return true;
-		case SW_EXIT_1:
+		case "exit":
+		case "quit":
 			this.setDisplayStart(false);
 			return false;
 		default:
-			System.out.println(String.format(this.dictConfig.getProperty("TXT_INVALID_COMMAND"), SW_HELP_1));
+			System.out.println(String.format(this.dictConfig.getProperty("TXT_INVALID_COMMAND"), "help"));
 			return true;
 		}
 	}
@@ -91,31 +82,31 @@ public class Menu {
 	{
 		switch(cmdList.get(0).toLowerCase())
 		{
-		case SW_GO:
+		case "go":
 			doGo(game, cmdList);
 			break;
-		case SW_LOOK:
+		case "look":
 			doLook(game, cmdList);
 			break;
-		case SW_TAKE:
-		case SW_GET:
-		case SW_GRAB:
+		case "take":
+		case "get":
+		case "grab":
 			doTake(game, cmdList);
 			break;
-		case SW_PUT:
-		case SW_DROP:
-		case SW_SET:
+		case "put":
+		case "drop":
+		case "set":
 			doPut(game, cmdList);
 			break;
-		case SW_HELP_1:
-		case SW_HELP_2:
+		case "help":
+		case "?":
 			doHelp(cmdList);
 			break;
-		case SW_EXIT_1:
-		case SW_EXIT_2:
+		case "exit":
+		case "quit":
 			return true;
 		default:
-			System.out.println(String.format(this.dictConfig.getProperty("TXT_INVALID_COMMAND"), SW_HELP_1));
+			System.out.println(String.format(this.dictConfig.getProperty("TXT_INVALID_COMMAND"), "help"));
 			break;
 		}
 		return false;
@@ -136,13 +127,13 @@ public class Menu {
 		{
 			switch(cmdList.get(1).toLowerCase())
 			{
-			case SW_HELP_1:
-			case SW_HELP_2:
+			case "help":
+			case "?":
 				//	A bit redundant perhaps
 				System.out.println(this.dictConfig.getProperty("TXT_HELP_HELP"));
 				break;
-			case SW_EXIT_1:
-			case SW_EXIT_2:
+			case "exit":
+			case "quit":
 				System.out.println(this.dictConfig.getProperty("TXT_HELP_EXIT"));
 				break;
 			//	TODO: Implement all supported commands
@@ -184,8 +175,8 @@ public class Menu {
 					System.out.println(CmdLib.getRandElement(getInvalidRoomConnArray()));
 				}
 				break;
-			case SW_HELP_1:
-			case SW_HELP_2:
+			case "help":
+			case "?":
 				break;
 			default:
 				System.out.println(CmdLib.getRandElement(getGoInvalidDirArray()));

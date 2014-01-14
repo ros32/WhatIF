@@ -77,6 +77,8 @@ public class Room extends GenericObject implements ItemStore {
 	
 	public boolean		inRoom(String identifier)
 	{
+		if(this.toString().equalsIgnoreCase(identifier))
+			return true;
 		for(Item thing : this.itemList)
 		{
 			if(thing.toString().equalsIgnoreCase(identifier))

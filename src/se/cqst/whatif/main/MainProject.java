@@ -28,9 +28,11 @@ public class MainProject {
 			}
 			catch(NumberFormatException ex)
 			{
-				CmdLib.setDebug(0);
+				CmdLib.setDebug(3);
 			}
 		}
+		else
+			CmdLib.setDebug(3);
 		
 		Scanner sc = new Scanner(System.in);
 		boolean sysExit = false;

@@ -39,7 +39,7 @@
   </class>  
   <enumeration id="5" language="java" name="se.cqst.whatif.main.Room.Direction" project="WhatIF_trunk" 
     file="/WhatIF_trunk/src/se/cqst/whatif/main/Room.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="924" y="917"/>    
+    <position height="-1" width="-1" x="870" y="904"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </enumeration>  
   <class id="6" language="java" name="se.cqst.whatif.main.RoomConnector" project="WhatIF_trunk" 
     file="/WhatIF_trunk/src/se/cqst/whatif/main/RoomConnector.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="132" y="904"/>    
+    <position height="-1" width="-1" x="140" y="874"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="se.cqst.whatif.main.CmdLib" project="WhatIF_trunk" 
     file="/WhatIF_trunk/src/se/cqst/whatif/main/CmdLib.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="145" y="526"/>    
+    <position height="-1" width="-1" x="149" y="491"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -111,7 +111,7 @@
   </class>  
   <class id="13" language="java" name="se.cqst.whatif.main.StaticItem" project="WhatIF_trunk" 
     file="/WhatIF_trunk/src/se/cqst/whatif/main/StaticItem.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1693" y="954"/>    
+    <position height="-1" width="-1" x="1684" y="905"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -120,7 +120,7 @@
   </class>  
   <class id="14" language="java" name="se.cqst.whatif.main.MovableItem" project="WhatIF_trunk" 
     file="/WhatIF_trunk/src/se/cqst/whatif/main/MovableItem.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1434" y="953"/>    
+    <position height="-1" width="-1" x="1434" y="906"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -198,171 +198,167 @@
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="15"/>  
   </nesting>  
-  <generalization id="26">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="10"/>  
-  </generalization>  
-  <association id="27">    
+  <association id="26">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="28" name="roomList"/>      
-      <multiplicity id="29" minimum="0" maximum="2147483647"/>    
+      <attribute id="27" name="roomList"/>      
+      <multiplicity id="28" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="30">    
+  <association id="29">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="31" name="currentLocation"/>      
-      <multiplicity id="32" minimum="0" maximum="1"/>    
+      <attribute id="30" name="currentLocation"/>      
+      <multiplicity id="31" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="33">    
+  <generalization id="32">    
     <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="12"/>  
   </generalization>  
-  <association id="34">    
+  <association id="33">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="35" name="actorList"/>      
-      <multiplicity id="36" minimum="0" maximum="2147483647"/>    
+      <attribute id="34" name="actorList"/>      
+      <multiplicity id="35" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="37">    
+  <generalization id="36">    
     <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  
-  <association id="38">    
+  <association id="37">    
     <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="39" name="dictConfig"/>      
-      <multiplicity id="40" minimum="0" maximum="1"/>    
+      <attribute id="38" name="dictConfig"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="41">    
+  <generalization id="40">    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  
-  <association id="42">    
+  <association id="41">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="43" name="game"/>      
-      <multiplicity id="44" minimum="0" maximum="1"/>    
+      <attribute id="42" name="game"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="45">    
+  <realization id="44">    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
-  <association id="46">    
+  <association id="45">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="47" name="itemStore"/>      
-      <multiplicity id="48" minimum="0" maximum="2147483647"/>    
+      <attribute id="46" name="itemStore"/>      
+      <multiplicity id="47" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="49">    
+  <realization id="48">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
-  <association id="50">    
+  <association id="49">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="51" name="currentActor"/>      
-      <multiplicity id="52" minimum="0" maximum="1"/>    
+      <attribute id="50" name="currentActor"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="53">    
+  <association id="52">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="54" name="containerList"/>      
-      <multiplicity id="55" minimum="0" maximum="2147483647"/>    
+      <attribute id="53" name="containerList"/>      
+      <multiplicity id="54" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="56">    
+  <association id="55">    
     <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="57" name="loadState"/>      
-      <multiplicity id="58" minimum="0" maximum="1"/>    
+      <attribute id="56" name="loadState"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="59">    
+  <nesting id="58">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="5"/>  
   </nesting>  
-  <generalization id="60">    
+  <generalization id="59">    
     <end type="SOURCE" refId="13"/>    
     <end type="TARGET" refId="12"/>  
   </generalization>  
-  <realization id="61">    
+  <realization id="60">    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
-  <association id="62">    
+  <association id="61">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="63" name="roomConnection"/>      
-      <multiplicity id="64" minimum="0" maximum="2147483647"/>    
+      <attribute id="62" name="roomConnection"/>      
+      <multiplicity id="63" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="65">    
+  <generalization id="64">    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  
-  <association id="66">    
+  <association id="65">    
     <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="67" name="itemList"/>      
-      <multiplicity id="68" minimum="0" maximum="2147483647"/>    
+      <attribute id="66" name="itemList"/>      
+      <multiplicity id="67" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="69">    
+  <nesting id="68">    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="17"/>  
   </nesting>  
-  <association id="70">    
+  <association id="69">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="71" name="world"/>      
-      <multiplicity id="72" minimum="0" maximum="1"/>    
+      <attribute id="70" name="world"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="73">    
+  <association id="72">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="74" name="currentRoom"/>      
-      <multiplicity id="75" minimum="0" maximum="1"/>    
+      <attribute id="73" name="currentRoom"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="76">    
+  <association id="75">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="77" name="target"/>      
-      <multiplicity id="78" minimum="0" maximum="1"/>    
+      <attribute id="76" name="target"/>      
+      <multiplicity id="77" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="79">    
+  <association id="78">    
     <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="80" name="type"/>      
-      <multiplicity id="81" minimum="0" maximum="1"/>    
+      <attribute id="79" name="type"/>      
+      <multiplicity id="80" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="82">    
+  <nesting id="81">    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="18"/>  
   </nesting>  

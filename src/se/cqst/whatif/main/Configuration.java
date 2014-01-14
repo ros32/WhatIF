@@ -27,6 +27,7 @@ public class Configuration {
 		this.setName(name);
 	}
 	
+	//	Should only be called from constructor
 	private Properties loadConfiguration(String filePath)
 	{
 		Properties target = null;
@@ -59,22 +60,9 @@ public class Configuration {
 		this.config = config;
 	}
 	
-	/**
-	 * Return a key value from a {@link Properties} object.
-	 *
-	 * @param config Properties object
-	 * @param key Key whose value should be fetched
-	 * @return The value from the fetched key, or a message stating the value could not be found.
-	 */
 	public String getProperty(String key)
 	{	return this.getConfig().getProperty(key, "ERROR: Could not load property:" + " " + key);}
 	
-	/**
-	 * Load a Java {@link Properties} file from an {@link InputStream}.
-	 *
-	 * @param filepath InputStream containing a Java .properties file
-	 * @return properties
-	 */
 	private Properties loadProperties(InputStream filepath)
 	{
 		Properties properties = new Properties();
@@ -90,14 +78,6 @@ public class Configuration {
 		return properties;
 	}
 	
-	/**
-	 * Filter a {@link Properties} file with the provided with the provided String, only returning
-	 * those keys that match the filter.
-	 *
-	 * @param toFilter Properties file to filter
-	 * @param filter Input filter. Only keys matching the filter will be included.
-	 * @return Filtered properties
-	 */
 	public static Properties filterProperties(Properties toFilter, String filter)
 	{
 		Properties filteredProperties = new Properties();

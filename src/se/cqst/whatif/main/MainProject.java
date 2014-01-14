@@ -95,7 +95,7 @@ public class MainProject {
 
 	}
 	
-	private static List<Configuration> getConfigList()
+	public static List<Configuration> getConfigList()
 	{
 		List<Configuration> configList = new ArrayList<Configuration>();
 		
@@ -123,7 +123,7 @@ public class MainProject {
 		return configList;
 	}
 	
-	private static Configuration getConfig(String name, List<Configuration> configList)
+	public static Configuration getConfig(String name, List<Configuration> configList)
 	{
 		for(Configuration config : configList)
 		{

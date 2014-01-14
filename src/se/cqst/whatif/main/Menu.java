@@ -220,6 +220,7 @@ public class Menu {
 		}
 	}
 	
+	//	Take Item from currentRoom (and ItemStore within) and move to currentActor's ItemStore
 	public void doTake(Game game, List<String> cmdList)
 	{
 		if(cmdList.size() != 1)
@@ -241,6 +242,7 @@ public class Menu {
 			boolean validItem = false;
 			boolean validItemStore = false;
 			
+			//	Does ItemStore exist?
 			if(game.findItemStore(game.findObjectID(itemStoreName)) != null)
 			{
 				tempItemStore = game.findItemStore(game.findObjectID(itemStoreName));
@@ -251,7 +253,8 @@ public class Menu {
 				validItemStore = false;
 				CmdLib.writeLog("DEBUG", "Container \"" + itemStoreName + "\" does not exist!");
 			}
-			if(game.findItem(game.findObjectID(objectName)) != null)
+			//	Does Item exist, first in-game and then in the current room?
+			if(game.findItem(game.findObjectID(objectName)) != null && game.getCurrentRoom().inRoom(game.findObjectID(objectName)))
 			{
 				temptItem = game.findItem(game.findObjectID(objectName));
 				validItem = true;
@@ -265,7 +268,7 @@ public class Menu {
 			
 			if(validItemStore && validItem)
 			{
-				if(game.getCurrentRoom().inRoom(tempItemStore.toString()) || game.getCurrentRoom().toString().equals(tempItemStore.toString()))
+				if(game.getCurrentRoom().inRoom(tempItemStore.toString()))
 				{
 					temptItem.move(tempItemStore, game.getCurrentActor());
 				}
@@ -286,6 +289,7 @@ public class Menu {
 		
 	}
 	
+	//	Put Item from currentActor's ItemStore to any ItemStore in currentRoom
 	public void doPut(Game game, List<String> cmdList)
 	{
 		if(cmdList.size() != 1)
@@ -307,7 +311,8 @@ public class Menu {
 			boolean validItem = false;
 			boolean validItemStore = false;
 			
-			if(game.findItemStore(game.findObjectID(itemStoreName)) != null)
+			//	Does ItemStore exist, first in-game, then in currentRoom?
+			if(game.findItemStore(game.findObjectID(itemStoreName)) != null && (game.getCurrentRoom().inRoom(game.findObjectID(itemStoreName))))
 			{
 				tempItemStore = game.findItemStore(game.findObjectID(itemStoreName));
 				validItemStore = true;
@@ -317,6 +322,7 @@ public class Menu {
 				validItemStore = false;
 				CmdLib.writeLog("DEBUG", "Container \"" + itemStoreName + "\" does not exist!");
 			}
+			//	Only check currentActor for Item
 			if(game.getCurrentActor().getItem(game.findObjectID(objectName)) != null)
 			{
 				tempItem = game.findItem(game.findObjectID(objectName));
@@ -352,6 +358,7 @@ public class Menu {
 		}
 	}
 	
+	//	TODO: Rename to something more coherent?
 	public String getObjectFromInput (ObjectType type, List<String> cmdList)
 	{
 		String[] separatorWords = {"from", "to", "on", "at", "in"	};
@@ -361,10 +368,11 @@ public class Menu {
 		boolean foundSeparator = false;
 		String firstName = null;
 		String secondName = null;
+		//	Remove first entry in cmdList, since it contains get/put/etc.
 		cmdList.remove(0);
 		for(String word : cmdList)
 		{	
-			//	After "from" is the name of the target item store
+			//	After delimiter is the name of the target item store
 			if(foundSeparator)
 			{
 				if(itemStoreNameElements == 0)
@@ -375,7 +383,7 @@ public class Menu {
 				itemStoreNameElements++;
 			}
 			
-			//	If "from" is found, set foundFrom to true
+			//	If delimiter is found, set foundFrom to true
 			if(!foundSeparator)
 			{
 				for(String delimiter : separatorWords)
@@ -385,7 +393,7 @@ public class Menu {
 				}
 			}
 
-			//	If "from" was not found we are still on the object name
+			//	If delimiter was not found we are still on the object name
 			if(!foundSeparator)
 			{
 				if(objectNameElements == 0)

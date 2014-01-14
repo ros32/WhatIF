@@ -14,13 +14,11 @@ import java.util.List;
  * creates a new instance of World.</p>
  * @see {@link ItemStore} (interface), {@link Serializable} (interface)
  */
-public class World extends GenericObject implements Serializable {
+public class World {
 	
 	/*
 	 * 							Static Variables
 	 */
-	
-	private static final long 	serialVersionUID = -3766562480367208771L;
 	
 	/*
 	 * 							Variables
@@ -33,16 +31,14 @@ public class World extends GenericObject implements Serializable {
 	 * 							Constructors
 	 */
 
-	public					World(String name, String identifier, List<Room> roomList, List<Actor> actorList)
+	public					World(List<Room> roomList, List<Actor> actorList)
 	{
-		super(name,identifier);
 		this.roomList=roomList;
 		this.actorList=actorList;
 	}
 	
 	public World(String name, String identifier, List<Configuration> configList)
 	{
-		super(name,identifier);
 		roomList = new ArrayList<Room>();
 		actorList = new ArrayList<Actor>();
 		

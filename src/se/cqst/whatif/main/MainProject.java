@@ -62,7 +62,7 @@ public class MainProject {
 			case NEW_GAME:
 				CmdLib.writeLog("INFO", "Starting new game...");
 				game = new Game();
-				game.setWorld(new World("World", "WORLD001", configList));
+				game.setWorld(new World(configList));
 				game.setCurrentActor(game.findActor(getConfig("actorConfig", configList).getProperty("ACTOR_START")));
 				CmdLib.writeLog("DEBUG", "Starting Actor set to " + game.getCurrentActor().toString());
 				game.setCurrentRoom(game.getCurrentActor().getCurrentLocation());

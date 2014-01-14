@@ -37,7 +37,7 @@ public class World {
 		this.actorList=actorList;
 	}
 	
-	public World(String name, String identifier, List<Configuration> configList)
+	public World(List<Configuration> configList)
 	{
 		roomList = new ArrayList<Room>();
 		actorList = new ArrayList<Actor>();

@@ -6,11 +6,7 @@ import java.util.Scanner;
 
 public class MainProject {
 	
-	public static final String	SYS_NAME		=	"WhatIF";
-	public static final String 	SYS_VERSION		=	"0.6";
-	public static final String	SYS_PHASE		=	"alpha";
-	public static final String	SYS_STRING		=	SYS_NAME + "-" + SYS_PHASE + "-" + SYS_VERSION;
-	
+	public static final String	SYS_STRING		=	"WhatIF-alpha-0.6";
 	public static final String 	TXT_PROMPT		=	"Enter command: ";
 	
 	private static Game game = null;
@@ -50,7 +46,10 @@ public class MainProject {
 		
 		do
 		{
+			//	Print initial menu
 			mainMenu.printStart();
+			
+			//	Return false unless user inputs exit command
 			if(!mainMenu.drawStart(Menu.getParam(CmdLib.readString(sc, TXT_PROMPT))))
 				sysExit = true;
 		} while(mainMenu.displayStart() && !sysExit);
@@ -86,6 +85,7 @@ public class MainProject {
 			//	Draw menu and loop until exit
 			while(!sysExit)
 			{
+				//	Return false unless user inputs exit command
 				if(mainMenu.drawMenu(game, Menu.getParam(CmdLib.readString(sc,TXT_PROMPT))))
 					sysExit = true;
 			}

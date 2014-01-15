@@ -52,6 +52,7 @@ public class StaticItem extends Item {
 	{
 		//	StaticItem cannot be moved
 		CmdLib.writeLog("DEBUG", "StaticItem \"" + this.toString() + "\" cannot be moved");
+		System.out.println("The " + this.getName() + " cannot be moved!");
 	}
 	
 	/*

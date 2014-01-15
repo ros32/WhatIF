@@ -225,8 +225,8 @@ public class Menu {
 					i++;
 				}
 				//	If target object is a valid object AND is in the current room OR on the current actor, look() at the object
-				if(game.isValidObject(game.findObjectID(targetObject)) && (game.getCurrentRoom().inRoom(game.findObjectID(targetObject)) || game.getCurrentActor().getItem(game.findObjectID(targetObject)) != null))
-					game.findObject(game.findObjectID(targetObject)).look();
+				if(game.getCurrentRoom().findObject(game.getCurrentRoom().findObjectID(targetObject)) != null || game.getCurrentActor().getItem(game.findObjectID(targetObject)) != null)
+					game.getCurrentRoom().findObject(game.getCurrentRoom().findObjectID(targetObject)).look();
 				else
 					//	TODO: Change to TextLib
 					System.out.println("Object is not here");
@@ -256,14 +256,14 @@ public class Menu {
 			CmdLib.writeLog("DEBUG", "Take \"" + objectName + "\" from \"" + itemStoreName + "\"");
 			
 			ItemStore tempItemStore = null;
-			Item temptItem = null;
+			Item tempItem = null;
 			boolean validItem = false;
 			boolean validItemStore = false;
 			
 			//	Does ItemStore exist?
-			if(game.findItemStore(game.findObjectID(itemStoreName)) != null)
+			if(game.findItemStore(game.getCurrentRoom().findObjectID(itemStoreName)) != null)
 			{
-				tempItemStore = game.findItemStore(game.findObjectID(itemStoreName));
+				tempItemStore = game.findItemStore(game.getCurrentRoom().findObjectID(itemStoreName));
 				validItemStore = true;
 			}
 			else
@@ -272,9 +272,9 @@ public class Menu {
 				CmdLib.writeLog("DEBUG", "Container \"" + itemStoreName + "\" does not exist!");
 			}
 			//	If ItemStore is valid, check if Item exist within
-			if(validItemStore && tempItemStore.getItem(game.findObjectID(objectName)) != null)
+			if(validItemStore && tempItemStore.getItem(game.getCurrentRoom().findObjectID(objectName)) != null)
 			{
-				temptItem = tempItemStore.getItem(game.findObjectID(objectName));
+				tempItem = tempItemStore.getItem(game.getCurrentRoom().findObjectID(objectName));
 				validItem = true;
 				
 			}
@@ -288,7 +288,7 @@ public class Menu {
 			{
 				if(game.getCurrentRoom().inRoom(tempItemStore.toString()))
 				{
-					temptItem.move(tempItemStore, game.getCurrentActor());
+					tempItem.move(tempItemStore, game.getCurrentActor());
 				}
 				else
 				{
@@ -330,9 +330,9 @@ public class Menu {
 			boolean validItemStore = false;
 			
 			//	Does ItemStore exist, first in-game, then in currentRoom?
-			if(game.findItemStore(game.findObjectID(itemStoreName)) != null && (game.getCurrentRoom().inRoom(game.findObjectID(itemStoreName))))
+			if(game.findItemStore(game.getCurrentRoom().findObjectID(itemStoreName)) != null && (game.getCurrentRoom().inRoom(game.getCurrentRoom().findObjectID(itemStoreName))))
 			{
-				tempItemStore = game.findItemStore(game.findObjectID(itemStoreName));
+				tempItemStore = game.findItemStore(game.getCurrentRoom().findObjectID(itemStoreName));
 				validItemStore = true;
 			}
 			else

@@ -26,9 +26,9 @@ public class Menu {
 	public void printStart()
 	{
 		System.out.println();
-		System.out.println("Cool into or header goes here");
+		System.out.println("=== Cool intro or header goes here ===");
 		System.out.println();
-		System.out.println("Type \"new game\" to start a new game.");
+		System.out.println("Type \"new\" to start a new game, or \"exit\" to quit the game.");
 	}
 	
 	public boolean drawStart(List<String> cmdList)
@@ -110,8 +110,10 @@ public class Menu {
 	public static List<String> getParam(String cmd)
 	{
 		List<String> list = new ArrayList<String>();
+		//	This regex will interpret "quoted sentences" as one word when splitting input to list.
 		Matcher m = Pattern.compile("([^\"]\\S*|\".+?\")\\s*").matcher(cmd);
 		while (m.find())
+			//	Remove quotes from elements
 		    list.add(m.group(1).replace("\"", ""));
 		return list;
 	}
@@ -253,10 +255,10 @@ public class Menu {
 				validItemStore = false;
 				CmdLib.writeLog("DEBUG", "Container \"" + itemStoreName + "\" does not exist!");
 			}
-			//	Does Item exist, first in-game and then in the current room?
-			if(game.findItem(game.findObjectID(objectName)) != null && game.getCurrentRoom().inRoom(game.findObjectID(objectName)))
+			//	If ItemStore is valid, check if Item exist within
+			if(validItemStore && tempItemStore.getItem(game.findObjectID(objectName)) != null)
 			{
-				temptItem = game.findItem(game.findObjectID(objectName));
+				temptItem = tempItemStore.getItem(game.findObjectID(objectName));
 				validItem = true;
 				
 			}

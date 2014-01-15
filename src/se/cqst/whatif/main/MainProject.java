@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class MainProject {
 	
-	public static final String	SYS_STRING		=	"WhatIF-alpha-0.6";
+	public static final String	SYS_STRING		=	"WhatIF-0.7.0";
 	public static final String 	TXT_PROMPT		=	"> ";
 	
 	private static Game game = null;
@@ -28,11 +28,11 @@ public class MainProject {
 			}
 			catch(NumberFormatException ex)
 			{
-				CmdLib.setDebug(3);
+				CmdLib.setDebug(0);
 			}
 		}
 		else
-			CmdLib.setDebug(3);
+			CmdLib.setDebug(0);
 		
 		Scanner sc = new Scanner(System.in);
 		boolean sysExit = false;

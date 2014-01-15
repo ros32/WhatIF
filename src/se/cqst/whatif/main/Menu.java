@@ -225,8 +225,12 @@ public class Menu {
 					i++;
 				}
 				//	If target object is a valid object AND is in the current room OR on the current actor, look() at the object
-				if(game.getCurrentRoom().findObject(game.getCurrentRoom().findObjectID(targetObject)) != null || game.getCurrentActor().getItem(game.findObjectID(targetObject)) != null)
+				if(game.getCurrentRoom().findObject(game.getCurrentRoom().findObjectID(targetObject)) != null)
 					game.getCurrentRoom().findObject(game.getCurrentRoom().findObjectID(targetObject)).look();
+				else if(game.getCurrentActor().getItem(game.findObjectID(targetObject)) != null)
+					game.getCurrentActor().getItem(game.findObjectID(targetObject)).look();
+				else if(game.getCurrentActor().toString().equalsIgnoreCase(targetObject) || targetObject.equalsIgnoreCase("inventory"))
+					game.getCurrentActor().look();
 				else
 					//	TODO: Change to TextLib
 					System.out.println("Object is not here");

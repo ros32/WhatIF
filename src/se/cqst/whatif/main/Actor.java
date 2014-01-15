@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Actor extends GenericObject implements ItemStore {
 	
-	private List<Item> itemStore = new ArrayList<Item>();
+	private List<Item> itemList = new ArrayList<Item>();
 	
 	private Room currentLocation = null;
 	
@@ -69,7 +69,7 @@ public class Actor extends GenericObject implements ItemStore {
 	
 	public List<Item> getItemList()
 	{
-		return this.itemStore;
+		return this.itemList;
 	}
 
 	public Room getCurrentLocation() {
@@ -80,6 +80,31 @@ public class Actor extends GenericObject implements ItemStore {
 		this.currentLocation = currentLocation;
 	}
 	
+	public void look()
+	{
+//		this.printDescription();
+		System.out.println("You examine your inventory: ");
+		System.out.println(this.printItem());
+		System.out.println();
+	}
+	
+	public String		printItem()
+	{
+		String zoneString = "";
+		for(Item thing : this.itemList)
+		{
+			zoneString += thing.getName() + ", ";
+		}
+		if(!zoneString.equals(""))
+		{
+			zoneString = zoneString.substring(0,zoneString.length()-2);
+		}
+		else
+		{
+			zoneString = "There are no items here.";
+		}
+		return zoneString;
+	}
 	
 	
 

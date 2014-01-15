@@ -63,6 +63,57 @@ public class Room extends GenericObject implements ItemStore {
 	 * 			Other Methods
 	 */
 	
+	public GenericObject findObject(String identifier)
+	{
+		if(this.toString().equalsIgnoreCase(identifier))
+			return this;
+		for(Item thing : this.getItemList())
+		{
+			if(thing.toString().equalsIgnoreCase(identifier))
+				return thing;
+		}
+		for(Container store : this.getContainerList())
+		{
+			if(store.toString().equalsIgnoreCase(identifier))
+				return store;
+			for(Item thing : store.getItemList())
+			{
+				if(thing.toString().equalsIgnoreCase(identifier))
+					return thing;
+			}
+		}
+		return null;
+		
+	}
+	
+	public String findObjectID(String name)
+	{
+		if(findObject(name) != null)
+			return findObject(name).toString();
+		
+		if(this.getName().equalsIgnoreCase(name))
+			return this.toString();
+		
+		for(Item thing : this.getItemList())
+		{
+			if(thing.getName().equalsIgnoreCase(name))
+				return thing.toString();
+		}
+		
+		for(Container store : this.getContainerList())
+		{
+			if(store.getName().equalsIgnoreCase(name))
+				return store.toString();
+			
+			for(Item thing : store.getItemList())
+			{
+				if(thing.getName().equalsIgnoreCase(name))
+					return thing.toString();
+			}
+		}
+		return null;
+	}
+	
 	public void			use()
 	{
 		//	A Room cannot be used

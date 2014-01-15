@@ -219,8 +219,14 @@ public class Room extends GenericObject implements ItemStore {
 	
 	public void putItem(Item thing)
 	{
+		this.putItem(thing,false);
+	}
+	
+	public void putItem(Item thing, boolean suppressEvent)
+	{
 		this.getItemList().add(thing);
-		System.out.println("You put the " + thing.getName() + " on the floor.");
+		if(!suppressEvent)
+			System.out.println("You put the " + thing.getName() + " on the floor.");
 	}
 	
 	public void removeItem(String identifier)

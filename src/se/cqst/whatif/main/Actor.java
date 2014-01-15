@@ -45,8 +45,14 @@ public class Actor extends GenericObject implements ItemStore {
 	
 	public void putItem(Item thing)
 	{
+		this.putItem(thing,false);
+	}
+	
+	public void putItem(Item thing, boolean suppressEvent)
+	{
 		this.getItemList().add(thing);
-		System.out.println("You place the " + thing.getName() + " in your inventory.");
+		if(!suppressEvent)
+			System.out.println("You place the " + thing.getName() + " in your inventory.");
 	}
 	
 	public void removeItem(String identifier)

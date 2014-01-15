@@ -259,13 +259,13 @@ public class World {
 			{
 				if(itemType.equalsIgnoreCase("staticitem"))
 				{
-					findItemStore(roomList, actorList, itemLoc).putItem(new StaticItem(itemName,itemID));
+					findItemStore(roomList, actorList, itemLoc).putItem(new StaticItem(itemName,itemID), true);
 					findItemStore(roomList, actorList, itemLoc).getItem(itemID).setDescription(itemDesc);
 					counter++;
 				}
 				else if(itemType.equalsIgnoreCase("movableitem"))
 				{
-					findItemStore(roomList, actorList, itemLoc).putItem(new MovableItem(itemName,itemID));
+					findItemStore(roomList, actorList, itemLoc).putItem(new MovableItem(itemName,itemID), true);
 					findItemStore(roomList, actorList, itemLoc).getItem(itemID).setDescription(itemDesc);
 					counter++;
 				}

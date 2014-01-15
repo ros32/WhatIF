@@ -124,6 +124,22 @@ public class Menu {
 		{
 			switch(cmdList.get(1).toLowerCase())
 			{
+			case "go":
+				System.out.println(this.dictConfig.getProperty("TXT_HELP_GO"));
+				break;
+			case "look":
+				System.out.println(this.dictConfig.getProperty("TXT_HELP_LOOK"));
+				break;
+			case "take":
+			case "get":
+			case "grab":
+				System.out.println(this.dictConfig.getProperty("TXT_HELP_TAKE"));
+				break;
+			case "put":
+			case "drop":
+			case "set":
+				System.out.println(this.dictConfig.getProperty("TXT_HELP_PUT"));
+				break;
 			case "help":
 			case "?":
 				//	A bit redundant perhaps

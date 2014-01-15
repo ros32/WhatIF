@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class MainProject {
 	
 	public static final String	SYS_STRING		=	"WhatIF-alpha-0.6";
-	public static final String 	TXT_PROMPT		=	"Enter command: ";
+	public static final String 	TXT_PROMPT		=	"> ";
 	
 	private static Game game = null;
 	

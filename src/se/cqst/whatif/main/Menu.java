@@ -63,7 +63,7 @@ public class Menu {
 			};
 	}
 	
-	public static String[] 		getInvalidRoomConnArray()
+	public String[] 		getInvalidRoomConnArray()
 	{	return new String[]
 			{
 				"You see no path there.",

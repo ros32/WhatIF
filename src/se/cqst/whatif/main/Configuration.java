@@ -3,6 +3,7 @@ package se.cqst.whatif.main;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 
 public class Configuration {
@@ -97,6 +98,16 @@ public class Configuration {
 
 	private void setType(Type type) {
 		this.type = type;
+	}
+	
+	public static Configuration getConfig(String name, List<Configuration> configList)
+	{
+		for(Configuration config : configList)
+		{
+			if(config.getName().equals(name))
+				return config;
+		}
+		throw new NullPointerException();
 	}
 	
 }

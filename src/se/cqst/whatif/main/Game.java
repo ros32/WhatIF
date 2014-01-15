@@ -1,6 +1,7 @@
 package se.cqst.whatif.main;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Game implements Serializable {
 
@@ -13,6 +14,15 @@ public class Game implements Serializable {
 	public Game()
 	{
 		
+	}
+	
+	public Game(List<Configuration> configList)
+	{
+		this.setWorld(new World(configList));
+		this.setCurrentActor(this.findActor(Configuration.getConfig("actorConfig", configList).getProperty("ACTOR_START")));
+		CmdLib.writeLog("DEBUG", "Starting Actor set to " + this.getCurrentActor().toString());
+		this.setCurrentRoom(this.getCurrentActor().getCurrentLocation());
+		CmdLib.writeLog("DEBUG", "Starting Room set to " + this.getCurrentRoom().toString());
 	}
 
 	public World getWorld() {

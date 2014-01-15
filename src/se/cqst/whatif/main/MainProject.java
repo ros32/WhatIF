@@ -43,7 +43,7 @@ public class MainProject {
 		List<Configuration> configList = getConfigList();
 		
 		//	Create Menu
-		Menu mainMenu = new Menu(getConfig("dictConfig", configList));
+		Menu mainMenu = new Menu(Configuration.getConfig("dictConfig", configList));
 
 		
 		do
@@ -62,12 +62,7 @@ public class MainProject {
 			{
 			case NEW_GAME:
 				CmdLib.writeLog("INFO", "Starting new game...");
-				game = new Game();
-				game.setWorld(new World(configList));
-				game.setCurrentActor(game.findActor(getConfig("actorConfig", configList).getProperty("ACTOR_START")));
-				CmdLib.writeLog("DEBUG", "Starting Actor set to " + game.getCurrentActor().toString());
-				game.setCurrentRoom(game.getCurrentActor().getCurrentLocation());
-				CmdLib.writeLog("DEBUG", "Starting Room set to " + game.getCurrentRoom().toString());
+				game = new Game(configList);
 				break;
 			case LOAD_GAME:
 				CmdLib.writeLog("INFO", "Loading saved game...");
@@ -125,14 +120,6 @@ public class MainProject {
 		return configList;
 	}
 	
-	public static Configuration getConfig(String name, List<Configuration> configList)
-	{
-		for(Configuration config : configList)
-		{
-			if(config.getName().equals(name))
-				return config;
-		}
-		throw new NullPointerException();
-	}
+
 
 }
